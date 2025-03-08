@@ -15,7 +15,7 @@ useHead({
 
 <template>
   <div class="bg-base-200 overflow-hidden">
-    <!-- <NuxtPwaManifest /> -->
+    <NuxtPwaManifest />
     <div
       v-if="isLoading"
       class="radial-progress absolute bottom-5 right-5"
