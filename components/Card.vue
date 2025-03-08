@@ -116,7 +116,7 @@ onClickOutside(sentenceEl, () => {
       </section>
     </div>
     <progress
-      class="progress progress-accent w-full h-1 bg-transparent"
+      class="progress progress-accent w-full h-1 bg-transparent hidden"
       value="25"
       max="100"
     ></progress>
