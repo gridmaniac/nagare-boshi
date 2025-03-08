@@ -61,7 +61,10 @@ onMounted(() => {
       </p>
     </div>
     <progress v-if="isLoading || !isReady" class="progress w-56"></progress>
-    <section class="" v-else>
+    <section
+      class="w-full max-w-xs flex flex-col sm:items-center items-end"
+      v-else
+    >
       <input
         ref="fileInput"
         class="file-input"
@@ -74,7 +77,7 @@ onMounted(() => {
         <IconFileSync class="size-4" />
         Upload .imiwa file
       </button>
-      <div class="divider">or</div>
+      <!-- <div class="divider">or</div> -->
       <input
         v-model="deckId"
         type="text"
