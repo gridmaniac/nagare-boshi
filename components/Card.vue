@@ -40,12 +40,16 @@ onClickOutside(sentenceEl, () => {
   <div
     class="card bg-base-100 card-xl shadow-xl max-h-[400px] overflow-y-auto overflow-x-hidden"
   >
-    <progress class="progress w-56" value="70" max="100"></progress>
-    <div class="">
-      <!-- <div class="status status-accent status-xl animate-ping"></div> -->
-      <Stats />
-      <!-- <div class="status status-xl"></div> -->
-    </div>
+    <label
+      for="my-drawer"
+      class="drawer-button cursor-pointer absolute right-5 top-5 inline-grid *:[grid-area:1/1]"
+    >
+      <div
+        class="status status-accent status-xl animate-ping cursor-pointer"
+      ></div>
+      <div class="status status-xl"></div>
+    </label>
+
     <div class="card-body flex flex-col gap-5">
       <h2 class="card-title text-5xl flex flex-col items-start gap-3">
         <div class="relative flex items-center justify-center">
@@ -111,6 +115,11 @@ onClickOutside(sentenceEl, () => {
         </p>
       </section>
     </div>
+    <progress
+      class="progress progress-accent w-full h-1 bg-transparent"
+      value="25"
+      max="100"
+    ></progress>
   </div>
 </template>
 

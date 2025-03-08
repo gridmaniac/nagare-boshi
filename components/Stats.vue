@@ -1,25 +1,13 @@
 <template>
   <div class="drawer">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
-      <label
-        for="my-drawer"
-        class="drawer-button cursor-pointer absolute right-5 top-5 inline-grid *:[grid-area:1/1]"
-      >
-        <div
-          class="status status-accent status-xl animate-ping cursor-pointer"
-        ></div>
-        <div class="status status-xl"></div>
-      </label>
-    </div>
     <div class="drawer-side z-1">
       <label
         for="my-drawer"
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <div class="min-h-full w-80 p-4">
-        <progress class="progress w-56" value="70" max="100"></progress>
+      <div class="bg-1200 backdrop-blur-md min-h-full w-80 p-4">
         <div class="stats stats-vertical">
           <div class="stat">
             <div class="stat-title">Total</div>

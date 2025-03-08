@@ -19,6 +19,7 @@ const { isLoading, progress } = useRunBatch();
     <Menu v-if="deck" class="fixed top-5 left-5" />
     <ThemeController class="fixed top-5 right-5" />
     <ShootingStars />
+    <Stats />
     <div class="p-5 min-h-screen flex flex-col justify-center items-center">
       <div class="max-w-2xl w-full">
         <NuxtPage />
