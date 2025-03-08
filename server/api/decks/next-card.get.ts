@@ -8,5 +8,6 @@ export default defineEventHandler(async (event) => {
     .sort({ box: -1 })
     .limit(1);
 
+  if (nextCard.length === 0) return null;
   return nextCard[0];
 });

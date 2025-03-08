@@ -4,6 +4,7 @@ const { deckId } = useDeck();
 const { card } = useCard();
 const { deckCard } = useDeckCard();
 const { sendReview } = useReview();
+const { stats } = useStats();
 
 deckId.value = String(params.deckId);
 
@@ -54,6 +55,14 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
 
 <template>
   <div>
+    <div
+      class="text-center text-4xl font-bold"
+      v-if="stats && stats.fresh === 0 && stats.review === 0"
+    >
+      <div class="tooltip tooltip-top tooltip-open" data-tip="You did great!">
+        お疲れ様でした！
+      </div>
+    </div>
     <Transition name="rotate">
       <Card v-if="card" :card="card" />
     </Transition>

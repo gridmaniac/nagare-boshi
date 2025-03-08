@@ -7,6 +7,11 @@ export const useReview = defineMutation(() => {
         body: review,
       });
 
+      if (!deckCard)
+        return queryCache.invalidateQueries({
+          key: ["deck-card"],
+        });
+
       queryCache.setQueryData(["deck-card", deckCard.deckId], deckCard);
     },
   });
