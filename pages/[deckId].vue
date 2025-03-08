@@ -3,22 +3,25 @@ const { params } = useRoute();
 const { deckId } = useDeck();
 const { card } = useCard();
 
+deckId.value = String(params.deckId);
+
+const queryCache = useQueryCache();
+const keyStrokeBlock = ref(false);
+
 const hardBtn = ref<HTMLButtonElement | null>(null);
 const goodBtn = ref<HTMLButtonElement | null>(null);
 const easyBtn = ref<HTMLButtonElement | null>(null);
 
-deckId.value = String(params.deckId);
+const focusTarget = ref<HTMLElement | null>(null);
 
-const queryCache = useQueryCache();
-const invisible = ref(false);
-const keyStrokeBlock = ref(false);
+const isCooldown = computed(() => !card.value);
 
-const test = async () => {
-  invisible.value = true;
-  queryCache.invalidateQueries({ key: ["deck-card"] });
+const doReview = async (choice: "Hard" | "Good" | "Easy") => {
+  keyStrokeBlock.value = true;
   setTimeout(() => {
-    invisible.value = false;
-  }, 400);
+    queryCache.invalidateQueries({ key: ["deck-card"] });
+    keyStrokeBlock.value = false;
+  }, 100);
 };
 
 onKeyStroke("1", () => handleKeyStroke("1"));
@@ -26,51 +29,50 @@ onKeyStroke("2", () => handleKeyStroke("2"));
 onKeyStroke("3", () => handleKeyStroke("3"));
 
 const handleKeyStroke = (key: "1" | "2" | "3") => {
-  if (keyStrokeBlock.value || invisible.value) return;
+  if (isCooldown.value) return;
 
   switch (key) {
     case "1":
       hardBtn.value?.focus();
+      doReview("Easy");
       break;
     case "2":
       goodBtn.value?.focus();
+      doReview("Good");
       break;
     case "3":
       easyBtn.value?.focus();
+      doReview("Hard");
       break;
   }
-
-  keyStrokeBlock.value = true;
-  setTimeout(() => {
-    test();
-    keyStrokeBlock.value = false;
-  }, 100);
 };
 </script>
 
 <template>
   <div>
     <Transition name="rotate">
-      <Card v-if="!invisible && card" :card="card" />
+      <Card v-if="card" :card="card" />
     </Transition>
     <div class="divider"></div>
-    <div class="flex w-full join shadow-xl sm:hidden">
+    <div v-if="card" class="flex w-full join shadow-xl sm:hidden">
       <button
         class="btn btn-xl btn-soft join-item btn-error flex-1"
-        :disabled="invisible"
+        :disabled="isCooldown"
+        @click="doReview('Hard')"
       >
         😓
       </button>
       <button
         class="btn btn-xl btn-soft join-item btn-info flex-1"
-        :disabled="invisible"
-        @click="test"
+        :disabled="isCooldown"
+        @click="doReview('Good')"
       >
         👌🏻
       </button>
       <button
         class="btn btn-xl btn-soft join-item btn-success flex-1"
-        :disabled="invisible"
+        :disabled="isCooldown"
+        @click="doReview('Easy')"
       >
         👍🏼
       </button>
@@ -79,7 +81,8 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
       <button
         ref="hardBtn"
         class="btn btn-xl btn-soft join-item btn-error flex-1"
-        :disabled="invisible"
+        :disabled="isCooldown"
+        @click="doReview('Hard')"
       >
         <kbd
           class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
@@ -90,8 +93,8 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
       <button
         ref="goodBtn"
         class="btn btn-xl btn-soft join-item btn-info flex-1"
-        :disabled="invisible"
-        @click="test"
+        :disabled="isCooldown"
+        @click="doReview('Good')"
       >
         <kbd
           class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
@@ -102,7 +105,8 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
       <button
         ref="easyBtn"
         class="btn btn-xl btn-soft join-item btn-success flex-1"
-        :disabled="invisible"
+        :disabled="isCooldown"
+        @click="doReview('Easy')"
       >
         <kbd
           class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"

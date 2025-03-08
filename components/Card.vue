@@ -17,10 +17,12 @@ const example = computed(() => {
   };
 });
 
-onKeyStroke(" ", () => {
+const clearBlur = () => {
   hasTranslationsBlur.value = false;
   hasExamplesBlur.value = false;
-});
+};
+
+onKeyStroke(" ", clearBlur);
 </script>
 
 <template>
@@ -44,7 +46,7 @@ onKeyStroke(" ", () => {
             :class="{
               'blur-sm': hasTranslationsBlur,
             }"
-            @click="hasTranslationsBlur = false"
+            @click="clearBlur"
           >
             <kbd v-for="word in card.gloss" class="kbd kbd-xl">{{ word }}</kbd>
           </div>
@@ -74,7 +76,7 @@ onKeyStroke(" ", () => {
         <p
           class="text-1xl transition-all duration-300 ease-in-out italic text-right"
           :class="{ 'blur-sm': hasExamplesBlur }"
-          @click="hasExamplesBlur = false"
+          @click="clearBlur"
         >
           {{ example.translation }}
         </p>

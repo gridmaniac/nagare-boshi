@@ -1,10 +1,11 @@
 <script setup lang="ts">
 const { deck } = useDeck();
-const { isLoading, isReady, progress } = useRunBatch();
+const { isLoading, progress } = useRunBatch();
 </script>
 
 <template>
   <div class="bg-base-200 overflow-hidden">
+    <NuxtPwaManifest />
     <div
       v-if="isLoading"
       class="radial-progress absolute bottom-5 right-5"
