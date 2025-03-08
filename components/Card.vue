@@ -5,7 +5,12 @@ const { tokens, sentence } = useSentence();
 
 const hasTranslationsBlur = ref(true);
 const hasExamplesBlur = ref(true);
+
+const textEl = ref<HTMLElement | null>(null);
+const sentenceEl = ref<HTMLElement | null>(null);
+
 const selectedTokenIndex = ref(-1);
+const isTextSelected = ref(false);
 
 const example = computed(() => {
   const randomExample =
@@ -18,23 +23,17 @@ const example = computed(() => {
   };
 });
 
-let touchTimer: NodeJS.Timeout;
-
-const selectToken = (index: number) => {
-  selectedTokenIndex.value = index;
-
-  clearTimeout(touchTimer);
-  touchTimer = setTimeout(() => {
-    selectedTokenIndex.value = -1;
-  }, 1000);
-};
-
 const clearBlur = () => {
   hasTranslationsBlur.value = false;
   hasExamplesBlur.value = false;
 };
 
 onKeyStroke(" ", clearBlur);
+
+onClickOutside(sentenceEl, () => {
+  selectedTokenIndex.value = -1;
+  isTextSelected.value = false;
+});
 </script>
 
 <template>
@@ -48,7 +47,15 @@ onKeyStroke(" ", clearBlur);
     <div class="card-body flex flex-col gap-5">
       <h2 class="card-title text-5xl flex flex-col items-start gap-3">
         <div class="relative flex items-center justify-center">
-          <div class="tooltip tooltip-top" :data-tip="card.kana">
+          <div
+            ref="textEl"
+            class="tooltip tooltip-top"
+            :class="{
+              'tooltip-open': isTextSelected,
+            }"
+            :data-tip="card.kana"
+            @touchstart="isTextSelected = true"
+          >
             <span>{{ card.text || card.kana }}</span>
           </div>
         </div>
@@ -66,7 +73,7 @@ onKeyStroke(" ", clearBlur);
       </h2>
 
       <section class="flex flex-col gap-2">
-        <p class="text-3xl">
+        <p ref="sentenceEl" class="text-3xl">
           <span
             v-for="(token, index) in tokens"
             :key="token.text"
@@ -83,7 +90,7 @@ onKeyStroke(" ", clearBlur);
                 'tooltip-open': index === selectedTokenIndex,
               }"
               :data-tip="token.kana + ' / ' + token.gloss"
-              @touchstart="selectToken(index)"
+              @touchstart="selectedTokenIndex = index"
             >
               {{ token.text }}
             </div>
