@@ -35,7 +35,7 @@ onKeyStroke(" ", () => {
       <h2 class="card-title text-5xl flex flex-col items-start gap-3">
         <div class="relative flex items-center justify-center">
           <div class="tooltip tooltip-top" :data-tip="card.kana">
-            <span>{{ card.text }}</span>
+            <span>{{ card.text || card.kana }}</span>
           </div>
         </div>
         <div class="overflow-x-auto w-full no-scrollbar">
