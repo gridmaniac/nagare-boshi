@@ -1,6 +1,16 @@
 <script setup lang="ts">
 const { deck } = useDeck();
 const { isLoading, progress } = useRunBatch();
+
+useHead({
+  title: "流れ星の学習アプリ",
+  meta: [
+    {
+      name: "description",
+      content: "Leverage Imiwa? backup to study SRS flashcards.",
+    },
+  ],
+});
 </script>
 
 <template>
