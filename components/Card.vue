@@ -5,6 +5,7 @@ const { tokens, sentence } = useSentence();
 
 const hasTranslationsBlur = ref(true);
 const hasExamplesBlur = ref(true);
+const selectedTokenIndex = ref(-1);
 
 const example = computed(() => {
   const randomExample =
@@ -16,6 +17,17 @@ const example = computed(() => {
     translation: randomExample?.translation,
   };
 });
+
+let touchTimer: NodeJS.Timeout;
+
+const selectToken = (index: number) => {
+  selectedTokenIndex.value = index;
+
+  clearTimeout(touchTimer);
+  touchTimer = setTimeout(() => {
+    selectedTokenIndex.value = -1;
+  }, 1000);
+};
 
 const clearBlur = () => {
   hasTranslationsBlur.value = false;
@@ -56,17 +68,22 @@ onKeyStroke(" ", clearBlur);
       <section class="flex flex-col gap-2">
         <p class="text-3xl">
           <span
-            v-for="token in tokens"
+            v-for="(token, index) in tokens"
             :key="token.text"
             :class="{
               'hover:text-primary': token.hasMatch,
+              'text-primary': index === selectedTokenIndex,
               'text-accent': token.text === card.text,
             }"
           >
             <div
               v-if="token.hasMatch"
               class="tooltip tooltip-top"
+              :class="{
+                'tooltip-open': index === selectedTokenIndex,
+              }"
               :data-tip="token.kana + ' / ' + token.gloss"
+              @touchstart="selectToken(index)"
             >
               {{ token.text }}
             </div>
