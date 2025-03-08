@@ -12,18 +12,19 @@ let dictionaryK: Record<string, Card> | undefined = undefined;
 let dictionaryS: Record<string, Card> | undefined = undefined;
 
 export const getCachedJmdict = async () => {
-  if (cardsCache.length) {
-    return cardsCache;
+  if (cardsCache.length) return cardsCache;
+
+  if (process.env.NODE_ENV === "development") {
+    cardsCache = JSON.parse(
+      await readFile("public/jmdict-simplified.json", "utf-8")
+    );
+  } else {
+    cardsCache = JSON.parse(
+      await $fetch(
+        "https://raw.githubusercontent.com/gridmaniac/nagare-boshi/refs/heads/main/public/jmdict-simplified.json"
+      )
+    );
   }
-
-  // const filePath = path.join(process.cwd(), "public", "jmdict-simplified.json");
-  // cardsCache = JSON.parse(await readFile(filePath, "utf-8"));
-
-  cardsCache = JSON.parse(
-    await $fetch(
-      "https://raw.githubusercontent.com/gridmaniac/nagare-boshi/refs/heads/main/public/jmdict-simplified.json"
-    )
-  );
 
   // jmdictCache = JSON.parse(
   //   await readFile("./dict/jmdict/jmdict-examples-eng-3.6.1.json", "utf-8")
