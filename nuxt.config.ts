@@ -17,6 +17,14 @@ export default defineNuxtConfig({
   css: ["~/assets/app.css"],
   app: {
     pageTransition: { name: "rotate", mode: "out-in" },
+    head: {
+      meta: [
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1, user-scalable=no",
+        },
+      ],
+    },
   },
   mongoose: {
     uri: process.env.DB_URI,

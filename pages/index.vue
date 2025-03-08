@@ -27,7 +27,15 @@ const uploadFile = async (content: string) => {
 
 watch([deck, isReady], () => {
   if (isReady.value && deck.value) {
+    localStorage.setItem("deckId", deckId.value);
     navigateTo(`/${deckId.value}`);
+  }
+});
+
+onMounted(() => {
+  const deckId = localStorage.getItem("deckId");
+  if (deckId) {
+    navigateTo(`/${deckId}`);
   }
 });
 </script>

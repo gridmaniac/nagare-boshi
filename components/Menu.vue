@@ -5,6 +5,8 @@ const fileInput = ref<HTMLInputElement | null>(null);
 
 const goHome = () => {
   deckId.value = "";
+  localStorage.removeItem("deckId");
+
   stopBatch();
   navigateTo("/");
 };
