@@ -18,7 +18,7 @@
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <div class="bg-base-100 text-base-content min-h-full w-80 p-4">
+      <div class="min-h-full w-80 p-4">
         <progress class="progress w-56" value="70" max="100"></progress>
         <div class="stats stats-vertical">
           <div class="stat">

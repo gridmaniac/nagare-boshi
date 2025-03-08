@@ -40,6 +40,7 @@ onClickOutside(sentenceEl, () => {
   <div
     class="card bg-base-100 card-xl shadow-xl max-h-[400px] overflow-y-auto overflow-x-hidden"
   >
+    <progress class="progress w-56" value="70" max="100"></progress>
     <div class="">
       <!-- <div class="status status-accent status-xl animate-ping"></div> -->
       <Stats />
