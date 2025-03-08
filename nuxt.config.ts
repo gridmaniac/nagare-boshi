@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia/colada-nuxt",
     "@vueuse/nuxt",
-    "@vite-pwa/nuxt",
+    // "@vite-pwa/nuxt",
   ],
   vite: {
     plugins: [tailwindcss()],
@@ -42,43 +42,43 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["queries", "mutations"],
   },
-  pwa: {
-    manifest: {
-      name: "流れ星",
-      short_name: "流れ星",
-      description: "Leverage Imiwa? backup to study SRS flashcards.",
-      background_color: "#09002f",
-      theme_color: "#09002f",
-      icons: [
-        {
-          src: "icons/icon-64x64.png",
-          sizes: "64x64",
-          type: "image/png",
-        },
-        {
-          src: "icons/icon-144x144.png",
-          sizes: "144x144",
-          type: "image/png",
-        },
-        {
-          src: "icons/icon-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-        },
-        {
-          src: "icons/icon-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-        },
-      ],
-    },
+  // pwa: {
+  //   manifest: {
+  //     name: "流れ星",
+  //     short_name: "流れ星",
+  //     description: "Leverage Imiwa? backup to study SRS flashcards.",
+  //     background_color: "#09002f",
+  //     theme_color: "#09002f",
+  //     icons: [
+  //       {
+  //         src: "icons/icon-64x64.png",
+  //         sizes: "64x64",
+  //         type: "image/png",
+  //       },
+  //       {
+  //         src: "icons/icon-144x144.png",
+  //         sizes: "144x144",
+  //         type: "image/png",
+  //       },
+  //       {
+  //         src: "icons/icon-192x192.png",
+  //         sizes: "192x192",
+  //         type: "image/png",
+  //       },
+  //       {
+  //         src: "icons/icon-512x512.png",
+  //         sizes: "512x512",
+  //         type: "image/png",
+  //       },
+  //     ],
+  //   },
 
-    workbox: {
-      navigateFallback: "/",
-    },
-    devOptions: {
-      enabled: true,
-      type: "module",
-    },
-  },
+  //   workbox: {
+  //     navigateFallback: "/",
+  //   },
+  //   devOptions: {
+  //     enabled: true,
+  //     type: "module",
+  //   },
+  // },
 });
