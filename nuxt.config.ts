@@ -24,6 +24,13 @@ export default defineNuxtConfig({
           content: "width=device-width, initial-scale=1, user-scalable=no",
         },
       ],
+      link: [
+        {
+          rel: "apple-touch-icon",
+          type: "image/png",
+          href: "icons/icon-192x192.png",
+        },
+      ],
     },
   },
   mongoose: {
