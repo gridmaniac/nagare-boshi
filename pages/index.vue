@@ -61,7 +61,7 @@ onMounted(() => {
       </p>
     </div>
     <progress v-if="isLoading || !isReady" class="progress w-56"></progress>
-    <!-- <section
+    <section
       class="w-full max-w-xs flex flex-col sm:items-center items-end"
       v-else
     >
@@ -84,6 +84,6 @@ onMounted(() => {
         placeholder="Paste your code"
         class="input text-center"
       />
-    </section> -->
+    </section>
   </div>
 </template>
