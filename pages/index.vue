@@ -60,19 +60,17 @@ onMounted(() => {
         backup to study <strong>SRS</strong> flashcards.
       </p>
     </div>
-    <progress v-if="isLoading || !isReady" class="progress w-56"></progress>
-    <section
-      class="w-full max-w-xs flex flex-col sm:items-center items-end"
-      v-else
-    >
+    <section class="w-full max-w-xs flex flex-col sm:items-center items-end">
       <input
         ref="fileInput"
         class="file-input"
         type="file"
+        accept=".imiwa"
         @change="onFileUpload"
         hidden
       />
       <button class="btn btn-neutral btn-sm" @click="updateWithFile">
+        <IconFileSync class="size-4" />
         Upload .imiwa file
       </button>
       <div class="divider">or</div>
