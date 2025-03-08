@@ -16,8 +16,14 @@ export const getCachedJmdict = async () => {
     return cardsCache;
   }
 
-  const filePath = path.join(process.cwd(), "public", "jmdict-simplified.json");
-  cardsCache = JSON.parse(await readFile(filePath, "utf-8"));
+  // const filePath = path.join(process.cwd(), "public", "jmdict-simplified.json");
+  // cardsCache = JSON.parse(await readFile(filePath, "utf-8"));
+
+  cardsCache = JSON.parse(
+    await $fetch(
+      "https://raw.githubusercontent.com/gridmaniac/nagare-boshi/refs/heads/main/public/jmdict-simplified.json?token=GHSAT0AAAAAAC5BT2DTDIDPMJNEI7DBVDWYZ6MEBOQ"
+    )
+  );
 
   // jmdictCache = JSON.parse(
   //   await readFile("./dict/jmdict/jmdict-examples-eng-3.6.1.json", "utf-8")
