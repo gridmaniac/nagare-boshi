@@ -1,0 +1,60 @@
+jmdict-eng.json -> Card
+
+Card -> {
+  ...Metadata,
+  sourceId,
+  source: jmdict
+}
+
+Deck -> {
+  id,
+  cards: [
+    id: ref,
+    
+  ]
+}
+
+DeckCard -> {
+  deckId,
+  cardId,
+  box:0,
+  reviewAfter,
+  reviewNum: 0
+}
+
+box: 0 -> new card, date card added
+box: 1 -> review next day
+box: 2 -> review in 3 days
+box: 3 -> review in 1 week
+box: 4 -> review in 1 month
+box: 5 -> review every 3 months
+
+
+1. For every entry in new uploaded .imiwa file
+2. Obtain a relation in jmdict by id and log if error and skip (only good valid cards 1 def + 1 exam + kana)
+3. If ok -> check if card exists by sourceId and create if no card persisted
+4. if new deck -> create Deck
+5. If deckId passed -> get Deck
+6. Generate DeckCards (or update)
+7. Get next card for review with population
+
+update reviewNum every time
+
+Bad -> if box 0 -> box 1, update reveiw to next day
+Bad -> if box 1 -> box 1, update reveiw to next day
+Bad -> if box 2 -> box 1, update review to next day
+Bad -> if box 3 -> box 2, in 3 days
+...
+
+Good -> if box 0 -> box 1, update next day
+Good -> if box 1 -> box 2, review in 3 days
+...
+
+Great -> if box 0 -> box 2, in 3 days
+Great -> if box 1 -> box 3, in 1 week
+Great -> if box 2 -> box 4, in 1 month
+Great -> if box 3 -> box 5, in 3 months
+Great -> if box 4 -> box 5, in 3 months
+Great -> if box 5 -> box 5, in 3 months
+
+67ca139d1abe1c5a16fdedf0
