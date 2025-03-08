@@ -60,7 +60,11 @@ onMounted(() => {
         backup to study <strong>SRS</strong> flashcards.
       </p>
     </div>
-    <section class="w-full max-w-xs flex flex-col sm:items-center items-end">
+    <progress v-if="isLoading || !isReady" class="progress w-56"></progress>
+    <!-- <section
+      class="w-full max-w-xs flex flex-col sm:items-center items-end"
+      v-else
+    >
       <input
         ref="fileInput"
         class="file-input"
@@ -80,6 +84,6 @@ onMounted(() => {
         placeholder="Paste your code"
         class="input text-center"
       />
-    </section>
+    </section> -->
   </div>
 </template>
