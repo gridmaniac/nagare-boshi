@@ -2,7 +2,6 @@
   <div class="drawer">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
-      <!-- Page content here -->
       <label
         for="my-drawer"
         class="drawer-button cursor-pointer absolute right-5 top-5 inline-grid *:[grid-area:1/1]"
@@ -19,7 +18,7 @@
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <div class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+      <div class="bg-base-200 text-base-content min-h-full w-80 p-4">
         <div class="stats stats-vertical">
           <div class="stat">
             <div class="stat-title">Total</div>
