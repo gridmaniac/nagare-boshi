@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   const tokens = [];
 
   const lookupMeaning = (token: string) => {
-    const normalizedToken = normalizeToken(token);
+    const normalizedToken = token; // normalizeToken(token);
     const meaning =
       dictionary?.[normalizedToken] || dictionaryK?.[normalizedToken];
 

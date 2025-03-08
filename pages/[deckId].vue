@@ -2,24 +2,28 @@
 const { params } = useRoute();
 const { deckId } = useDeck();
 const { card } = useCard();
+const { deckCard } = useDeckCard();
+const { sendReview } = useReview();
 
 deckId.value = String(params.deckId);
 
-const queryCache = useQueryCache();
 const keyStrokeBlock = ref(false);
 
 const hardBtn = ref<HTMLButtonElement | null>(null);
 const goodBtn = ref<HTMLButtonElement | null>(null);
 const easyBtn = ref<HTMLButtonElement | null>(null);
 
-const focusTarget = ref<HTMLElement | null>(null);
-
 const isCooldown = computed(() => !card.value);
 
-const doReview = async (choice: "Hard" | "Good" | "Easy") => {
+const doReview = async (choice: ReviewChoice) => {
   keyStrokeBlock.value = true;
+
+  await sendReview({
+    cardId: deckCard.value?._id || "",
+    choice,
+  });
+
   setTimeout(() => {
-    queryCache.invalidateQueries({ key: ["deck-card"] });
     keyStrokeBlock.value = false;
   }, 100);
 };
@@ -34,15 +38,15 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
   switch (key) {
     case "1":
       hardBtn.value?.focus();
-      doReview("Easy");
+      doReview("easy");
       break;
     case "2":
       goodBtn.value?.focus();
-      doReview("Good");
+      doReview("good");
       break;
     case "3":
       easyBtn.value?.focus();
-      doReview("Hard");
+      doReview("hard");
       break;
   }
 };
@@ -58,21 +62,21 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
       <button
         class="btn btn-xl btn-soft join-item btn-error flex-1"
         :disabled="isCooldown"
-        @click="doReview('Hard')"
+        @click="doReview('hard')"
       >
         😓
       </button>
       <button
         class="btn btn-xl btn-soft join-item btn-info flex-1"
         :disabled="isCooldown"
-        @click="doReview('Good')"
+        @click="doReview('good')"
       >
         👌🏻
       </button>
       <button
         class="btn btn-xl btn-soft join-item btn-success flex-1"
         :disabled="isCooldown"
-        @click="doReview('Easy')"
+        @click="doReview('easy')"
       >
         👍🏼
       </button>
@@ -82,36 +86,39 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
         ref="hardBtn"
         class="btn btn-xl btn-soft join-item btn-error flex-1"
         :disabled="isCooldown"
-        @click="doReview('Hard')"
+        @click="doReview('hard')"
       >
         <kbd
           class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
-          >1</kbd
         >
+          1
+        </kbd>
         Hard
       </button>
       <button
         ref="goodBtn"
         class="btn btn-xl btn-soft join-item btn-info flex-1"
         :disabled="isCooldown"
-        @click="doReview('Good')"
+        @click="doReview('good')"
       >
         <kbd
           class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
-          >2</kbd
         >
+          2
+        </kbd>
         Good
       </button>
       <button
         ref="easyBtn"
         class="btn btn-xl btn-soft join-item btn-success flex-1"
         :disabled="isCooldown"
-        @click="doReview('Easy')"
+        @click="doReview('easy')"
       >
         <kbd
           class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
-          >3</kbd
         >
+          3
+        </kbd>
         Easy
       </button>
     </div>

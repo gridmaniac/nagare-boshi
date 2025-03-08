@@ -2,6 +2,8 @@
 const props = defineProps<{ card: Card }>();
 
 const { tokens, sentence } = useSentence();
+const { refetch: refetchStats } = useStats();
+const { deckCard } = useDeckCard();
 
 const hasTranslationsBlur = ref(true);
 const hasExamplesBlur = ref(true);
@@ -43,8 +45,10 @@ onClickOutside(sentenceEl, () => {
     <label
       for="my-drawer"
       class="drawer-button cursor-pointer absolute right-5 top-5 inline-grid *:[grid-area:1/1]"
+      @click="refetchStats()"
     >
       <div
+        v-if="deckCard && deckCard.box > 0"
         class="status status-accent status-xl animate-ping cursor-pointer"
       ></div>
       <div class="status status-xl"></div>
@@ -115,11 +119,6 @@ onClickOutside(sentenceEl, () => {
         </p>
       </section>
     </div>
-    <progress
-      class="progress progress-accent w-full h-1 bg-transparent hidden"
-      value="25"
-      max="100"
-    ></progress>
   </div>
 </template>
 

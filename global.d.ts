@@ -1,7 +1,11 @@
-interface Deck {}
+interface Deck {
+  _id: string;
+}
 
 interface Card {
   id: string;
+  text: string;
+  kana: string;
   text: string;
   kana: string;
   gloss: string[];
@@ -9,12 +13,28 @@ interface Card {
 }
 
 interface DeckCard {
+  _id: string;
+
   deckId: string;
   cardId: string;
 
   box: number;
   reviewAfter: Date;
   reviewNum: number;
+}
+
+interface Review {
+  cardId: string;
+  choice: ReviewChoice;
+}
+
+type ReviewChoice = "hard" | "good" | "easy";
+
+interface Stats {
+  total: number;
+  fresh: number;
+  review: number;
+  retention: number;
 }
 
 type Source = "imiwa";
