@@ -12,7 +12,9 @@ let dictionaryK: Record<string, Card> | undefined = undefined;
 let dictionaryS: Record<string, Card> | undefined = undefined;
 
 export const getCachedJmdict = async () => {
-  if (cardsCache.length) return cardsCache;
+  if (cardsCache.length) {
+    return cardsCache;
+  }
 
   const filePath = path.join(process.cwd(), "public", "jmdict-simplified.json");
   cardsCache = JSON.parse(await readFile(filePath, "utf-8"));
