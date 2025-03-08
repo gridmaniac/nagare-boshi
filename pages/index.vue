@@ -65,16 +65,14 @@ onMounted(() => {
       class="w-full max-w-xs flex flex-col sm:items-center items-end"
       v-else
     >
-      <!-- <input
+      <input
         ref="fileInput"
         class="file-input"
         type="file"
-        accept=".imiwa"
         @change="onFileUpload"
         hidden
       />
       <button class="btn btn-neutral btn-sm" @click="updateWithFile">
-        <IconFileSync class="size-4" />
         Upload .imiwa file
       </button>
       <div class="divider">or</div>
@@ -83,7 +81,7 @@ onMounted(() => {
         type="text"
         placeholder="Paste your code"
         class="input text-center"
-      /> -->
+      />
     </section>
   </div>
 </template>
