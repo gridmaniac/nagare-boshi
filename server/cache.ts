@@ -21,7 +21,7 @@ export const getCachedJmdict = async () => {
 
   cardsCache = JSON.parse(
     await $fetch(
-      "https://raw.githubusercontent.com/gridmaniac/nagare-boshi/refs/heads/main/public/jmdict-simplified.json?token=GHSAT0AAAAAAC5BT2DTDIDPMJNEI7DBVDWYZ6MEBOQ"
+      "https://raw.githubusercontent.com/gridmaniac/nagare-boshi/refs/heads/main/public/jmdict-simplified.json"
     )
   );
 
