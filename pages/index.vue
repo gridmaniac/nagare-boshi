@@ -1,43 +1,43 @@
 <script setup lang="ts">
-const { createDeck, isLoading } = useCreateDeck();
-const { runBatch, isReady } = useRunBatch();
-const { deck, deckId } = useDeck();
-const fileInput = ref<HTMLInputElement | null>(null);
+// const { createDeck, isLoading } = useCreateDeck();
+// const { runBatch, isReady } = useRunBatch();
+// const { deck, deckId } = useDeck();
+// const fileInput = ref<HTMLInputElement | null>(null);
 
-const updateWithFile = () => {
-  fileInput.value?.click();
-};
+// const updateWithFile = () => {
+//   fileInput.value?.click();
+// };
 
-const { onFileUpload } = useFileUpload((content) => {
-  uploadFile(content);
-});
+// const { onFileUpload } = useFileUpload((content) => {
+//   uploadFile(content);
+// });
 
-const uploadFile = async (content: string) => {
-  const batch = useImiwaBatch(content);
-  if (!batch) return;
+// const uploadFile = async (content: string) => {
+//   const batch = useImiwaBatch(content);
+//   if (!batch) return;
 
-  isReady.value = false;
-  deckId.value = await createDeck();
+//   isReady.value = false;
+//   deckId.value = await createDeck();
 
-  runBatch({
-    deckId: deckId.value,
-    ...batch,
-  });
-};
+//   runBatch({
+//     deckId: deckId.value,
+//     ...batch,
+//   });
+// };
 
-watch([deck, isReady], () => {
-  if (isReady.value && deck.value) {
-    localStorage.setItem("deckId", deckId.value);
-    navigateTo(`/${deckId.value}`);
-  }
-});
+// watch([deck, isReady], () => {
+//   if (isReady.value && deck.value) {
+//     localStorage.setItem("deckId", deckId.value);
+//     navigateTo(`/${deckId.value}`);
+//   }
+// });
 
-onMounted(() => {
-  const deckId = localStorage.getItem("deckId");
-  if (deckId) {
-    navigateTo(`/${deckId}`);
-  }
-});
+// onMounted(() => {
+//   const deckId = localStorage.getItem("deckId");
+//   if (deckId) {
+//     navigateTo(`/${deckId}`);
+//   }
+// });
 </script>
 
 <template>
@@ -60,8 +60,8 @@ onMounted(() => {
         backup to study <strong>SRS</strong> flashcards.
       </p>
     </div>
-    <progress v-if="isLoading || !isReady" class="progress w-56"></progress>
-    <section
+    <!-- <progress v-if="isLoading || !isReady" class="progress w-56"></progress> -->
+    <!-- <section
       class="w-full max-w-xs flex flex-col sm:items-center items-end"
       v-else
     >
@@ -84,6 +84,6 @@ onMounted(() => {
         placeholder="Paste your code"
         class="input text-center"
       />
-    </section>
+    </section> -->
   </div>
 </template>
