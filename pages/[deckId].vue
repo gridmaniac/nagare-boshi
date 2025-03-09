@@ -14,6 +14,7 @@ const {
 deckId.value = String(params.deckId);
 
 const keyStrokeBlock = ref(false);
+const isHolding = ref(false);
 let timeout: NodeJS.Timeout;
 
 const hardBtn = ref<HTMLButtonElement | null>(null);
@@ -64,7 +65,10 @@ watch(error, () => {
 });
 
 const holdStart = () => {
+  isHolding.value = true;
   timeout = setTimeout(async () => {
+    isHolding.value = false;
+
     const value = prompt("Add a note");
     const note = {
       cardId: deckCard.value?._id || "",
@@ -78,6 +82,7 @@ const holdStart = () => {
 
 const holdEnd = () => {
   clearTimeout(timeout);
+  isHolding.value = false;
 };
 
 onBeforeUnmount(() => {
@@ -106,8 +111,14 @@ onBeforeUnmount(() => {
       <Card
         v-if="!isDeckCardLoading && card"
         :card="card"
+        class="transition-all duration-300 ease-in-out"
+        :class="{
+          'scale-105 shadow-2xl': isHolding,
+        }"
         @mousedown="holdStart"
+        @touchstart="holdStart"
         @mouseup="holdEnd"
+        @touchend="holdEnd"
       />
     </Transition>
     <div class="divider"></div>
