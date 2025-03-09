@@ -24,6 +24,8 @@ export default defineEventHandler(async (event) => {
   const deckCard = await DeckCard.findById(review.cardId);
   if (!deckCard) return;
 
+  if (deckCard.reviewAfter > new Date()) return;
+
   switch (review.choice) {
     case "hard":
       if (deckCard.box < 3) deckCard.box = 1;
