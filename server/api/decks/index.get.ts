@@ -1,13 +1,17 @@
-export default defineEventHandler(async (event) => {
-  try {
-    const { deckId } = getQuery(event);
-    const deck = await Deck.findById(deckId);
+import { isValidObjectId } from "mongoose";
 
-    return deck;
-  } catch (error) {
+export default defineEventHandler(async (event) => {
+  const { deckId } = getQuery(event);
+
+  if (!isValidObjectId(deckId)) return null;
+
+  const deck = await Deck.findById(deckId);
+  if (!deck) {
     throw createError({
       statusCode: 400,
       statusMessage: "Deck not found",
     });
   }
+
+  return deck;
 });
