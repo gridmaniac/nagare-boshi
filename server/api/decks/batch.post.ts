@@ -3,7 +3,7 @@ import { getCachedDictionaryS } from "@/server/cache";
 export default defineEventHandler(async (event) => {
   const batch = await readBody<Batch>(event);
   const dictionaryS = await getCachedDictionaryS();
-  const deckCards = await DeckCard.find({ deckId: batch.deckId }, "_id");
+  const deckCards = await DeckCard.find({ deckId: batch.deckId }, "cardId");
 
   switch (batch.source) {
     case "imiwa":
