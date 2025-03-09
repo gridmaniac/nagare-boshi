@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
   const batch = await readBody<Batch>(event);
   const dictionaryS = await getCachedDictionaryS();
   const deckCards = await DeckCard.find({ deckId: batch.deckId }, "cardId");
+  const docs = [];
 
   switch (batch.source) {
     case "imiwa":
@@ -16,7 +17,7 @@ export default defineEventHandler(async (event) => {
         );
 
         if (!deckCard) {
-          await DeckCard.create({
+          docs.push({
             deckId: batch.deckId,
             cardId: value,
             box: 0,
@@ -25,5 +26,7 @@ export default defineEventHandler(async (event) => {
           });
         }
       }
+
+      await DeckCard.insertMany(docs);
   }
 });
