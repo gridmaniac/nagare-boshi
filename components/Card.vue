@@ -30,6 +30,10 @@ const clearBlur = () => {
   hasExamplesBlur.value = false;
 };
 
+const copyToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text);
+};
+
 onKeyStroke(" ", clearBlur);
 
 onClickOutside(sentenceEl, () => {
@@ -65,6 +69,7 @@ onClickOutside(sentenceEl, () => {
             }"
             :data-tip="card.kana"
             @touchstart="isTextSelected = true"
+            @click="copyToClipboard(card.text || card.kana)"
           >
             <span>{{ card.text || card.kana }}</span>
           </div>
