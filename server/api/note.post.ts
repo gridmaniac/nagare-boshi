@@ -7,4 +7,6 @@ export default defineEventHandler(async (event) => {
   deckCard.note = note.text;
 
   await deckCard.save();
+
+  return deckCard;
 });

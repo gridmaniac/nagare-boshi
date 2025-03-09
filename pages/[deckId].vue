@@ -65,19 +65,20 @@ watch(error, () => {
 });
 
 const holdStart = () => {
-  isHolding.value = true;
-  timeout = setTimeout(async () => {
-    isHolding.value = false;
+  timeout = setTimeout(() => {
+    isHolding.value = true;
+    timeout = setTimeout(async () => {
+      isHolding.value = false;
 
-    const value = prompt("Add a note");
-    const note = {
-      cardId: deckCard.value?._id || "",
-      text: value ? value?.trim().substring(0, 24) : "",
-    };
+      const value = prompt("Add a note");
+      const note = {
+        cardId: deckCard.value?._id || "",
+        text: value ? value?.trim().substring(0, 24) : "",
+      };
 
-    await addNote(note);
-    await refetchDeckCard();
-  }, 1000);
+      await addNote(note);
+    }, 1000);
+  }, 100);
 };
 
 const holdEnd = () => {

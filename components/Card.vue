@@ -40,7 +40,7 @@ onClickOutside(sentenceEl, () => {
 
 <template>
   <div
-    class="card bg-base-100 card-xl shadow-xl max-h-[400px] overflow-y-auto overflow-x-hidden"
+    class="select-none card bg-base-100 card-xl shadow-xl max-h-[400px] overflow-y-auto overflow-x-hidden"
   >
     <label
       for="stats"

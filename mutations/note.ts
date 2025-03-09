@@ -1,10 +1,13 @@
 export const useNote = defineMutation(() => {
+  const queryCache = useQueryCache();
   const { mutateAsync: addNote, ...mutation } = useMutation({
     mutation: async (note: Note) => {
-      await $fetch("/api/note", {
+      const deckCard = await $fetch<DeckCard>("/api/note", {
         method: "POST",
         body: note,
       });
+
+      queryCache.setQueryData(["deck-card", deckCard.deckId], deckCard);
     },
   });
 
