@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { deckId } = useDeck();
-const { refetch: refetchDeckCard } = useDeckCard();
+const { deckCard, refetch: refetchDeckCard } = useDeckCard();
 const { runBatch, stopBatch, isLoading, isReady } = useRunBatch();
 const fileInput = ref<HTMLInputElement | null>(null);
 
@@ -40,6 +40,7 @@ const copyCode = () => {
 
 watch(isReady, () => {
   if (isReady.value) {
+    if (deckCard.value) return;
     refetchDeckCard();
   }
 });
