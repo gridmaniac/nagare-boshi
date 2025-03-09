@@ -17,12 +17,14 @@ const uploadFile = async (content: string) => {
   if (!batch) return;
 
   isReady.value = false;
-  deckId.value = await createDeck();
+  const newDeckId = await createDeck();
 
-  runBatch({
-    deckId: deckId.value,
+  await runBatch({
+    deckId: newDeckId,
     ...batch,
   });
+
+  deckId.value = newDeckId;
 };
 
 watch([deck, isReady], () => {

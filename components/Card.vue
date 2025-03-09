@@ -14,10 +14,10 @@ const sentenceEl = ref<HTMLElement | null>(null);
 const selectedTokenIndex = ref(-1);
 const isTextSelected = ref(false);
 
-const example = computed(() => {
-  const randomExample =
-    props.card.examples[Math.floor(Math.random() * props.card.examples.length)];
+const randomExample =
+  props.card.examples[Math.floor(Math.random() * props.card.examples.length)];
 
+const example = computed(() => {
   sentence.value = randomExample?.sentence;
   return {
     sentence: randomExample?.sentence,
@@ -43,7 +43,7 @@ onClickOutside(sentenceEl, () => {
     class="card bg-base-100 card-xl shadow-xl max-h-[400px] overflow-y-auto overflow-x-hidden"
   >
     <label
-      for="my-drawer"
+      for="stats"
       class="drawer-button cursor-pointer absolute right-5 top-5 inline-grid *:[grid-area:1/1]"
       @click="refetchStats()"
     >

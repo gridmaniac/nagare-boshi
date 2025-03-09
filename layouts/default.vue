@@ -9,6 +9,18 @@ useHead({
       name: "description",
       content: "Leverage Imiwa? backup to study SRS flashcards.",
     },
+    {
+      property: "og:title",
+      content: "流れ星の学習アプリ",
+    },
+    {
+      property: "og:description",
+      content: "Leverage Imiwa? backup to study SRS flashcards.",
+    },
+    {
+      property: "og:image",
+      content: "https://nagare-boshi.vercel.app/icons/icon-512x512.png",
+    },
   ],
 });
 </script>

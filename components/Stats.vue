@@ -4,14 +4,14 @@ const { stats } = useStats();
 
 <template>
   <div class="drawer">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <input id="stats" type="checkbox" class="drawer-toggle" />
     <div class="drawer-side z-1">
       <label
-        for="my-drawer"
+        for="stats"
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <div class="bg-1200 backdrop-blur-md min-h-full w-80 p-4">
+      <div class="bg-200 backdrop-blur-md min-h-full w-80 p-4">
         <div v-if="stats" class="stats stats-vertical">
           <div class="stat">
             <div class="stat-title">Total</div>

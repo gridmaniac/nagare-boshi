@@ -40,16 +40,7 @@ export default defineEventHandler(async (event) => {
   }
 
   deckCard.reviewAfter = getNextDate(deckCard.box);
+  deckCard.reviewNum++;
 
   await deckCard.save();
-
-  const nextCard = await DeckCard.find({
-    deckId: deckCard.deckId,
-    reviewAfter: { $lt: new Date() },
-  })
-    .sort({ box: -1 })
-    .limit(1);
-
-  if (nextCard.length === 0) return null;
-  return nextCard[0];
 });

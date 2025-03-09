@@ -1,12 +1,12 @@
 export const useDeckCard = defineQuery(() => {
-  const router = useRoute();
+  const { deckId } = useDeck();
 
   const { data: deckCard, ...query } = useQuery<DeckCard>({
-    key: () => ["deck-card", String(router.params.deckId)],
-    enabled: () => !!router.params.deckId,
+    key: () => ["deck-card", deckId.value],
+    enabled: () => !!deckId.value,
     query: async () =>
       await $fetch("/api/decks/next-card", {
-        params: { deckId: router.params.deckId },
+        params: { deckId: deckId.value },
       }),
   });
 

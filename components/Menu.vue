@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { deckId } = useDeck();
-const { runBatch, stopBatch, isLoading } = useRunBatch();
+const { refetch: refetchDeckCard } = useDeckCard();
+const { runBatch, stopBatch, isLoading, isReady } = useRunBatch();
 const fileInput = ref<HTMLInputElement | null>(null);
 
 const goHome = () => {
@@ -33,6 +34,12 @@ const copyCode = () => {
   navigator.clipboard.writeText(deckId.value);
   alert("Copied to clipboard");
 };
+
+watch(isReady, () => {
+  if (isReady.value) {
+    refetchDeckCard();
+  }
+});
 </script>
 
 <template>
