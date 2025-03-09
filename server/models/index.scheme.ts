@@ -8,4 +8,5 @@ export const DeckCard = defineMongooseModel<DeckCard>("DeckCard", {
   box: Number,
   reviewAfter: Date,
   reviewNum: Number,
+  note: String,
 });

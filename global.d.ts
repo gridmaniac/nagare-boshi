@@ -21,6 +21,8 @@ interface DeckCard {
   box: number;
   reviewAfter: Date;
   reviewNum: number;
+
+  note: string;
 }
 
 interface Review {
@@ -29,6 +31,11 @@ interface Review {
 }
 
 type ReviewChoice = "hard" | "good" | "easy";
+
+interface Note {
+  cardId: string;
+  text: string;
+}
 
 interface Stats {
   total: number;

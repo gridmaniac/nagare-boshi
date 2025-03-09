@@ -77,6 +77,12 @@ onClickOutside(sentenceEl, () => {
             }"
             @click="clearBlur"
           >
+            <kbd
+              v-if="deckCard?.note"
+              class="kbd kbd-xl border-primary text-primary"
+            >
+              {{ deckCard?.note }}
+            </kbd>
             <kbd v-for="word in card.gloss" class="kbd kbd-xl">{{ word }}</kbd>
           </div>
         </div>

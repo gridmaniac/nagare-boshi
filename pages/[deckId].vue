@@ -4,6 +4,7 @@ const { deckId, error } = useDeck();
 const { card } = useCard();
 const { sendReview } = useReview();
 const { refetch: refetchStats } = useStats();
+const { addNote } = useNote();
 const {
   deckCard,
   refetch: refetchDeckCard,
@@ -13,6 +14,7 @@ const {
 deckId.value = String(params.deckId);
 
 const keyStrokeBlock = ref(false);
+let timeout: NodeJS.Timeout;
 
 const hardBtn = ref<HTMLButtonElement | null>(null);
 const goodBtn = ref<HTMLButtonElement | null>(null);
@@ -60,6 +62,27 @@ watch(error, () => {
   localStorage.removeItem("deckId");
   navigateTo("/");
 });
+
+const holdStart = () => {
+  timeout = setTimeout(async () => {
+    const value = prompt("Add a note");
+    const note = {
+      cardId: deckCard.value?._id || "",
+      text: value ? value?.trim().substring(0, 24) : "",
+    };
+
+    await addNote(note);
+    await refetchDeckCard();
+  }, 1000);
+};
+
+const holdEnd = () => {
+  clearTimeout(timeout);
+};
+
+onBeforeUnmount(() => {
+  clearTimeout(timeout);
+});
 </script>
 
 <template>
@@ -80,7 +103,12 @@ watch(error, () => {
       </div>
     </div>
     <Transition name="rotate">
-      <Card v-if="!isDeckCardLoading && card" :card="card" />
+      <Card
+        v-if="!isDeckCardLoading && card"
+        :card="card"
+        @mousedown="holdStart"
+        @mouseup="holdEnd"
+      />
     </Transition>
     <div class="divider"></div>
     <div
