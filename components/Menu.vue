@@ -5,6 +5,9 @@ const { runBatch, stopBatch, isLoading, isReady } = useRunBatch();
 const fileInput = ref<HTMLInputElement | null>(null);
 
 const goHome = () => {
+  const isConfirm = confirm("Did you backup your code?");
+  if (!isConfirm) return;
+
   deckId.value = "";
   localStorage.removeItem("deckId");
 
