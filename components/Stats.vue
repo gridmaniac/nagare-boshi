@@ -3,7 +3,7 @@ const { stats } = useStats();
 </script>
 
 <template>
-  <div class="drawer">
+  <div class="drawer z-2">
     <input id="stats" type="checkbox" class="drawer-toggle" />
     <div class="drawer-side z-1">
       <label

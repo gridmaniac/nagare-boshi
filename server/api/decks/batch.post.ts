@@ -4,16 +4,17 @@ export default defineEventHandler(async (event) => {
   const batch = await readBody<Batch>(event);
   const dictionaryS = await getCachedDictionaryS();
 
+  const deckCards = await DeckCard.find({ deckId: batch.deckId });
+
   switch (batch.source) {
     case "imiwa":
       for (const { value, timestamp } of batch.items) {
         const card = dictionaryS?.[value];
         if (!card) continue;
 
-        const deckCard = await DeckCard.findOne({
-          deckId: batch.deckId,
-          cardId: value,
-        });
+        const deckCard = deckCards.find(
+          (deckCard) => deckCard.cardId === value
+        );
 
         if (!deckCard) {
           await DeckCard.create({
