@@ -5,6 +5,9 @@ export default defineEventHandler(async (event) => {
 
     return deck;
   } catch (error) {
-    return null;
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Deck not found",
+    });
   }
 });

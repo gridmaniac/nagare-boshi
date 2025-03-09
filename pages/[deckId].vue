@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { params } = useRoute();
-const { deckId } = useDeck();
+const { deckId, error } = useDeck();
 const { card } = useCard();
 const { sendReview } = useReview();
 const { refetch: refetchStats } = useStats();
@@ -55,6 +55,11 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
       break;
   }
 };
+
+watch(error, () => {
+  localStorage.removeItem("deckId");
+  navigateTo("/");
+});
 </script>
 
 <template>
