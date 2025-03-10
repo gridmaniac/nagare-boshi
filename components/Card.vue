@@ -103,6 +103,7 @@ onClickOutside(sentenceEl, () => {
               'text-primary': index === selectedTokenIndex,
               'text-accent': token.text === card.text,
             }"
+            @click="copyToClipboard(token.text)"
           >
             <div
               v-if="token.hasMatch"
@@ -110,7 +111,9 @@ onClickOutside(sentenceEl, () => {
               :class="{
                 'tooltip-open': index === selectedTokenIndex,
               }"
-              @touchstart="selectedTokenIndex = index"
+              @touchstart="
+                selectedTokenIndex = index === selectedTokenIndex ? -1 : index
+              "
             >
               <div class="flex flex-col tooltip-content">
                 <span>{{ token.kana }}</span>

@@ -1,13 +1,16 @@
 export const useCard = defineQuery(() => {
   const { deckCard } = useDeckCard();
+  const { getCard, ensureReady } = useDictionary();
 
-  const { data: card, ...query } = useQuery<Card>({
+  const { data: card, ...query } = useQuery<Card | null>({
     key: () => ["card", deckCard.value?.cardId || ""],
     enabled: () => !!deckCard.value,
-    query: async () =>
-      await $fetch("/api/card", {
-        params: { cardId: deckCard.value?.cardId },
-      }),
+    query: async () => {
+      if (!deckCard.value) return null;
+
+      await ensureReady();
+      return getCard(deckCard.value.cardId);
+    },
   });
 
   return {

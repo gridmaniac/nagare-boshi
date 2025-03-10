@@ -1,4 +1,6 @@
 export const useRunBatch = defineMutation(() => {
+  const { getCard, ensureReady } = useDictionary();
+
   const isStopped = ref(false);
   const isReady = ref(true);
   const progress = ref(0);
@@ -10,7 +12,14 @@ export const useRunBatch = defineMutation(() => {
 
   const { mutateAsync: runBatch, ...mutation } = useMutation({
     mutation: async (batch: Batch) => {
-      const pages = Math.ceil(batch.items.length / pageSize);
+      await ensureReady();
+
+      const matches = batch.items.filter((item) => {
+        const card = getCard(item.value);
+        return !!card;
+      });
+
+      const pages = Math.ceil(matches.length / pageSize);
       isStopped.value = false;
       isReady.value = false;
       progress.value = 0;
@@ -20,7 +29,7 @@ export const useRunBatch = defineMutation(() => {
           method: "POST",
           body: {
             ...batch,
-            items: batch.items.slice(i * pageSize, (i + 1) * pageSize),
+            items: matches.slice(i * pageSize, (i + 1) * pageSize),
           },
         });
 

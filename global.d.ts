@@ -44,8 +44,6 @@ interface Stats {
   retention: number;
 }
 
-type Source = "imiwa";
-
 interface Example {
   sentence: string;
   translation: string;
@@ -58,13 +56,9 @@ interface Token {
   hasMatch: boolean;
 }
 
-interface PreBatch {
-  source: Source;
-  items: Item[];
-}
-
-interface Batch extends PreBatch {
+interface Batch {
   deckId: string;
+  items: Item[];
 }
 
 interface Item {
@@ -75,29 +69,4 @@ interface Item {
 interface ImiwaItem {
   atime: Date;
   value: string;
-}
-
-interface JMdict {
-  words: JMdictWord[];
-}
-
-interface JMdictWord {
-  id: string;
-  kanji: {
-    text: string;
-  }[];
-  kana: {
-    text: string;
-  }[];
-  sense: {
-    gloss: {
-      text: string;
-    }[];
-    examples: {
-      sentences: {
-        land: string;
-        text: string;
-      }[];
-    }[];
-  }[];
 }

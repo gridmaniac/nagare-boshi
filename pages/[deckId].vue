@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { params } = useRoute();
 const { deckId, error } = useDeck();
-const { card } = useCard();
+const { card, isLoading: isCardLoading } = useCard();
 const { sendReview } = useReview();
 const { refetch: refetchStats } = useStats();
 const { addNote } = useNote();
@@ -93,7 +93,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <div class="text-center text-4xl font-bold" v-if="deckId && !deckCard">
+    <div
+      class="text-center text-4xl font-bold"
+      v-if="deckId && !deckCard && !isCardLoading"
+    >
       <div
         class="tooltip tooltip-top tooltip-open block"
         data-tip="You did great!"
@@ -108,6 +111,7 @@ onBeforeUnmount(() => {
         </label>
       </div>
     </div>
+    <progress v-if="!card && isCardLoading" class="progress w-full"></progress>
     <Transition name="rotate">
       <Card
         v-if="!isDeckCardLoading && card"
