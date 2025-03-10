@@ -1,6 +1,15 @@
 <script setup lang="ts">
 const { deck } = useDeck();
-const { isLoading, progress } = useRunBatch();
+const { isLoading, progress, newCount } = useRunBatch();
+
+const toast = ref(false);
+watch(newCount, () => {
+  toast.value = true;
+
+  setTimeout(() => {
+    toast.value = false;
+  }, 2000);
+});
 
 useHead({
   title: "流れ星の学習アプリ",
@@ -47,5 +56,13 @@ useHead({
         <NuxtPage />
       </div>
     </div>
+
+    <Transition name="slideup">
+      <div v-if="toast" class="toast toast-center">
+        <div class="alert">
+          <span>+ {{ addCommas(newCount) }} new cards</span>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>

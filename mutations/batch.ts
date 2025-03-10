@@ -4,6 +4,7 @@ export const useRunBatch = defineMutation(() => {
   const isStopped = ref(false);
   const isReady = ref(true);
   const progress = ref(0);
+  const newCount = ref(0);
   const pageSize = 20;
 
   const stopBatch = () => {
@@ -42,6 +43,8 @@ export const useRunBatch = defineMutation(() => {
         progress.value = Math.round(((i + 1) / pages) * 100);
         isReady.value = true;
       }
+
+      newCount.value = matches.length;
     },
   });
 
@@ -51,5 +54,6 @@ export const useRunBatch = defineMutation(() => {
     stopBatch,
     isReady,
     progress,
+    newCount,
   };
 });
