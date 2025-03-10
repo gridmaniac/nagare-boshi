@@ -14,9 +14,13 @@ export const useRunBatch = defineMutation(() => {
     mutation: async (batch: Batch) => {
       await ensureReady();
 
+      const deckCards = await $fetch<string[]>("/api/decks/cards", {
+        params: { deckId: batch.deckId },
+      });
+
       const matches = batch.items.filter((item) => {
         const card = getCard(item.value);
-        return !!card;
+        return !!card && !deckCards.includes(card.id);
       });
 
       const pages = Math.ceil(matches.length / pageSize);

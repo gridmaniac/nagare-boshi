@@ -56,9 +56,12 @@ interface Token {
   hasMatch: boolean;
 }
 
-interface Batch {
-  deckId: string;
+interface PreBatch {
   items: Item[];
+}
+
+interface Batch extends PreBatch {
+  deckId: string;
 }
 
 interface Item {

@@ -25,6 +25,7 @@ const { stats } = useStats();
             </div>
             <div class="stat-desc">
               <progress
+                v-if="stats.total > 0"
                 class="progress w-56"
                 :value="(stats.fresh / stats.total) * 100"
                 max="100"
@@ -46,6 +47,7 @@ const { stats } = useStats();
             </div>
             <div class="stat-desc">
               <progress
+                v-if="stats.total > 0"
                 class="progress progress-neutral w-56"
                 :value="(stats.retention / stats.total) * 100"
                 max="100"

@@ -11,7 +11,6 @@ export const useImiwaBatch = (content: string): PreBatch | null => {
   if (!items || !items.length) return null;
 
   return {
-    source: "imiwa",
     items: items.map((item: ImiwaItem) => ({
       timestamp: new Date(item.atime),
       value: item.value,
