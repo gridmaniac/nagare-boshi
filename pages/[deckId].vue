@@ -89,13 +89,10 @@ const holdEnd = () => {
 onBeforeUnmount(() => {
   clearTimeout(timeout);
 });
-
-const { rotationRate } = useDeviceMotion();
 </script>
 
 <template>
   <div>
-    {{ rotationRate?.alpha || 0 }} {{ rotationRate?.beta || 0 }}
     <div
       class="text-center text-4xl font-bold"
       v-if="deckId && !deckCard && !isCardLoading"
