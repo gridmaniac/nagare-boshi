@@ -111,9 +111,7 @@ onClickOutside(sentenceEl, () => {
               :class="{
                 'tooltip-open': index === selectedTokenIndex,
               }"
-              @touchstart="
-                selectedTokenIndex = index === selectedTokenIndex ? -1 : index
-              "
+              @touchstart="selectedTokenIndex = index"
             >
               <div class="flex flex-col tooltip-content">
                 <span>{{ token.kana }}</span>
