@@ -23,4 +23,4 @@ logs
 .env.*
 !.env.example
 
-dict/jmdict/jmdict-examples-eng-3.6.1.json
+dict/jmdict/*

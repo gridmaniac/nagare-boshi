@@ -41,9 +41,24 @@ export const getCachedJmdict = async () => {
   //   })),
   // }));
 
+  // const JMDictHashMap = jmdictCache?.words.reduce((acc, word) => {
+  //   acc[word.id] = {
+  //     id: word.id,
+  //     text: word.kanji[0]?.text,
+  //     kana: word.kana[0]?.text,
+  //     gloss: word.sense[0]?.gloss.map((gloss) => gloss?.text),
+  //     examples: word.sense[0]?.examples.map((example) => ({
+  //       sentence: example.sentences[0]?.text,
+  //       translation: example.sentences[1]?.text,
+  //     })),
+  //   };
+
+  //   return acc;
+  // }, {} as Record<string, Card>);
+
   // await writeFile(
-  //   "./dict/jmdict/jmdict-simplified.json",
-  //   JSON.stringify(newJmdict)
+  //   "./dict/jmdict/jmdict-hashmap.json",
+  //   JSON.stringify(JMDictHashMap)
   // );
 
   return cardsCache;
