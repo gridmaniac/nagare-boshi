@@ -45,8 +45,8 @@ interface Stats {
 }
 
 interface Example {
-  sentence: string;
-  translation: string;
+  sentence?: string;
+  translation?: string;
 }
 
 interface Token {

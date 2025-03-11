@@ -1,4 +1,4 @@
-export const useNote = defineMutation(() => {
+export const useAddNote = defineMutation(() => {
   const queryCache = useQueryCache();
   const { mutateAsync: addNote, ...mutation } = useMutation({
     mutation: async (note: Note) => {

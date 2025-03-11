@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { deck } = useDeck();
+const { deckId } = useDeck();
 const { isLoading, progress, newCount } = useRunBatch();
 
 const toast = ref(false);
@@ -47,7 +47,7 @@ useHead({
       {{ progress }}%
     </div>
 
-    <Menu v-if="deck" class="fixed top-5 left-5" />
+    <Menu v-if="deckId" class="fixed top-5 left-5" />
     <ThemeController class="fixed top-5 right-5" />
     <ShootingStars />
     <Stats />

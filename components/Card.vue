@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{ card: Card }>();
 
-const { tokens, sentence } = useSentence();
+const { tokens, sentence } = useTokens();
 const { refetch: refetchStats } = useStats();
 const { deckCard } = useDeckCard();
 
@@ -18,7 +18,7 @@ const randomExample =
   props.card.examples[Math.floor(Math.random() * props.card.examples.length)];
 
 const example = computed(() => {
-  sentence.value = randomExample?.sentence;
+  sentence.value = randomExample?.sentence || "";
   return {
     sentence: randomExample?.sentence,
     translation: randomExample?.translation,
@@ -97,7 +97,7 @@ onClickOutside(sentenceEl, () => {
         <p ref="sentenceEl" class="text-3xl">
           <span
             v-for="(token, index) in tokens"
-            :key="token.text"
+            :key="token.text + index"
             :class="{
               'hover:text-primary': token.hasMatch,
               'text-primary': index === selectedTokenIndex,

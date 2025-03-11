@@ -2,9 +2,9 @@
 const { params } = useRoute();
 const { deckId, error } = useDeck();
 const { card, isLoading: isCardLoading } = useCard();
-const { sendReview } = useReview();
+const { sendReview } = useSendReview();
 const { refetch: refetchStats } = useStats();
-const { addNote } = useNote();
+const { addNote } = useAddNote();
 const {
   deckCard,
   refetch: refetchDeckCard,

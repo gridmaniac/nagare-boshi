@@ -1,12 +1,13 @@
 export const useStats = defineQuery(() => {
-  const { deck } = useDeck();
+  const { deckId } = useDeck();
 
   const { data: stats, ...query } = useQuery({
-    key: () => ["stats", deck.value?._id || ""],
-    enabled: () => !!deck.value,
+    key: () => ["stats", deckId.value || ""],
+    enabled: () => !!deckId.value,
+    staleTime: Infinity,
     query: async () =>
       await $fetch<Stats>("/api/stats", {
-        params: { deckId: deck.value?._id },
+        params: { deckId: deckId.value },
       }),
   });
 

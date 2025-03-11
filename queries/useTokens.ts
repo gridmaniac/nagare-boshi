@@ -1,9 +1,10 @@
-export const useSentence = defineQuery(() => {
+export const useTokens = defineQuery(() => {
   const sentence = ref("");
   const { tokenize, ensureReady } = useDictionary();
 
   const { data: tokens, ...query } = useQuery({
-    key: () => ["sentence", sentence.value],
+    key: () => ["sentence"],
+    staleTime: 0,
     enabled: () => !!sentence.value,
     query: async () => {
       await ensureReady();
