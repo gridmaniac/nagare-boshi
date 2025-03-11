@@ -1,11 +1,11 @@
 export const useDeck = defineQuery(() => {
   const deckId = ref("");
 
-  const { data: deck, ...query } = useQuery<Deck>({
+  const { data: deck, ...query } = useQuery({
     key: () => ["deck", deckId.value],
     enabled: () => !!deckId.value,
     query: async () =>
-      await $fetch("/api/decks", {
+      await $fetch<Deck>("/api/decks", {
         params: { deckId: deckId.value },
       }),
   });

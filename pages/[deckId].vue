@@ -24,12 +24,13 @@ const easyBtn = ref<HTMLButtonElement | null>(null);
 const doReview = async (choice: ReviewChoice) => {
   keyStrokeBlock.value = true;
 
-  await sendReview({
-    cardId: deckCard.value?._id || "",
-    choice,
-  });
-
-  await refetchDeckCard();
+  await Promise.all([
+    sendReview({
+      cardId: deckCard.value?._id || "",
+      choice,
+    }),
+    refetchDeckCard(),
+  ]);
 
   setTimeout(() => {
     keyStrokeBlock.value = false;
