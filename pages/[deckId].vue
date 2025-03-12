@@ -90,10 +90,41 @@ const holdEnd = () => {
 onBeforeUnmount(() => {
   clearTimeout(timeout);
 });
+
+const test = ref();
+
+function permission() {
+  if (
+    typeof DeviceMotionEvent !== "undefined" &&
+    typeof DeviceMotionEvent.requestPermission === "function"
+  ) {
+    // (optional) Do something before API request prompt.
+    DeviceMotionEvent.requestPermission()
+      .then((response) => {
+        // (optional) Do something after API prompt dismissed.
+        if (response == "granted") {
+          window.addEventListener("devicemotion", (e) => {
+            test.value = e.rotationRate;
+          });
+        }
+      })
+      .catch(console.error);
+  } else {
+    alert("DeviceMotionEvent is not defined");
+  }
+}
 </script>
 
 <template>
   <div>
+    {{ test }}
+    <button
+      class="btn btn-primary btn-xl"
+      onclick="requestOrientationPermission();"
+    >
+      Request orientation permission
+    </button>
+
     <div
       class="text-center text-4xl font-bold"
       v-if="deckId && !deckCard && !isCardLoading"
