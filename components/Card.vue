@@ -8,7 +8,6 @@ const { deckCard } = useDeckCard();
 const hasTranslationsBlur = ref(true);
 const hasExamplesBlur = ref(true);
 
-const textEl = ref<HTMLElement | null>(null);
 const sentenceEl = ref<HTMLElement | null>(null);
 
 const selectedTokenIndex = ref(-1);
@@ -62,7 +61,6 @@ onClickOutside(sentenceEl, () => {
       <h2 class="card-title text-5xl flex flex-col items-start gap-3">
         <div class="relative flex items-center justify-center">
           <div
-            ref="textEl"
             class="tooltip tooltip-top"
             :class="{
               'tooltip-open': isTextSelected,

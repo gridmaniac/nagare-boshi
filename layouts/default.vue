@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { deckId } = useDeck();
 const { isLoading, progress, newCount } = useRunBatch();
+const route = useRoute();
 
 const toast = ref(false);
 watch(newCount, () => {
@@ -48,7 +49,12 @@ useHead({
     </div>
 
     <Menu v-if="deckId" class="fixed top-5 left-5" />
-    <ThemeController class="fixed top-5 right-5" />
+
+    <ChallengeSelector v-if="!route.params.level" class="fixed top-6 right-3" />
+    <NuxtLink v-else class="fixed top-6 right-3" to="/">
+      <IconCancel02 class="btn" />
+    </NuxtLink>
+
     <ShootingStars />
     <Stats />
     <div class="p-5 min-h-screen flex flex-col justify-center items-center">

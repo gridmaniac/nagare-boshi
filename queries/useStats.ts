@@ -6,7 +6,7 @@ export const useStats = defineQuery(() => {
     enabled: () => !!deckId.value,
     staleTime: Infinity,
     query: async () =>
-      await $fetch<Stats>("/api/stats", {
+      await $fetch<Stats>("/api/deck/stats", {
         params: { deckId: deckId.value },
       }),
   });

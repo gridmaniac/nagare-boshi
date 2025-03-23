@@ -10,3 +10,11 @@ export const DeckCard = defineMongooseModel<DeckCard>("DeckCard", {
   reviewNum: Number,
   note: String,
 });
+
+export const ChallengeSubmit = defineMongooseModel<ChallengeSubmit>(
+  "ChallengeSubmit",
+  {
+    deckId: String,
+    challengeId: Number,
+  }
+);

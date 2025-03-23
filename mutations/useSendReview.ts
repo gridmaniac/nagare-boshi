@@ -1,7 +1,7 @@
 export const useSendReview = defineMutation(() => {
   const { mutateAsync: sendReview, ...mutation } = useMutation({
     mutation: async (review: Review) => {
-      await $fetch("/api/review", {
+      await $fetch("/api/deck-card/review", {
         method: "POST",
         body: review,
       });

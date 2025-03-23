@@ -1,7 +1,7 @@
 export const useCreateDeck = defineMutation(() => {
   const { mutateAsync: createDeck, ...mutation } = useMutation({
     mutation: async () => {
-      const deckId = await $fetch<string>("/api/decks", {
+      const deckId = await $fetch<string>("/api/deck", {
         method: "POST",
       });
 

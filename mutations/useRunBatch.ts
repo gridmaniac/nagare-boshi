@@ -15,7 +15,7 @@ export const useRunBatch = defineMutation(() => {
     mutation: async (batch: Batch) => {
       await ensureReady();
 
-      const deckCards = await $fetch<string[]>("/api/decks/cards", {
+      const deckCards = await $fetch<string[]>("/api/deck/deck-cards", {
         params: { deckId: batch.deckId },
       });
 
@@ -30,7 +30,7 @@ export const useRunBatch = defineMutation(() => {
       progress.value = 0;
 
       for (let i = 0; i < pages; i++) {
-        await $fetch("/api/decks/batch", {
+        await $fetch("/api/deck/batch", {
           method: "POST",
           body: {
             ...batch,

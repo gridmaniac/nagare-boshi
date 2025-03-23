@@ -73,3 +73,33 @@ interface ImiwaItem {
   atime: Date;
   value: string;
 }
+
+interface ChallengeSubmit {
+  deckId: string;
+  challengeId: number;
+}
+
+interface Challenge {
+  id: number;
+  url: string;
+  questions: Question[];
+  vocabulary: Vocabulary[];
+  grammar: Grammar[];
+}
+
+interface Question {
+  text: string;
+  options: string[];
+  answer: number;
+}
+
+interface Vocabulary {
+  text: string;
+  reading: string;
+  meaning: string;
+}
+
+interface Grammar {
+  text: string;
+  url: string;
+}

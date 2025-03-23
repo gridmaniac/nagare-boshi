@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: synthwave --default, aqua;
+  themes: synthwave --default;
 }
 
 .rotate-enter-active,

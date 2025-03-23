@@ -6,7 +6,7 @@ export const useDeckCard = defineQuery(() => {
     key: () => ["deck-card", deckId.value],
     enabled: () => !!deckId.value,
     query: async () => {
-      const deckCard = await $fetch<DeckCard>("/api/decks/next-card", {
+      const deckCard = await $fetch<DeckCard>("/api/deck/deck-card", {
         params: { deckId: deckId.value, exclude: exclude.value },
       });
 
