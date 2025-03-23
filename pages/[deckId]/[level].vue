@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { params } = useRoute();
 const { deckId } = useDeck();
-const { level, challenge } = useChallenge();
+const { level, challenge, isLoading: isChallengeLoading } = useChallenge();
 const { submitChallenge, isLoading } = useSubmitChallenge();
 
 const isHolding = ref(false);
@@ -57,7 +57,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <div class="text-center text-4xl font-bold" v-if="!challenge">
+    <div
+      class="text-center text-4xl font-bold"
+      v-if="!challenge && !isChallengeLoading"
+    >
       <div
         class="tooltip tooltip-top tooltip-open block"
         data-tip="You did great!"
@@ -65,6 +68,10 @@ onBeforeUnmount(() => {
         お疲れ様でした！
       </div>
     </div>
+    <progress
+      v-if="!challenge && isChallengeLoading"
+      class="progress w-full"
+    ></progress>
     <Lesson
       v-if="challenge"
       :url="challenge.url"

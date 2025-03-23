@@ -5,7 +5,7 @@ export const useChallenge = defineQuery(() => {
   const { getRandomChallenge } = useChallenges();
 
   const { data: challenge, ...query } = useQuery({
-    key: () => ["challenge", deckId.value],
+    key: () => ["challenge", deckId.value, level.value],
     enabled: () => !!deckId.value,
     staleTime: 0,
     query: async () => {
