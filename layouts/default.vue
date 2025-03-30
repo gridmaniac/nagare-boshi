@@ -12,6 +12,13 @@ watch(newCount, () => {
   }, 2000);
 });
 
+const urlsToCache = ["jmdict-hashmap.json"];
+
+onMounted(async () => {
+  const cache = await caches.open("pwa-assets");
+  return cache.addAll(urlsToCache);
+});
+
 useHead({
   title: "流れ星の学習アプリ",
   meta: [
