@@ -34,7 +34,7 @@ onClickOutside(sentenceEl, () => {
   >
     <label
       for="lesson"
-      class="drawer-button btn btn-xs btn-circle absolute right-5 top-5"
+      class="drawer-button btn btn-xs btn-circle absolute right-5 top-5 size-6"
     >
       <IconOnlineLearning01 />
     </label>

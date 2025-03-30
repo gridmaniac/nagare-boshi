@@ -13,14 +13,6 @@ const copyToClipboard = (text: string) => {
 <template>
   <div class="drawer drawer-end z-2">
     <input id="lesson" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
-      <label
-        for="lesson"
-        class="drawer-button btn btn-xs btn-circle absolute right-5 top-5"
-      >
-        <IconOnlineLearning01 />
-      </label>
-    </div>
     <div class="drawer-side">
       <label
         for="lesson"
@@ -29,7 +21,7 @@ const copyToClipboard = (text: string) => {
       ></label>
       <div class="min-h-full w-80 p-4 backdrop-blur-md">
         <NuxtLink
-          class="btn btn-sm btn-circle absolute top-5 right-5"
+          class="btn btn-sm btn-circle absolute top-5 right-5 size-8"
           :to="url"
           target="_blank"
         >
