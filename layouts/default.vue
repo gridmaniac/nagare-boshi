@@ -50,7 +50,7 @@ useHead({
       {{ progress }}%
     </div>
 
-    <Menu v-if="deckId" class="fixed top-5 left-5" />
+    <Menu v-if="deckId" class="fixed top-safe-5 left-5" />
 
     <ChallengeSelector v-if="!route.params.level" class="fixed top-6 right-3" />
     <NuxtLink v-else class="fixed top-6 right-3" to="/">
@@ -73,3 +73,9 @@ useHead({
     </Transition>
   </div>
 </template>
+
+<style scoped>
+.top-safe-5 {
+  top: calc(env(safe-area-inset-top) + 1.25rem);
+}
+</style>
