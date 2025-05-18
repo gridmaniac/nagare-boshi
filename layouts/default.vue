@@ -50,12 +50,17 @@ useHead({
       {{ progress }}%
     </div>
 
-    <Menu v-if="deckId" class="fixed top-safe-5 left-5" />
+    <template v-if="deckId">
+      <Menu class="fixed top-safe-5 left-5" />
 
-    <ChallengeSelector v-if="!route.params.level" class="fixed top-6 right-3" />
-    <NuxtLink v-else class="fixed top-6 right-3" to="/">
-      <IconCancel02 class="btn" />
-    </NuxtLink>
+      <ChallengeSelector
+        v-if="!route.params.level"
+        class="fixed top-safe-6 right-3"
+      />
+      <NuxtLink v-else class="fixed top-safe-6 right-3" to="/">
+        <IconCancel02 class="btn" />
+      </NuxtLink>
+    </template>
 
     <Stats />
     <div class="p-5 min-h-screen flex flex-col justify-center items-center">
@@ -77,5 +82,9 @@ useHead({
 <style scoped>
 .top-safe-5 {
   top: calc(env(safe-area-inset-top) + 1.25rem);
+}
+
+.top-safe-6 {
+  top: calc(env(safe-area-inset-top) + 1.5rem);
 }
 </style>
