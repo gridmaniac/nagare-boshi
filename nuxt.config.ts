@@ -45,6 +45,10 @@ export default defineNuxtConfig({
         },
         {
           rel: "apple-touch-startup-image",
+          href: "splash/apple-splash-2556-1179.jpg",
+        },
+        {
+          rel: "apple-touch-startup-image",
           href: "splash/apple-splash-2048-2732.jpg",
           media:
             "(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
@@ -288,8 +292,8 @@ export default defineNuxtConfig({
       name: "流れ星",
       short_name: "流れ星",
       description: "Leverage Imiwa? backup to study SRS flashcards.",
-      background_color: "#09002f",
-      theme_color: "#09002f",
+      background_color: "#120b3d",
+      theme_color: "#120b3d",
       icons: [
         {
           src: "icons/icon-64x64.png",
