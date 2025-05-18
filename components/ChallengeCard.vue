@@ -34,9 +34,9 @@ onClickOutside(sentenceEl, () => {
   >
     <label
       for="lesson"
-      class="drawer-button btn btn-xs btn-circle absolute right-5 top-5 size-6"
+      class="drawer-button btn btn-xs btn-circle absolute right-5 top-5"
     >
-      <IconOnlineLearning01 />
+      <IconOnlineLearning01 class="size-6" />
     </label>
     <div class="card-body flex flex-col gap-5">
       <h2 ref="sentenceEl" class="card-title block">

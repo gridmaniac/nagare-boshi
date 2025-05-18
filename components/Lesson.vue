@@ -21,11 +21,11 @@ const copyToClipboard = (text: string) => {
       ></label>
       <div class="min-h-full w-80 p-4 backdrop-blur-md">
         <NuxtLink
-          class="btn btn-sm btn-circle absolute top-5 right-5 size-8"
+          class="btn btn-sm btn-circle absolute top-5 right-5"
           :to="url"
           target="_blank"
         >
-          <IconLibrary />
+          <IconLibrary class="size-8" />
         </NuxtLink>
         <div class="flex flex-wrap gap-3 mr-10">
           <NuxtLink
