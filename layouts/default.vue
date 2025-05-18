@@ -38,6 +38,7 @@ useHead({
 <template>
   <div class="bg-base-200 overflow-hidden">
     <NuxtPwaManifest />
+    <Splash />
     <ShootingStars />
 
     <div
