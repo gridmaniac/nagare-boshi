@@ -59,7 +59,7 @@ export default defineNuxtConfig({
       name: "流れ星",
       short_name: "流れ星",
       description: "Leverage Imiwa? backup to study SRS flashcards.",
-      background_color: "#09002f",
+      background_color: "#120b3d",
       theme_color: "#09002f",
       icons: [
         {
