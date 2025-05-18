@@ -51,7 +51,7 @@ span::before {
 }
 
 span:nth-child(1) {
-  top: 0;
+  top: -10px;
   right: 0;
   left: initial;
   animation-delay: 0s;
@@ -59,7 +59,7 @@ span:nth-child(1) {
 }
 
 span:nth-child(2) {
-  top: 0;
+  top: -10px;
   right: 80px;
   left: initial;
   animation-delay: 0.2s;
@@ -67,15 +67,15 @@ span:nth-child(2) {
 }
 
 span:nth-child(3) {
-  top: 80;
-  right: 0px;
+  top: 80px;
+  right: -10px;
   left: initial;
   animation-delay: 0.4s;
   animation-duration: 2s;
 }
 
 span:nth-child(4) {
-  top: 0;
+  top: -10px;
   right: 180px;
   left: initial;
   animation-delay: 0.6s;
@@ -83,7 +83,7 @@ span:nth-child(4) {
 }
 
 span:nth-child(5) {
-  top: 0;
+  top: -10px;
   right: 400px;
   left: initial;
   animation-delay: 0.8s;
@@ -91,7 +91,7 @@ span:nth-child(5) {
 }
 
 span:nth-child(6) {
-  top: 0;
+  top: -10px;
   right: 600px;
   left: initial;
   animation-delay: 1s;
@@ -100,14 +100,14 @@ span:nth-child(6) {
 
 span:nth-child(7) {
   top: 300px;
-  right: 0px;
+  right: -10px;
   left: initial;
   animation-delay: 1.2s;
   animation-duration: 1.75s;
 }
 
 span:nth-child(8) {
-  top: 0px;
+  top: -10px;
   right: 700px;
   left: initial;
   animation-delay: 1.4s;
@@ -115,7 +115,7 @@ span:nth-child(8) {
 }
 
 span:nth-child(9) {
-  top: 0px;
+  top: -10px;
   right: 1000px;
   left: initial;
   animation-delay: 0.75s;
@@ -123,7 +123,7 @@ span:nth-child(9) {
 }
 
 span:nth-child(9) {
-  top: 0px;
+  top: -10px;
   right: 450px;
   left: initial;
   animation-delay: 2.75s;
