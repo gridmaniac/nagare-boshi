@@ -38,6 +38,8 @@ useHead({
 <template>
   <div class="bg-base-200 overflow-hidden">
     <NuxtPwaManifest />
+    <ShootingStars />
+
     <div
       v-if="isLoading"
       class="radial-progress absolute bottom-5 right-5"
@@ -55,7 +57,6 @@ useHead({
       <IconCancel02 class="btn" />
     </NuxtLink>
 
-    <ShootingStars />
     <Stats />
     <div class="p-5 min-h-screen flex flex-col justify-center items-center">
       <div class="max-w-2xl w-full">
