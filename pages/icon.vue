@@ -5,7 +5,7 @@ const isBorder = ref(false);
 <template>
   <div class="flex flex-col gap-5 items-center">
     <div
-      class="card bg-base-200 size-[512px] flex justify-center items-center"
+      class="card bg-base-300 size-[512px] flex justify-center items-center"
       :class="{
         'border border-primary': isBorder,
       }"
@@ -14,7 +14,7 @@ const isBorder = ref(false);
     </div>
 
     <div
-      class="card bg-base-200 size-[192px] flex justify-center items-center"
+      class="card bg-base-300 size-[192px] flex justify-center items-center"
       :class="{
         'border border-primary': isBorder,
       }"
@@ -23,7 +23,7 @@ const isBorder = ref(false);
     </div>
 
     <div
-      class="card bg-base-200 size-[144px] flex justify-center items-center"
+      class="card bg-base-300 size-[144px] flex justify-center items-center"
       :class="{
         'border border-primary': isBorder,
       }"
@@ -32,7 +32,7 @@ const isBorder = ref(false);
     </div>
 
     <div
-      class="card bg-base-200 size-[64px] flex justify-center items-center"
+      class="card bg-base-300 size-[64px] flex justify-center items-center"
       :class="{
         'border border-primary': isBorder,
       }"
