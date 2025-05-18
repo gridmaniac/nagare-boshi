@@ -43,10 +43,6 @@ export default defineNuxtConfig({
           type: "image/png",
           href: "icons/icon-192x192.png",
         },
-        {
-          rel: "apple-touch-startup-image",
-          href: "splash/apple-splash-2556-1179.jpg",
-        },
       ],
     },
   },

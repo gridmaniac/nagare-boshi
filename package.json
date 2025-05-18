@@ -7,8 +7,7 @@
     "dev": "nuxt dev --host 0.0.0.0",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "splash": "npx pwa-asset-generator ./public/icons/icon-192x192.png -b '#120b3d' -path 'public/splash' -h"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@pinia/colada": "^0.13.7",

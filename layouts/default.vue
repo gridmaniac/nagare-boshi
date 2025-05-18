@@ -32,6 +32,12 @@ useHead({
       content: "https://nagare-boshi.vercel.app/icons/icon-512x512.png",
     },
   ],
+  script: [
+    {
+      src: "https://cdn.jsdelivr.net/npm/ios-pwa-splash@1.0.0/cdn.min.js",
+      onload: "iosPWASplash('icons/icon-192x192.png', '#ff0000')",
+    },
+  ],
 });
 </script>
 
