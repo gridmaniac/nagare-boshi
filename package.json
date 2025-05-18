@@ -16,13 +16,16 @@
     "@tailwindcss/vite": "^4.0.9",
     "@vite-pwa/nuxt": "^0.10.6",
     "@vueuse/nuxt": "^13.0.0",
-    "cheerio": "^1.0.0",
     "daisyui": "^5.0.0",
     "nuxt": "^3.15.4",
     "nuxt-mongoose": "^1.0.6",
     "pinia": "^3.0.1",
     "tailwindcss": "^4.0.9",
+    "unofficial-jisho-api": "^2.3.4",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
+  },
+  "overrides": {
+    "cheerio": "1.0.0-rc.12"
   }
 }

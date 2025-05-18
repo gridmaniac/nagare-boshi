@@ -128,7 +128,7 @@ onBeforeUnmount(() => {
         @touchend="holdEnd"
       />
     </Transition>
-    <div class="divider"></div>
+    <TextMeta v-if="!!card" :text="card.text" />
     <div
       v-if="!isDeckCardLoading && card"
       class="flex w-full join shadow-xl sm:hidden"

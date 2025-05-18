@@ -75,19 +75,7 @@ interface ImiwaItem {
   value: string;
 }
 
-interface Question {
-  text: string;
-  options: string[];
-  answer: number;
-}
-
-interface Vocabulary {
-  text: string;
-  reading: string;
-  meaning: string;
-}
-
-interface Grammar {
-  text: string;
-  url: string;
+interface Meta {
+  isCommon: boolean;
+  jlpt: string | null;
 }
