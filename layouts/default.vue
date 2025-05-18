@@ -59,11 +59,15 @@ useHead({
     <template v-if="deckId">
       <Menu class="fixed top-safe-5 left-5" />
 
-      <ChallengeSelector
-        v-if="!route.params.level"
+      <NuxtLink
+        v-if="route.path.indexOf('list') === -1"
         class="fixed top-safe-6 right-3"
-      />
-      <NuxtLink v-else class="fixed top-safe-6 right-3" to="/">
+        :to="`/${deckId}/list`"
+      >
+        <IconMore class="btn" />
+      </NuxtLink>
+
+      <NuxtLink v-else class="fixed top-safe-6 right-3" :to="`/${deckId}`">
         <IconCancel02 class="btn" />
       </NuxtLink>
     </template>

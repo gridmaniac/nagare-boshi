@@ -23,6 +23,7 @@ interface DeckCard {
   reviewNum: number;
 
   note: string;
+  delisted: boolean;
 }
 
 interface Review {
@@ -30,7 +31,7 @@ interface Review {
   choice: ReviewChoice;
 }
 
-type ReviewChoice = "hard" | "good" | "easy";
+type ReviewChoice = "delist" | "good" | "cake";
 
 interface Note {
   cardId: string;

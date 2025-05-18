@@ -1,12 +1,12 @@
 <script setup lang="ts">
-const props = defineProps<{ card: Card }>();
+const props = defineProps<{ card: Card; box: number }>();
 
 const { tokens, sentence } = useTokens();
 const { refetch: refetchStats } = useStats();
 const { deckCard } = useDeckCard();
 
-const hasTranslationsBlur = ref(true);
-const hasExamplesBlur = ref(true);
+const hasTranslationBlur = ref(props.box !== BOX_LIMIT - 1);
+const hasSourceBlur = ref(props.box === BOX_LIMIT - 1);
 
 const sentenceEl = ref<HTMLElement | null>(null);
 
@@ -25,8 +25,8 @@ const example = computed(() => {
 });
 
 const clearBlur = () => {
-  hasTranslationsBlur.value = false;
-  hasExamplesBlur.value = false;
+  hasTranslationBlur.value = false;
+  hasSourceBlur.value = false;
 };
 
 const copyToClipboard = (text: string) => {
@@ -64,10 +64,13 @@ onClickOutside(sentenceEl, () => {
             class="tooltip tooltip-top"
             :class="{
               'tooltip-open': isTextSelected,
+              'blur-sm': hasSourceBlur,
             }"
             :data-tip="card.kana"
             @touchstart="isTextSelected = true"
-            @click="copyToClipboard(card.text || card.kana)"
+            @click="
+              copyToClipboard(card.text || card.kana), (hasSourceBlur = false)
+            "
           >
             <span>{{ card.text || card.kana }}</span>
           </div>
@@ -76,9 +79,9 @@ onClickOutside(sentenceEl, () => {
           <div
             class="flex gap-2 transition-all duration-300 ease-in-out w-max"
             :class="{
-              'blur-sm': hasTranslationsBlur,
+              'blur-sm': hasTranslationBlur,
             }"
-            @click="clearBlur"
+            @click="hasTranslationBlur = false"
           >
             <kbd
               v-if="deckCard?.note"
@@ -92,7 +95,12 @@ onClickOutside(sentenceEl, () => {
       </h2>
 
       <section class="flex flex-col gap-2">
-        <p ref="sentenceEl" class="text-3xl">
+        <p
+          ref="sentenceEl"
+          class="text-3xl"
+          :class="{ 'blur-sm': hasSourceBlur }"
+          @click="hasSourceBlur = false"
+        >
           <span
             v-for="(token, index) in tokens"
             :key="token.text + index"
@@ -122,8 +130,8 @@ onClickOutside(sentenceEl, () => {
         </p>
         <p
           class="text-1xl transition-all duration-300 ease-in-out italic text-right"
-          :class="{ 'blur-sm': hasExamplesBlur }"
-          @click="clearBlur"
+          :class="{ 'blur-sm': hasTranslationBlur }"
+          @click="hasTranslationBlur = false"
         >
           {{ example.translation }}
         </p>

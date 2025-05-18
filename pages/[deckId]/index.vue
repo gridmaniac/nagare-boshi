@@ -47,7 +47,7 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
   switch (key) {
     case "1":
       hardBtn.value?.focus();
-      doReview("easy");
+      doReview("delist");
       break;
     case "2":
       goodBtn.value?.focus();
@@ -55,7 +55,7 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
       break;
     case "3":
       easyBtn.value?.focus();
-      doReview("hard");
+      doReview("cake");
       break;
   }
 };
@@ -115,8 +115,9 @@ onBeforeUnmount(() => {
     <progress v-if="!card && isCardLoading" class="progress w-full"></progress>
     <Transition name="rotate">
       <Card
-        v-if="!isDeckCardLoading && card"
+        v-if="!isDeckCardLoading && card && deckCard"
         :card="card"
+        :box="deckCard.box"
         class="transition-all duration-300 ease-in-out"
         :class="{
           'scale-105 shadow-2xl': isHolding,
@@ -134,9 +135,9 @@ onBeforeUnmount(() => {
     >
       <button
         class="btn btn-xl btn-soft join-item btn-error flex-1"
-        @click="doReview('hard')"
+        @click="doReview('delist')"
       >
-        😓
+        🪣
       </button>
       <button
         class="btn btn-xl btn-soft join-item btn-info flex-1"
@@ -146,9 +147,9 @@ onBeforeUnmount(() => {
       </button>
       <button
         class="btn btn-xl btn-soft join-item btn-success flex-1"
-        @click="doReview('easy')"
+        @click="doReview('cake')"
       >
-        👍🏼
+        🍰
       </button>
     </div>
     <div class="w-full join shadow-xl sm:flex hidden">
@@ -156,14 +157,14 @@ onBeforeUnmount(() => {
         ref="hardBtn"
         class="btn btn-xl btn-soft join-item btn-error flex-1"
         :disabled="!card || isDeckCardLoading"
-        @click="doReview('hard')"
+        @click="doReview('delist')"
       >
         <kbd
           class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
         >
           1
         </kbd>
-        Hard
+        Delist
       </button>
       <button
         ref="goodBtn"
@@ -182,14 +183,14 @@ onBeforeUnmount(() => {
         ref="easyBtn"
         class="btn btn-xl btn-soft join-item btn-success flex-1"
         :disabled="!card || isDeckCardLoading"
-        @click="doReview('easy')"
+        @click="doReview('cake')"
       >
         <kbd
           class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
         >
           3
         </kbd>
-        Easy
+        Cake
       </button>
     </div>
   </div>

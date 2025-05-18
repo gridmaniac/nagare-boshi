@@ -9,4 +9,5 @@ export const DeckCard = defineMongooseModel<DeckCard>("DeckCard", {
   reviewAfter: Date,
   reviewNum: Number,
   note: String,
+  delisted: Boolean,
 });
