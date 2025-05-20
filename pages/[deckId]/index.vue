@@ -114,15 +114,6 @@ async function getOrientation() {
 }
 
 onMounted(async () => {
-  window.addEventListener("devicemotion", function (e) {
-    // let requestBtn = document.querySelector("#get-motion");
-    // if (requestBtn) {
-    //   requestBtn.remove();
-    // }
-
-    Object.assign(orientation, e.accelerationIncludingGravity);
-  });
-
   window.addEventListener("deviceorientation", function (e) {
     // let requestBtn = document.querySelector("#get-orientation");
     // if (requestBtn){requestBtn.remove();}
@@ -169,7 +160,8 @@ onMounted(async () => {
           'scale-105 shadow-2xl': isHolding,
         }"
         :style="{
-          transform: `rotateX(${orientation.beta}deg) rotateY(${orientation.gamma}deg) rotateZ(${orientation.alpha}deg)`,
+          // transform: `rotateX(${(orientation.beta - 90) * 0.3}deg)`,
+          transform: `rotate3d(1, 0, 0, ${90 - orientation.beta}deg)`,
         }"
         @mousedown="holdStart"
         @touchstart="holdStart"
