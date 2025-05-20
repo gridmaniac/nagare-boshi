@@ -90,41 +90,6 @@ const holdEnd = () => {
 onBeforeUnmount(() => {
   clearTimeout(timeout);
 });
-
-const orientation = reactive({
-  alpha: 0,
-  beta: 0,
-  gamma: 0,
-});
-
-async function getOrientation() {
-  if (
-    !window.DeviceOrientationEvent ||
-    !window.DeviceOrientationEvent.requestPermission
-  ) {
-    return alert(
-      "Your current device does not have access to the DeviceOrientation event"
-    );
-  }
-
-  let permission = await window.DeviceOrientationEvent.requestPermission();
-  if (permission !== "granted") {
-    return alert("You must grant access to the device's sensor for this demo");
-  }
-}
-
-onMounted(async () => {
-  window.addEventListener("deviceorientation", function (e) {
-    // let requestBtn = document.querySelector("#get-orientation");
-    // if (requestBtn){requestBtn.remove();}
-
-    Object.assign(orientation, {
-      alpha: e.alpha?.toFixed(0),
-      beta: e.beta?.toFixed(0),
-      gamma: e.gamma?.toFixed(0),
-    });
-  });
-});
 </script>
 
 <template>
@@ -147,8 +112,6 @@ onMounted(async () => {
         </label>
       </div>
     </div>
-    <button class="btn" @click="getOrientation">test</button>
-    {{ orientation }}
     <progress v-if="!card && isCardLoading" class="progress w-full"></progress>
     <Transition name="rotate">
       <Card
