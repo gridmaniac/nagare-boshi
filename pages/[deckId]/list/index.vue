@@ -1,3 +1,40 @@
+<script setup lang="ts">
+const { deckId } = useDeck();
+
+async function getMotion() {
+  if (
+    !window.DeviceMotionEvent ||
+    !window.DeviceMotionEvent.requestPermission
+  ) {
+    return alert(
+      "Your current device does not have access to the DeviceMotion event"
+    );
+  }
+
+  let permission = await window.DeviceMotionEvent.requestPermission();
+  if (permission !== "granted") {
+    return alert("You must grant access to the device's sensor for this demo");
+  }
+}
+
+const orientation = reactive({
+  x: 0,
+  y: 0,
+  z: 0,
+});
+
+onMounted(async () => {
+  window.addEventListener("devicemotion", function (e) {
+    // let requestBtn = document.querySelector("#get-motion");
+    // if (requestBtn) {
+    //   requestBtn.remove();
+    // }
+
+    Object.assign(orientation, e.accelerationIncludingGravity);
+  });
+});
+</script>
+
 <template>
   <ul class="list bg-base-100 rounded-box shadow-md">
     <li class="p-4 opacity-60 flex gap-2">
@@ -6,10 +43,15 @@
         placeholder="Type here"
         class="input input-ghost w-full"
       />
-      <button class="btn btn-circle btn-ghost">
+      <NuxtLink class="btn btn-circle btn-ghost" :to="`/${deckId}/list/add`">
         <IconAdd02 class="size-6" />
-      </button>
+      </NuxtLink>
+      <button class="btn" @click="getMotion">test</button>
     </li>
+
+    {{
+      orientation
+    }}
 
     <div class="max-h-[400px] overflow-y-auto">
       <li v-for="i in 10" class="list-row">
