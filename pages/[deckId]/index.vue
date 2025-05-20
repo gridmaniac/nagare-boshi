@@ -71,7 +71,7 @@ const holdStart = () => {
     timeout = setTimeout(async () => {
       isHolding.value = false;
 
-      const value = prompt("Add a note");
+      const value = prompt("Add a note", deckCard.value?.note);
       const note = {
         cardId: deckCard.value?._id || "",
         text: value ? value?.trim().substring(0, 24) : "",
@@ -89,6 +89,23 @@ const holdEnd = () => {
 
 onBeforeUnmount(() => {
   clearTimeout(timeout);
+});
+
+const orientation = reactive({
+  x: 0,
+  y: 0,
+  z: 0,
+});
+
+onMounted(async () => {
+  window.addEventListener("devicemotion", function (e) {
+    // let requestBtn = document.querySelector("#get-motion");
+    // if (requestBtn) {
+    //   requestBtn.remove();
+    // }
+
+    Object.assign(orientation, e.accelerationIncludingGravity);
+  });
 });
 </script>
 
@@ -121,6 +138,9 @@ onBeforeUnmount(() => {
         class="transition-all duration-300 ease-in-out"
         :class="{
           'scale-105 shadow-2xl': isHolding,
+        }"
+        :style="{
+          transform: `rotateX(${-orientation.x}deg) rotateY(${-orientation.y}deg) rotateZ(${-orientation.z}deg)`,
         }"
         @mousedown="holdStart"
         @touchstart="holdStart"

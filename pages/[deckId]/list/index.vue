@@ -16,23 +16,6 @@ async function getMotion() {
     return alert("You must grant access to the device's sensor for this demo");
   }
 }
-
-const orientation = reactive({
-  x: 0,
-  y: 0,
-  z: 0,
-});
-
-onMounted(async () => {
-  window.addEventListener("devicemotion", function (e) {
-    // let requestBtn = document.querySelector("#get-motion");
-    // if (requestBtn) {
-    //   requestBtn.remove();
-    // }
-
-    Object.assign(orientation, e.accelerationIncludingGravity);
-  });
-});
 </script>
 
 <template>
@@ -48,10 +31,6 @@ onMounted(async () => {
       </NuxtLink>
       <button class="btn" @click="getMotion">test</button>
     </li>
-
-    {{
-      orientation
-    }}
 
     <div class="max-h-[400px] overflow-y-auto">
       <li v-for="i in 10" class="list-row">
