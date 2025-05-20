@@ -122,10 +122,6 @@ onBeforeUnmount(() => {
         :class="{
           'scale-105 shadow-2xl': isHolding,
         }"
-        :style="{
-          // transform: `rotateX(${(orientation.beta - 90) * 0.3}deg)`,
-          transform: `rotate3d(1, 0, 0, ${90 - orientation.beta}deg)`,
-        }"
         @mousedown="holdStart"
         @touchstart="holdStart"
         @mouseup="holdEnd"

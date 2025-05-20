@@ -29,7 +29,13 @@ const clearBlur = () => {
   hasSourceBlur.value = false;
 };
 
-const copyToClipboard = (text: string) => {
+const copyToClipboard = async (text: string) => {
+  const clipboardText = await navigator.clipboard.readText();
+  if (clipboardText === text) {
+    window.location.href = `imiwa://search?text=${text}`;
+    return;
+  }
+
   navigator.clipboard.writeText(text);
 };
 
