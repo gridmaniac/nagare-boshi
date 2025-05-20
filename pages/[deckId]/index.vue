@@ -92,22 +92,22 @@ onBeforeUnmount(() => {
 });
 
 const orientation = reactive({
-  x: 0,
-  y: 0,
-  z: 0,
+  alpha: 0,
+  beta: 0,
+  gamma: 0,
 });
 
-async function getMotion() {
+async function getOrientation() {
   if (
-    !window.DeviceMotionEvent ||
-    !window.DeviceMotionEvent.requestPermission
+    !window.DeviceOrientationEvent ||
+    !window.DeviceOrientationEvent.requestPermission
   ) {
     return alert(
-      "Your current device does not have access to the DeviceMotion event"
+      "Your current device does not have access to the DeviceOrientation event"
     );
   }
 
-  let permission = await window.DeviceMotionEvent.requestPermission();
+  let permission = await window.DeviceOrientationEvent.requestPermission();
   if (permission !== "granted") {
     return alert("You must grant access to the device's sensor for this demo");
   }
@@ -121,6 +121,17 @@ onMounted(async () => {
     // }
 
     Object.assign(orientation, e.accelerationIncludingGravity);
+  });
+
+  window.addEventListener("deviceorientation", function (e) {
+    // let requestBtn = document.querySelector("#get-orientation");
+    // if (requestBtn){requestBtn.remove();}
+
+    Object.assign(orientation, {
+      alpha: e.alpha,
+      beta: e.beta,
+      gamma: e.gamma,
+    });
   });
 });
 </script>
@@ -145,7 +156,7 @@ onMounted(async () => {
         </label>
       </div>
     </div>
-    <button class="btn" @click="getMotion">test</button>
+    <button class="btn" @click="getOrientation">test</button>
     {{ orientation }}
     <progress v-if="!card && isCardLoading" class="progress w-full"></progress>
     <Transition name="rotate">
@@ -158,11 +169,11 @@ onMounted(async () => {
           'scale-105 shadow-2xl': isHolding,
         }"
         :style="{
-          transform: `rotateX(${-orientation.x.toFixed(
+          transform: `rotateX(${-orientation.alpha.toFixed(
             0
-          )}deg) rotateY(${-orientation.y.toFixed(
+          )}deg) rotateY(${-orientation.beta.toFixed(
             0
-          )}deg) rotateZ(${-orientation.z.toFixed(0)}deg)`,
+          )}deg) rotateZ(${-orientation.gamma.toFixed(0)}deg)`,
         }"
         @mousedown="holdStart"
         @touchstart="holdStart"
