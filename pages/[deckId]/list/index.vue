@@ -3,7 +3,7 @@ const { deckId } = useDeck();
 </script>
 
 <template>
-  <ul class="list bg-base-100 rounded-box shadow-md">
+  <ul class="card card-xl list bg-base-100/70 shadow-xl backdrop-blur-sm">
     <li class="p-4 opacity-60 flex gap-2">
       <input
         type="text"
