@@ -128,9 +128,9 @@ onMounted(async () => {
     // if (requestBtn){requestBtn.remove();}
 
     Object.assign(orientation, {
-      alpha: e.alpha,
-      beta: e.beta,
-      gamma: e.gamma,
+      alpha: e.alpha?.toFixed(0),
+      beta: e.beta?.toFixed(0),
+      gamma: e.gamma?.toFixed(0),
     });
   });
 });
@@ -169,11 +169,7 @@ onMounted(async () => {
           'scale-105 shadow-2xl': isHolding,
         }"
         :style="{
-          transform: `rotateX(${-orientation.alpha.toFixed(
-            0
-          )}deg) rotateY(${-orientation.beta.toFixed(
-            0
-          )}deg) rotateZ(${-orientation.gamma.toFixed(0)}deg)`,
+          transform: `rotateX(${orientation.beta}deg) rotateY(${orientation.gamma}deg) rotateZ(${orientation.alpha}deg)`,
         }"
         @mousedown="holdStart"
         @touchstart="holdStart"
