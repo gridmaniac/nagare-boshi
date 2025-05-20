@@ -97,6 +97,22 @@ const orientation = reactive({
   z: 0,
 });
 
+async function getMotion() {
+  if (
+    !window.DeviceMotionEvent ||
+    !window.DeviceMotionEvent.requestPermission
+  ) {
+    return alert(
+      "Your current device does not have access to the DeviceMotion event"
+    );
+  }
+
+  let permission = await window.DeviceMotionEvent.requestPermission();
+  if (permission !== "granted") {
+    return alert("You must grant access to the device's sensor for this demo");
+  }
+}
+
 onMounted(async () => {
   window.addEventListener("devicemotion", function (e) {
     // let requestBtn = document.querySelector("#get-motion");
@@ -129,6 +145,8 @@ onMounted(async () => {
         </label>
       </div>
     </div>
+    <button class="btn" @click="getMotion">test</button>
+    {{ orientation }}
     <progress v-if="!card && isCardLoading" class="progress w-full"></progress>
     <Transition name="rotate">
       <Card
@@ -140,7 +158,11 @@ onMounted(async () => {
           'scale-105 shadow-2xl': isHolding,
         }"
         :style="{
-          transform: `rotateX(${-orientation.x}deg) rotateY(${-orientation.y}deg) rotateZ(${-orientation.z}deg)`,
+          transform: `rotateX(${-orientation.x.toFixed(
+            0
+          )}deg) rotateY(${-orientation.y.toFixed(
+            0
+          )}deg) rotateZ(${-orientation.z.toFixed(0)}deg)`,
         }"
         @mousedown="holdStart"
         @touchstart="holdStart"

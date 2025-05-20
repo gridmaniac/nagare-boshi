@@ -1,21 +1,5 @@
 <script setup lang="ts">
 const { deckId } = useDeck();
-
-async function getMotion() {
-  if (
-    !window.DeviceMotionEvent ||
-    !window.DeviceMotionEvent.requestPermission
-  ) {
-    return alert(
-      "Your current device does not have access to the DeviceMotion event"
-    );
-  }
-
-  let permission = await window.DeviceMotionEvent.requestPermission();
-  if (permission !== "granted") {
-    return alert("You must grant access to the device's sensor for this demo");
-  }
-}
 </script>
 
 <template>
@@ -29,7 +13,6 @@ async function getMotion() {
       <NuxtLink class="btn btn-circle btn-ghost" :to="`/${deckId}/list/add`">
         <IconAdd02 class="size-6" />
       </NuxtLink>
-      <button class="btn" @click="getMotion">test</button>
     </li>
 
     <div class="max-h-[400px] overflow-y-auto">
