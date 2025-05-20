@@ -32,6 +32,7 @@ const clearBlur = () => {
 const copyToClipboard = async (text: string) => {
   const clipboardText = await navigator.clipboard.readText();
   if (clipboardText === text) {
+    navigator.clipboard.writeText(text);
     window.location.href = `imiwa://search?text=${text}`;
     return;
   }
