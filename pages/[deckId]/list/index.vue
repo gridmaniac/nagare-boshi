@@ -10,9 +10,7 @@ const { deckId } = useDeck();
         placeholder="Type here"
         class="input input-ghost w-full"
       />
-      <NuxtLink class="btn btn-circle btn-ghost" :to="`/${deckId}/list/add`">
-        <IconAdd02 class="size-6" />
-      </NuxtLink>
+      <Modal />
     </li>
 
     <div class="max-h-[400px] overflow-y-auto">
