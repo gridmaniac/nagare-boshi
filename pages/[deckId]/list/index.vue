@@ -52,7 +52,12 @@ definePageMeta({
           type="search"
           placeholder="Type here"
         />
-        <kbd class="kbd sm:hidden" @click="debouncedSearch = ''">×</kbd>
+        <kbd
+          v-if="debouncedSearch"
+          class="kbd sm:hidden"
+          @click="debouncedSearch = ''"
+          >×</kbd
+        >
       </label>
       <Modal v-model="activeListItem">
         <button
