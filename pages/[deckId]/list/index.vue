@@ -62,7 +62,7 @@ definePageMeta({
       </Modal>
     </li>
 
-    <div class="max-h-[400px] overflow-y-auto">
+    <div class="max-h-[400px] overflow-y-auto overflow-x-hidden">
       <div v-if="isLoading" class="flex flex-col gap-2 p-2">
         <div class="skeleton h-20 w-full"></div>
         <div class="skeleton h-20 w-full"></div>
