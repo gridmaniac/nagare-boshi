@@ -46,7 +46,7 @@ definePageMeta({
   <ul class="card card-xl list bg-base-100/70 shadow-xl backdrop-blur-sm">
     <li class="p-4 opacity-60 flex gap-2">
       <input
-        v-model="debouncedSearch"
+        v-model.trim="debouncedSearch"
         type="text"
         placeholder="Type here"
         class="input input-ghost w-full"
