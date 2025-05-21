@@ -68,7 +68,7 @@ definePageMeta({
         <div class="flex flex-col gap-2 items-start">
           <div class="flex gap-2 items-center">
             <div class="dropdown dropdown-right">
-              <button class="status status-xl cursor-pointer" />
+              <button tabindex="0" class="status status-xl cursor-pointer" />
               <ul
                 class="dropdown-content menu menu-xl bg-base-100 rounded-box z-1 p-2 shadow-sm"
               >
