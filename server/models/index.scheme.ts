@@ -11,3 +11,16 @@ export const DeckCard = defineMongooseModel<DeckCard>("DeckCard", {
   note: String,
   delisted: Boolean,
 });
+
+export const ListItem = defineMongooseModel<ListItem>("ListItem", {
+  deckId: String,
+  text: String,
+  meaning: String,
+  tags: String,
+  sentences: String,
+  translations: String,
+  reviewNum: {
+    type: Number,
+    default: 0,
+  },
+});

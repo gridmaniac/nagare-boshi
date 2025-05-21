@@ -79,3 +79,14 @@ interface Meta {
   isCommon: boolean;
   jlpt: string | null;
 }
+
+interface ListItem {
+  _id?: string;
+  deckId: string;
+  text: string;
+  meaning: string;
+  tags: string;
+  sentences?: string;
+  translations?: string;
+  reviewNum?: number;
+}

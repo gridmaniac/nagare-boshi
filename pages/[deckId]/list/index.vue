@@ -1,38 +1,115 @@
 <script setup lang="ts">
+const { listItems, debouncedSearch, isLoading } = useListItems();
 const { deckId } = useDeck();
+const { deleteListItemById } = useDeleteListItem();
+
+const emptyListItem = {
+  deckId: deckId.value,
+  text: "",
+  meaning: "",
+  tags: "",
+  sentences: "",
+  translations: "",
+};
+
+const activeListItem = ref<ListItem>({ ...emptyListItem });
+
+const setListItem = (listItem?: ListItem) => {
+  if (listItem) {
+    activeListItem.value = { ...listItem };
+    return;
+  }
+
+  activeListItem.value = { ...emptyListItem };
+};
+
+const deleteListItem = async (listItem: ListItem) => {
+  if (!listItem._id) return;
+  if (!confirm("Are you sure you want to delete this item?")) return;
+  await deleteListItemById(listItem._id);
+};
+
+definePageMeta({
+  pageTransition: false,
+});
 </script>
 
 <template>
   <ul class="card card-xl list bg-base-100/70 shadow-xl backdrop-blur-sm">
     <li class="p-4 opacity-60 flex gap-2">
       <input
+        v-model="debouncedSearch"
         type="text"
         placeholder="Type here"
         class="input input-ghost w-full"
       />
-      <Modal />
+      <Modal v-model="activeListItem">
+        <button
+          class="btn btn-circle btn-ghost"
+          onclick="modal.showModal()"
+          @click="setListItem()"
+        >
+          <IconAdd02 class="size-6" />
+        </button>
+      </Modal>
     </li>
 
     <div class="max-h-[400px] overflow-y-auto">
-      <li v-for="i in 10" class="list-row">
-        <div class="flex flex-col gap-2">
+      <div v-if="isLoading" class="flex flex-col gap-2 p-2">
+        <div class="skeleton h-20 w-full"></div>
+        <div class="skeleton h-20 w-full"></div>
+      </div>
+      <li
+        v-else
+        v-for="listItem in listItems"
+        :key="listItem._id"
+        class="list-row"
+      >
+        <div class="flex flex-col gap-2 items-start">
           <div class="flex gap-2 items-center">
-            <button class="status status-xl" />
-            <div class="text-2xl text-neutral-100">〜と〜とどちらが</div>
+            <div class="dropdown dropdown-right">
+              <button class="status status-xl cursor-pointer" />
+              <ul
+                class="dropdown-content menu menu-xl bg-base-100 rounded-box z-1 p-2 shadow-sm"
+              >
+                <li>
+                  <button
+                    onclick="modal.showModal()"
+                    @click="setListItem(listItem)"
+                  >
+                    ✏️
+                  </button>
+                </li>
+                <li>
+                  <button @click="deleteListItem(listItem)">🪣</button>
+                </li>
+              </ul>
+            </div>
+
+            <div class="text-2xl text-neutral-100">{{ listItem.text }}</div>
           </div>
 
           <div
-            class="text-xl font-semibold tooltip"
-            data-tip="Should I add debug messages or can we do it on this computer?"
+            v-for="(sentence, index) in listItem.sentences?.split('。')"
+            :key="index"
           >
-            私がデバッグ・メッセージを追加するのと、このコンピューターでやるのと、どっちがいい？
+            <template v-if="!!sentence">
+              <Sentence :sentence="sentence" />
+              <div>{{ listItem.translations?.split(".")[index] }}.</div>
+            </template>
           </div>
 
-          <div class="flex gap-2">
+          <div class="flex gap-2 flex-wrap">
             <div class="badge badge-outline badge-primary uppercase">
-              вариант из двух
+              {{ listItem.meaning }}
             </div>
-            <div class="badge badge-outline uppercase">dochi</div>
+            <div
+              v-for="tag in listItem.tags.split(',').filter((r) => r)"
+              class="badge badge-outline uppercase"
+              @click="debouncedSearch = tag"
+            >
+              {{ tag }}
+            </div>
           </div>
         </div>
       </li>

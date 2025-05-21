@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const props = defineProps<{ text: string }>();
+const props = defineProps<{ text?: string }>();
 
 const { text, meta } = useTextMeta();
-text.value = props.text;
+text.value = props.text || "";
 </script>
 
 <template>
