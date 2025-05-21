@@ -45,12 +45,15 @@ definePageMeta({
 <template>
   <ul class="card card-xl list bg-base-100/70 shadow-xl backdrop-blur-sm">
     <li class="p-4 opacity-60 flex gap-2">
-      <input
-        class="input input-ghost w-full"
-        v-model.trim="debouncedSearch"
-        type="search"
-        placeholder="Type here"
-      />
+      <label class="input input-ghost w-full">
+        <input
+          class="grow"
+          v-model.trim="debouncedSearch"
+          type="search"
+          placeholder="Type here"
+        />
+        <kbd class="kbd sm:hidden" @click="debouncedSearch = ''">×</kbd>
+      </label>
       <Modal v-model="activeListItem">
         <button
           class="btn btn-circle btn-ghost"
