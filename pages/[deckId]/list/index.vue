@@ -1,7 +1,10 @@
 <script setup lang="ts">
+const { params } = useRoute();
 const { listItems, debouncedSearch, isLoading } = useListItems();
-const { deckId } = useDeck();
+const { deckId, error } = useDeck();
 const { deleteListItemById } = useDeleteListItem();
+
+deckId.value = String(params.deckId);
 
 const emptyListItem = {
   deckId: deckId.value,
@@ -28,6 +31,11 @@ const deleteListItem = async (listItem: ListItem) => {
   if (!confirm("Are you sure you want to delete this item?")) return;
   await deleteListItemById(listItem._id);
 };
+
+watch(error, () => {
+  localStorage.removeItem("deckId");
+  navigateTo("/");
+});
 
 definePageMeta({
   pageTransition: false,
