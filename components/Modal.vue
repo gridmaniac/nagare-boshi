@@ -2,6 +2,7 @@
 const model = defineModel<ListItem>();
 
 const { upsertListItem } = useUpsertListItem();
+const { debouncedSearch } = useListItems();
 
 const tags = computed(() => {
   if (!model.value) return [];
@@ -21,6 +22,13 @@ const removeTag = (index: number) => {
   if (!model.value) return;
   model.value.tags = tags.value.filter((_, i) => i !== index).join(",");
 };
+
+const submit = async () => {
+  if (!model.value) return;
+
+  await upsertListItem(model.value);
+  debouncedSearch.value = model.value.text;
+};
 </script>
 
 <template>
@@ -30,7 +38,7 @@ const removeTag = (index: number) => {
       v-if="model"
       method="dialog"
       class="modal-box flex flex-col gap-3"
-      @submit="upsertListItem(model)"
+      @submit="submit"
     >
       <div class="flex flex-col gap-2">
         <label class="input input-xl w-full">
