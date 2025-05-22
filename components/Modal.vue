@@ -33,13 +33,17 @@ const removeTag = (index: number) => {
       @submit="upsertListItem(model)"
     >
       <div class="flex flex-col gap-2">
-        <input
-          class="input input-xl w-full"
-          v-model.trim="model.text"
-          type="text"
-          placeholder="一言"
-          required
-        />
+        <label class="input input-xl w-full">
+          <input
+            class="grow"
+            v-model.trim="model.text"
+            type="text"
+            placeholder="一言"
+            required
+          />
+          <kbd class="kbd kbd-xl" @click="model.text += '〜'">〜</kbd>
+          <kbd class="kbd kbd-xl" @click="model.text += '・'">・</kbd>
+        </label>
         <input
           class="input input-lg w-full"
           v-model.trim="model.meaning"
