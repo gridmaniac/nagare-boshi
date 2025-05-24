@@ -24,13 +24,13 @@ export default defineEventHandler(async () => {
     for (let i = 0; i < items.length; i++) {
       if (!items[i]) continue;
 
-      examples += `<i>${items[i].trim()}。</i>\n`;
+      examples += `<em>${items[i].trim()}。</em>\n`;
       examples += `${listItem.translations?.split(".")[i].trim() || ""}.\n\n`;
     }
 
     await bot.sendMessage(
       chat.chatId,
-      `<b>${listItem.text}</b>\n\n${examples}<pre>${listItem.meaning}</pre>\n<a href="https://nagare-boshi.vercel.app/${chat.deckId}/list?search=${listItem.text}">Show more</a>\n`,
+      `<b>${listItem.text}</b>\n\n${examples}<pre>${listItem.meaning}  </pre>\n<a href="https://nagare-boshi.vercel.app/${chat.deckId}/list?search=${listItem.text}">Show more</a>\n`,
       { parse_mode: "HTML" }
     );
 
