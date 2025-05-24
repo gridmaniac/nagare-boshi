@@ -1,10 +1,11 @@
 <script setup lang="ts">
-const { params } = useRoute();
+const { params, query } = useRoute();
 const { listItems, debouncedSearch, isLoading } = useListItems();
 const { deckId, error } = useDeck();
 const { deleteListItemById } = useDeleteListItem();
 
 deckId.value = String(params.deckId);
+debouncedSearch.value = (query.search as string) || "";
 
 const emptyListItem = {
   deckId: deckId.value,
