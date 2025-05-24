@@ -31,7 +31,7 @@ export default defineEventHandler(async () => {
     await bot.sendMessage(
       chat.chatId,
       `<b>${listItem.text}</b>\n\n${examples}<pre>${listItem.meaning}  </pre>\n<a href="https://nagare-boshi.vercel.app/${chat.deckId}/list?search=${listItem.text}">Show more</a>\n`,
-      { parse_mode: "HTML" }
+      { parse_mode: "HTML", disable_web_page_preview: true }
     );
 
     // listItem.reviewNum++;
