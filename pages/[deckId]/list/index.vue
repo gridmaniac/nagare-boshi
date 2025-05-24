@@ -53,7 +53,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="flex flex-col gap-10 items-center">
+  <div>
     <ul class="card card-xl list bg-base-100/70 shadow-xl backdrop-blur-sm">
       <li class="p-4 opacity-60 flex gap-2">
         <label class="input input-ghost w-full">
@@ -142,7 +142,10 @@ definePageMeta({
         </li>
       </div>
     </ul>
-    <button class="btn btn-xl btn-circle bg-base-300" @click="getListItem">
+    <button
+      class="btn btn-xl btn-circle bg-base-300 fixed bottom-16 right-[calc(50%-2rem)]"
+      @click="getListItem"
+    >
       💠
     </button>
   </div>
