@@ -306,6 +306,9 @@ export default defineNuxtConfig({
     modelsDir: "models",
     devtools: true,
   },
+  runtimeConfig: {
+    telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
+  },
   imports: {
     dirs: ["queries", "mutations"],
   },
