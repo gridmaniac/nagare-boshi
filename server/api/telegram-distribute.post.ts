@@ -36,7 +36,7 @@ export default defineEventHandler(async () => {
       { parse_mode: "HTML", disable_web_page_preview: true }
     );
 
-    // listItem.reviewNum++;
+    listItem.reviewNum++;
     await listItem.save();
     await delay(1000);
   }
