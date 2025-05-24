@@ -22,8 +22,10 @@ export default defineEventHandler(async () => {
 
     const items = listItem.sentences?.split("。") || [];
     for (let i = 0; i < items.length; i++) {
-      examples += `<i>${items[i]}。</i>\n`;
-      examples += `${listItem.translations?.split(".")[i] || ""}.\n\n`;
+      if (!items[i]) continue;
+
+      examples += `<i>${items[i].trim()}。</i>\n`;
+      examples += `${listItem.translations?.split(".")[i].trim() || ""}.\n\n`;
     }
 
     await bot.sendMessage(
@@ -32,7 +34,7 @@ export default defineEventHandler(async () => {
       { parse_mode: "HTML" }
     );
 
-    listItem.reviewNum++;
+    // listItem.reviewNum++;
     await listItem.save();
     await delay(1000);
   }
