@@ -5,7 +5,7 @@ export const useTokens = () => {
   const { data: tokens, ...query } = useQuery({
     key: () => ["sentence", sentence.value],
     staleTime: 0,
-    enabled: () => !!sentence.value,
+    enabled: () => import.meta.client && !!sentence.value,
     query: async () => {
       await ensureReady();
       return tokenize(sentence.value);
