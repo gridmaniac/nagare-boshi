@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
           <b>〜あまり</b> \n
           <i>喜びのあまり、万歳と叫びたい思いだった。</i> \n
           I wanted to shout with joy. \n
-          多くの人は自立を求めるあまり、わがままな理由で離婚しようとする。</i> \n
+          <i>多くの人は自立を求めるあまり、わがままな理由で離婚しようとする。</i> \n
           Many people leave their marriages for selfish reasons in the name of independence. \n
           <pre>настолько, что</pre> \n
           <a href="http://www.google.com/">Show more</a> \n
