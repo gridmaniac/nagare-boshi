@@ -29,7 +29,8 @@ export default defineEventHandler(async (event) => {
           Many people leave their marriages for selfish reasons in the name of independence. \n
           <pre>настолько, что</pre> \n
           <a href="http://www.google.com/">Show more</a> \n
-        `
+        `,
+        { parse_mode: "HTML" }
       );
     }
 
