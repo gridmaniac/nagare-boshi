@@ -30,7 +30,7 @@ export default defineEventHandler(async () => {
 
     await bot.sendMessage(
       chat.chatId,
-      `<b>${listItem.text}</b>\n\n${examples}<pre>${listItem.meaning}</pre>\n<a href="https://nagare-boshi.vercel.app/67cdd499c7f4356f86f02e98/list?search=${listItem.text}">Show more</a>\n`,
+      `<b>${listItem.text}</b>\n\n${examples}<pre>${listItem.meaning}</pre>\n<a href="https://nagare-boshi.vercel.app/${chat.deckId}/list?search=${listItem.text}">Show more</a>\n`,
       { parse_mode: "HTML" }
     );
 
