@@ -3,6 +3,8 @@ let textMap: Record<string, string>;
 let kanaMap: Record<string, string>;
 
 export const useDictionary = () => {
+  const isReady = useState("isReady", () => false);
+
   const ensureReady = async () => {
     if (!cardMap) {
       cardMap = await $fetch("/jmdict-hashmap.json");
@@ -16,6 +18,8 @@ export const useDictionary = () => {
         acc[card.kana] = card.id;
         return acc;
       }, {} as Record<string, string>);
+
+      isReady.value = true;
     }
   };
 
@@ -89,5 +93,6 @@ export const useDictionary = () => {
     ensureReady,
     getCard,
     tokenize,
+    isReady,
   };
 };

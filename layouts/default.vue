@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { deckId } = useDeck();
 const { isLoading, progress, newCount } = useRunBatch();
+const { ensureReady } = useDictionary();
 const route = useRoute();
 
 const toast = ref(false);
@@ -33,6 +34,8 @@ useHead({
     },
   ],
 });
+
+onMounted(ensureReady);
 </script>
 
 <template>

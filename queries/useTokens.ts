@@ -1,13 +1,12 @@
 export const useTokens = () => {
   const sentence = ref("");
-  const { tokenize, ensureReady } = useDictionary();
+  const { tokenize, isReady } = useDictionary();
 
   const { data: tokens, ...query } = useQuery({
     key: () => ["sentence", sentence.value],
     staleTime: 0,
-    enabled: () => import.meta.client && !!sentence.value,
+    enabled: () => isReady.value && !!sentence.value,
     query: async () => {
-      await ensureReady();
       return tokenize(sentence.value);
     },
   });
