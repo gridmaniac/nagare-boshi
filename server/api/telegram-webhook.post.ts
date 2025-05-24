@@ -17,18 +17,39 @@ export default defineEventHandler(async (event) => {
     const chatId = message.chat.id;
     const text = message.text;
 
-    // Respond to the received message
-    if (text) {
-      await bot.sendMessage(
-        chatId,
-        `<b>〜あまり</b>\n\n<i>喜びのあまり、万歳と叫びたい思いだった。</i>\nI wanted to shout with joy.\n\n<i>多くの人は自立を求めるあまり、わがままな理由で離婚しようとする。</i>\nMany people leave their marriages for selfish reasons in the name of independence.\n\n<pre>настолько, что</pre>\n<a href="http://www.google.com/">Show more</a>\n`,
-        { parse_mode: "HTML" }
-      );
-    }
-
     // Handle /start command
     if (text && text.startsWith("/start")) {
-      await bot.sendMessage(chatId, "Hi, i am bot, how can i help you?");
+      const deckId = text.split(" ")[1];
+      if (!deckId) {
+        await bot.sendMessage(
+          chatId,
+          "/start <deckId>です。例：/start 64790a642406580000000000"
+        );
+        return;
+      }
+
+      const chat = await Chat.findOne({ chatId });
+      if (chat) {
+        await bot.sendMessage(chatId, "すでに購読しています。");
+        return;
+      }
+
+      await Chat.create({ chatId, deckId });
+      await bot.sendMessage(chatId, "よし！これから定期的に教材が届きます。");
+    }
+
+    // Handle /stop command
+    if (text && text.startsWith("/stop")) {
+      const chatId = message.chat.id;
+
+      const chat = await Chat.findOne({ chatId });
+      if (!chat) {
+        await bot.sendMessage(chatId, "購読していません。");
+        return;
+      }
+
+      await Chat.deleteOne({ chatId });
+      await bot.sendMessage(chatId, "購読はキャンセルされました。");
     }
   }
 

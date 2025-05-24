@@ -14,6 +14,7 @@ const emptyListItem = {
   tags: "",
   sentences: "",
   translations: "",
+  reviewNum: 0,
 };
 
 const activeListItem = ref<ListItem>({ ...emptyListItem });

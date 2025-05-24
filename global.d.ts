@@ -88,5 +88,10 @@ interface ListItem {
   tags: string;
   sentences?: string;
   translations?: string;
-  reviewNum?: number;
+  reviewNum: number;
+}
+
+interface Chat {
+  chatId: string;
+  deckId: string;
 }

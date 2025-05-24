@@ -24,3 +24,8 @@ export const ListItem = defineMongooseModel<ListItem>("ListItem", {
     default: 0,
   },
 });
+
+export const Chat = defineMongooseModel<Chat>("Chat", {
+  chatId: String,
+  deckId: String,
+});
