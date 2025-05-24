@@ -143,7 +143,7 @@ definePageMeta({
       </div>
     </ul>
     <button
-      class="btn btn-xl btn-circle bg-base-300 fixed bottom-20 right-[calc(50%-1.75rem)]"
+      class="btn btn-xl btn-circle bg-base-300 fixed bottom-20 right-[calc(50%-1.75rem)] active:bg-base-100"
       @click="getListItem"
     >
       💠
