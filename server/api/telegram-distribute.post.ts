@@ -24,8 +24,10 @@ export default defineEventHandler(async () => {
     for (let i = 0; i < items.length; i++) {
       if (!items[i]) continue;
 
-      examples += `<em>${items[i].trim()}。</em>\n`;
-      examples += `${listItem.translations?.split(".")[i].trim() || ""}.\n\n`;
+      examples += `${items[i].trim()}。\n`;
+      examples += `<i>${
+        listItem.translations?.split(".")[i].trim() || ""
+      }.</i>\n\n`;
     }
 
     await bot.sendMessage(
