@@ -5,7 +5,7 @@ let kanaMap: Record<string, string>;
 export const useDictionary = () => {
   const ensureReady = async () => {
     if (!cardMap) {
-      cardMap = await $fetch("jmdict-hashmap.json");
+      cardMap = await $fetch("/jmdict-hashmap.json");
 
       textMap = Object.values(cardMap).reduce((acc, card) => {
         acc[card.text] = card.id;
