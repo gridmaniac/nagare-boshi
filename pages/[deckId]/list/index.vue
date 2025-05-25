@@ -7,6 +7,9 @@ const { deleteListItemById } = useDeleteListItem();
 deckId.value = String(params.deckId);
 debouncedSearch.value = (query.search as string) || "";
 
+let timeout: NodeJS.Timeout;
+const isCooldown = ref(false);
+
 const emptyListItem = {
   deckId: deckId.value,
   text: "",
@@ -35,16 +38,27 @@ const deleteListItem = async (listItem: ListItem) => {
 };
 
 const getListItem = async () => {
+  if (isCooldown.value) return;
+  isCooldown.value = true;
+
   const listItem = await $fetch<ListItem>("/api/list/list-item", {
     query: { deckId: deckId.value },
   });
 
   debouncedSearch.value = listItem.text;
+
+  timeout = setTimeout(async () => {
+    isCooldown.value = false;
+  }, 3000);
 };
 
 watch(error, () => {
   localStorage.removeItem("deckId");
   navigateTo("/");
+});
+
+onUnmounted(() => {
+  clearTimeout(timeout);
 });
 
 definePageMeta({
@@ -146,7 +160,8 @@ definePageMeta({
       class="btn btn-xl btn-circle bg-base-300 fixed bottom-20 right-[calc(50%-1.75rem)] active:bg-base-100"
       @click="getListItem"
     >
-      💠
+      <IconHourGlass v-if="isCooldown" class="size-6 animate-spin" />
+      <span v-else>💠</span>
     </button>
   </div>
 </template>
