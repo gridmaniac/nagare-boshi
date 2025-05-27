@@ -95,3 +95,11 @@ interface Chat {
   chatId: string;
   deckId: string;
 }
+
+interface Paginated<T> {
+  list: T;
+  total: number;
+  page: number;
+  pageSize: number;
+  hasNextPage: boolean;
+}

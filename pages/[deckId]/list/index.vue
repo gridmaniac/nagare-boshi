@@ -1,6 +1,15 @@
 <script setup lang="ts">
 const { params, query } = useRoute();
-const { listItems, debouncedSearch, isLoading } = useListItems();
+const {
+  listItems,
+  debouncedSearch,
+  page,
+  hasNextPage,
+  total,
+  refetch,
+  isPending,
+} = useListItems();
+
 const { deckId, error } = useDeck();
 const { deleteListItemById } = useDeleteListItem();
 
@@ -9,6 +18,21 @@ debouncedSearch.value = (query.search as string) || "";
 
 let timeout: NodeJS.Timeout;
 const isCooldown = ref(false);
+const bottomEl = useTemplateRef("bottom");
+const listEl = useTemplateRef("list");
+
+useIntersectionObserver(bottomEl, ([entry]) => {
+  if (!entry?.isIntersecting || !listItems.value?.length || !hasNextPage.value)
+    return;
+
+  page.value++;
+  refetch();
+});
+
+watch(debouncedSearch, () => {
+  page.value = 1;
+  listEl.value?.scrollTo({ top: 0 });
+});
 
 const emptyListItem = {
   deckId: deckId.value,
@@ -74,13 +98,10 @@ definePageMeta({
           <input
             class="grow"
             v-model.trim="debouncedSearch"
-            type="search"
             placeholder="Type here"
           />
-          <kbd
-            v-if="debouncedSearch"
-            class="kbd sm:hidden"
-            @click="debouncedSearch = ''"
+          <span v-if="total" class="text-xs">{{ total }}</span>
+          <kbd v-if="debouncedSearch" class="kbd" @click="debouncedSearch = ''"
             >×</kbd
           >
         </label>
@@ -95,8 +116,8 @@ definePageMeta({
         </Modal>
       </li>
 
-      <div class="max-h-[400px] overflow-y-auto overflow-x-hidden">
-        <div v-if="isLoading" class="flex flex-col gap-2 p-2">
+      <div ref="list" class="max-h-[400px] overflow-y-auto overflow-x-hidden">
+        <div v-if="isPending" class="flex flex-col gap-2 p-2">
           <div class="skeleton h-20 w-full"></div>
           <div class="skeleton h-20 w-full"></div>
         </div>
@@ -154,6 +175,7 @@ definePageMeta({
             </div>
           </div>
         </li>
+        <li ref="bottom"></li>
       </div>
     </ul>
     <button
