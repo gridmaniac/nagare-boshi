@@ -1,5 +1,7 @@
 import type { PiniaColadaOptions } from "@pinia/colada";
 
 export default {
-  refetchOnWindowFocus: false,
+  queryOptions: {
+    refetchOnWindowFocus: false,
+  },
 } satisfies PiniaColadaOptions;
