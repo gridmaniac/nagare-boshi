@@ -33,7 +33,7 @@ const submit = async () => {
 
 <template>
   <slot />
-  <dialog id="modal" class="modal">
+  <dialog id="modal" class="modal modal-bottom sm:modal-middle">
     <form
       v-if="model"
       method="dialog"
@@ -57,6 +57,7 @@ const submit = async () => {
           v-model.trim="model.meaning"
           type="text"
           placeholder="Значение"
+          lang="ru"
           required
         />
 

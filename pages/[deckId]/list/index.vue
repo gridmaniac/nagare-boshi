@@ -132,7 +132,7 @@ definePageMeta({
               <div class="dropdown dropdown-right">
                 <button tabindex="0" class="status status-xl cursor-pointer" />
                 <ul
-                  class="dropdown-content menu menu-xl bg-base-100 rounded-box z-1 p-2 shadow-sm"
+                  class="dropdown-content menu menu-xl menu-horizontal flex-nowrap sm:menu-vertical bg-base-100 rounded-box z-1 p-2 shadow-sm"
                 >
                   <li>
                     <button
@@ -174,6 +174,9 @@ definePageMeta({
               </div>
             </div>
           </div>
+        </li>
+        <li v-if="hasNextPage" class="flex justify-center py-6">
+          <progress class="progress w-20"></progress>
         </li>
         <li ref="bottom"></li>
       </div>

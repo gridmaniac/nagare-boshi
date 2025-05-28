@@ -72,6 +72,8 @@ const holdStart = () => {
       isHolding.value = false;
 
       const value = prompt("Add a note", deckCard.value?.note);
+      if (value === null) return;
+
       const note = {
         cardId: deckCard.value?._id || "",
         text: value ? value?.trim().substring(0, 24) : "",
@@ -132,7 +134,7 @@ onBeforeUnmount(() => {
     <div v-else class="divider text-xs uppercase text-gray-600"></div>
     <div
       v-if="!isDeckCardLoading && card"
-      class="flex w-full join shadow-xl sm:hidden"
+      class="relative flex w-full join shadow-xl sm:hidden"
     >
       <button
         class="btn btn-xl btn-soft join-item btn-error flex-1"
