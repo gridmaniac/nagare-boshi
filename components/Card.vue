@@ -109,7 +109,7 @@ onClickOutside(sentenceEl, () => {
             :class="{
               'hover:text-primary': token.hasMatch,
               'text-primary': index === selectedTokenIndex,
-              'text-accent': token.text === card.text,
+              'text-accent': token.baseForm === card.text,
             }"
             @click="copyToClipboard(token.text)"
           >

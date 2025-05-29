@@ -62,8 +62,6 @@ export const useDictionary = () => {
       if (whiteList.indexOf(item.pos) === -1) {
         tokens.push({
           text: item.surface_form,
-          kana: undefined,
-          gloss: undefined,
           hasMatch: false,
         });
 
@@ -77,6 +75,7 @@ export const useDictionary = () => {
         text: item.surface_form,
         kana: token?.kana || undefined,
         gloss: token?.gloss[0] || undefined,
+        baseForm: item.basic_form || undefined,
         hasMatch: !!token,
       });
     }
@@ -84,7 +83,7 @@ export const useDictionary = () => {
     return tokens;
   };
 
-  const oldTokenize = (sentence: string) => {
+  const legacyTokenize = (sentence: string) => {
     const chars = sentence.split("");
 
     let left = 0;
@@ -151,7 +150,7 @@ export const useDictionary = () => {
   return {
     ensureReady,
     getCard,
-    oldTokenize,
+    legacyTokenize,
     tokenize,
     isReady,
   };

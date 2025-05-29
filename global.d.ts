@@ -52,6 +52,7 @@ interface Example {
 
 interface Token {
   text: string;
+  baseForm?: string;
   kana?: string;
   gloss?: string;
   hasMatch: boolean;
