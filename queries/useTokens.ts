@@ -7,7 +7,11 @@ export const useTokens = () => {
     staleTime: 0,
     enabled: () => isReady.value && !!sentence.value,
     query: async () => {
-      return tokenize(sentence.value);
+      const result = await $fetch<KuroMoji[]>("/api/tokenize", {
+        params: { text: sentence.value },
+      });
+
+      return tokenize(result);
     },
   });
 

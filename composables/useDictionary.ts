@@ -25,7 +25,37 @@ export const useDictionary = () => {
 
   const getCard = (id: string) => cardMap[id];
 
-  const tokenize = (sentence: string) => {
+  const tokenize = (list: KuroMoji[]) => {
+    const tokens = [];
+    const whiteList = ["動詞", "名詞", "副詞", "形容詞", "感動詞", "連体詞"];
+
+    for (const item of list) {
+      if (whiteList.indexOf(item.pos) === -1) {
+        tokens.push({
+          text: item.surface_form,
+          kana: undefined,
+          gloss: undefined,
+          hasMatch: false,
+        });
+
+        continue;
+      }
+
+      const meaning = textMap?.[item.basic_form] || kanaMap?.[item.basic_form];
+      const token = cardMap?.[meaning];
+
+      tokens.push({
+        text: item.surface_form,
+        kana: token?.kana || undefined,
+        gloss: token?.gloss[0] || undefined,
+        hasMatch: !!token,
+      });
+    }
+
+    return tokens;
+  };
+
+  const oldTokenize = (sentence: string) => {
     const chars = sentence.split("");
 
     let left = 0;
@@ -92,6 +122,7 @@ export const useDictionary = () => {
   return {
     ensureReady,
     getCard,
+    oldTokenize,
     tokenize,
     isReady,
   };

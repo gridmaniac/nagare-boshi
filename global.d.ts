@@ -103,3 +103,9 @@ interface Paginated<T> {
   pageSize: number;
   hasNextPage: boolean;
 }
+
+interface KuroMoji {
+  basic_form: string;
+  surface_form: string;
+  pos: string;
+}
