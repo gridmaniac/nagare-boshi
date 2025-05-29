@@ -58,7 +58,7 @@ onClickOutside(sentenceEl, () => {
     </label>
 
     <div class="card-body flex flex-col gap-5">
-      <h2 class="card-title text-5xl flex flex-col items-start gap-3">
+      <div class="card-title text-5xl flex-col items-start gap-3">
         <div class="relative flex items-center justify-center">
           <div
             class="tooltip tooltip-top"
@@ -72,7 +72,7 @@ onClickOutside(sentenceEl, () => {
               copyToClipboard(card.text || card.kana), (hasSourceBlur = false)
             "
           >
-            <span>{{ card.text || card.kana }}</span>
+            <h2>{{ card.text || card.kana }}</h2>
           </div>
         </div>
         <div
@@ -94,7 +94,7 @@ onClickOutside(sentenceEl, () => {
             <kbd v-for="word in card.gloss" class="kbd kbd-xl">{{ word }}</kbd>
           </div>
         </div>
-      </h2>
+      </div>
 
       <section class="flex flex-col gap-2">
         <p
