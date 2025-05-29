@@ -75,12 +75,14 @@ onClickOutside(sentenceEl, () => {
             <span>{{ card.text || card.kana }}</span>
           </div>
         </div>
-        <div class="overflow-x-auto w-full no-scrollbar py-1">
+        <div
+          class="overflow-x-auto w-full no-scrollbar"
+          :class="{
+            'blur-sm': hasTranslationBlur,
+          }"
+        >
           <div
             class="flex gap-2 transition-all duration-300 ease-in-out w-max"
-            :class="{
-              'blur-sm': hasTranslationBlur,
-            }"
             @click="hasTranslationBlur = false"
           >
             <kbd

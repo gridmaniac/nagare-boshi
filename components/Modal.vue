@@ -57,10 +57,8 @@ const submit = async () => {
           v-model.trim="model.meaning"
           type="text"
           placeholder="Значение"
-          lang="ru"
           required
         />
-
         <textarea
           class="textarea textarea-lg w-full"
           v-model.trim="model.sentences"

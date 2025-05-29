@@ -22,11 +22,18 @@ const bottomEl = useTemplateRef("bottom");
 const listEl = useTemplateRef("list");
 
 useIntersectionObserver(bottomEl, ([entry]) => {
-  if (!entry?.isIntersecting || !listItems.value?.length || !hasNextPage.value)
+  if (
+    !entry?.isIntersecting ||
+    !listItems.value?.length ||
+    !hasNextPage.value ||
+    isPending.value
+  )
     return;
 
   page.value++;
   refetch();
+
+  listEl.value?.scrollTo({ top: listEl.value?.scrollHeight });
 });
 
 watch(debouncedSearch, () => {
@@ -175,10 +182,9 @@ definePageMeta({
             </div>
           </div>
         </li>
-        <li v-if="hasNextPage" class="flex justify-center py-6">
+        <li v-if="hasNextPage" ref="bottom" class="flex justify-center py-6">
           <progress class="progress w-20"></progress>
         </li>
-        <li ref="bottom"></li>
       </div>
     </ul>
     <button
