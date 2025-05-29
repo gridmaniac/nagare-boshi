@@ -27,7 +27,17 @@ export const useDictionary = () => {
 
   const tokenize = (list: KuroMoji[]) => {
     const tokens = [];
-    const whiteList = ["動詞", "名詞", "副詞", "形容詞", "感動詞", "連体詞"];
+    const whiteList = [
+      "動詞",
+      "名詞",
+      "副詞",
+      "形容詞",
+      "感動詞",
+      "連体詞",
+      "接続詞",
+    ];
+
+    console.log(list);
 
     for (const item of list) {
       if (whiteList.indexOf(item.pos) === -1) {
