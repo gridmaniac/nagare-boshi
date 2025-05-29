@@ -2,30 +2,51 @@ let cardMap: Record<string, Card>;
 let textMap: Record<string, string>;
 let kanaMap: Record<string, string>;
 
+let tokenizer: KuroMojiTokenizer | null = null;
+
 export const useDictionary = () => {
   const isReady = useState("isReady", () => false);
 
+  const prepareKuroMoji = () => {
+    return new Promise<KuroMojiTokenizer | null>((resolve) => {
+      window.kuromoji
+        .builder({
+          dicPath: "https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/dict/",
+        })
+        .build(function (_, tokenizer: KuroMojiTokenizer | null) {
+          resolve(tokenizer);
+        });
+    });
+  };
+
   const ensureReady = async () => {
-    if (!cardMap) {
-      cardMap = await $fetch("/jmdict-hashmap.json");
+    if (cardMap) return;
 
-      textMap = Object.values(cardMap).reduce((acc, card) => {
-        acc[card.text] = card.id;
-        return acc;
-      }, {} as Record<string, string>);
+    cardMap = await $fetch("/jmdict-hashmap.json");
 
-      kanaMap = Object.values(cardMap).reduce((acc, card) => {
-        acc[card.kana] = card.id;
-        return acc;
-      }, {} as Record<string, string>);
+    textMap = Object.values(cardMap).reduce((acc, card) => {
+      acc[card.text] = card.id;
+      return acc;
+    }, {} as Record<string, string>);
 
-      isReady.value = true;
-    }
+    kanaMap = Object.values(cardMap).reduce((acc, card) => {
+      acc[card.kana] = card.id;
+      return acc;
+    }, {} as Record<string, string>);
+
+    tokenizer = await prepareKuroMoji();
+
+    isReady.value = true;
   };
 
   const getCard = (id: string) => cardMap[id];
 
-  const tokenize = (list: KuroMoji[]) => {
+  const tokenize = (sentence: string) => {
+    if (!tokenizer) {
+      throw new Error("Tokenizer is not ready. Call ensureReady first.");
+    }
+
+    const list = tokenizer.tokenize(sentence);
     const tokens = [];
     const whiteList = [
       "動詞",
@@ -36,8 +57,6 @@ export const useDictionary = () => {
       "連体詞",
       "接続詞",
     ];
-
-    console.log(list);
 
     for (const item of list) {
       if (whiteList.indexOf(item.pos) === -1) {

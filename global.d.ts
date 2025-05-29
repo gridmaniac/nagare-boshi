@@ -105,6 +105,16 @@ interface Paginated<T> {
 }
 
 interface KuroMoji {
+  builder: (options: { dicPath: string }) => {
+    build: (callback: (err: Error | null, tokenizer?: any) => void) => void;
+  };
+}
+
+interface KuroMojiTokenizer {
+  tokenize: (text: string) => KuroMojiToken[];
+}
+
+interface KuroMojiToken {
   basic_form: string;
   surface_form: string;
   pos: string;

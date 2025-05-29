@@ -33,6 +33,12 @@ useHead({
       content: "https://nagare-boshi.vercel.app/icons/icon-512x512.png",
     },
   ],
+  script: [
+    {
+      src: "/scripts/kuromoji.js",
+      async: true,
+    },
+  ],
 });
 
 onMounted(ensureReady);
