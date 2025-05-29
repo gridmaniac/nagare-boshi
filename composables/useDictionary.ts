@@ -11,7 +11,7 @@ export const useDictionary = () => {
     return new Promise<KuroMojiTokenizer | null>((resolve) => {
       window.kuromoji
         .builder({
-          dicPath: "https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/dict/",
+          dicPath: "/dict/",
         })
         .build(function (_, tokenizer: KuroMojiTokenizer | null) {
           resolve(tokenizer);
