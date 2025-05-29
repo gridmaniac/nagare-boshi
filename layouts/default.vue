@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { deckId } = useDeck();
 const { isLoading, progress, newCount } = useRunBatch();
-const { ensureReady } = useDictionary();
+const { ensureReady, isReady } = useDictionary();
 const route = useRoute();
 
 const toast = ref(false);
@@ -86,6 +86,14 @@ onMounted(ensureReady);
       <div v-if="toast" class="toast toast-center">
         <div class="alert">
           <span>+ {{ addCommas(newCount) }} new cards</span>
+        </div>
+      </div>
+    </Transition>
+
+    <Transition name="fade">
+      <div v-if="!isReady" class="toast toast-center">
+        <div class="alert">
+          <span>loading cache..</span>
         </div>
       </div>
     </Transition>
