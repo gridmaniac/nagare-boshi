@@ -308,6 +308,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
+    openaiApiKey: process.env.OPENAI_API_KEY,
   },
   imports: {
     dirs: ["queries", "mutations"],

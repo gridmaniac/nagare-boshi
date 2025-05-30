@@ -3,6 +3,7 @@ const { deckId } = useDeck();
 const { isLoading, progress, newCount } = useRunBatch();
 const { ensureReady, isReady } = useDictionary();
 const route = useRoute();
+const isChallengeVisible = ref(false);
 
 const toast = ref(false);
 watch(newCount, () => {
@@ -12,6 +13,22 @@ watch(newCount, () => {
     toast.value = false;
   }, 2000);
 });
+
+const moreEl = useTemplateRef<HTMLElement>("more");
+onLongPress(
+  moreEl,
+  () => {
+    isChallengeVisible.value = true;
+    nextTick(() => {
+      window.challenge.showModal();
+    });
+  },
+  {
+    modifiers: {
+      prevent: true,
+    },
+  }
+);
 
 useHead({
   title: "流れ星の学習アプリ",
@@ -64,6 +81,7 @@ onMounted(ensureReady);
 
       <NuxtLink
         v-if="route.path.indexOf('list') === -1"
+        ref="more"
         class="fixed top-safe-6 right-3"
         :to="`/${deckId}/list`"
       >
@@ -97,6 +115,8 @@ onMounted(ensureReady);
         </div>
       </div>
     </Transition>
+
+    <Challenge v-if="isChallengeVisible" />
   </div>
 </template>
 

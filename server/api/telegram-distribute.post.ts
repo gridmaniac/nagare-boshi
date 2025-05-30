@@ -1,5 +1,5 @@
 import TelegramBot from "node-telegram-bot-api";
-import { delay } from "~/utils/delay";
+import { delay } from "@/utils/delay";
 
 export default defineEventHandler(async () => {
   const config = useRuntimeConfig();

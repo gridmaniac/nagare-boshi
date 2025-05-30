@@ -120,3 +120,18 @@ interface KuroMojiToken {
   surface_form: string;
   pos: string;
 }
+
+interface Challenge {
+  sentence: string;
+  translation: string;
+}
+
+interface ChallengeAnswer {
+  sentence: string;
+  translation: string;
+  alternativeTranslation: string;
+}
+
+interface Feedback {
+  feedback: string;
+}

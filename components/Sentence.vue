@@ -41,7 +41,7 @@ onClickOutside(sentenceEl, () => {
         </div>
         {{ token.text }}
       </div>
-      <span v-else>{{ token.text }}</span> </span
-    >。
+      <span v-else>{{ token.text }}</span>
+    </span>
   </p>
 </template>
