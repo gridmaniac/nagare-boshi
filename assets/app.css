@@ -26,3 +26,7 @@
 body {
   background-color: #120b3d;
 }
+
+a {
+  -webkit-touch-callout: none;
+}
