@@ -120,7 +120,7 @@ onBeforeUnmount(() => {
         v-if="!isDeckCardLoading && card && deckCard"
         :card="card"
         :box="deckCard.box"
-        class="transition-all duration-300 ease-in-out"
+        class="transition-all duration-300 ease-in-out touch-none"
         :class="{
           'scale-105 shadow-2xl': isHolding,
         }"
