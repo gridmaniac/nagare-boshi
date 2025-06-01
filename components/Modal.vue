@@ -76,14 +76,14 @@ const submit = async () => {
       <div class="flex gap-2 items-center flex-wrap">
         <div
           v-if="model.meaning"
-          class="badge badge-outline badge-primary uppercase"
+          class="badge badge-outline badge-primary uppercase h-auto"
         >
           {{ model.meaning }}
         </div>
         <div
           v-if="model.tags"
           v-for="(tag, index) in tags"
-          class="badge badge-outline uppercase"
+          class="badge badge-outline uppercase h-auto"
           @click="removeTag(index)"
         >
           {{ tag }}

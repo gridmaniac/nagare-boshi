@@ -25,12 +25,12 @@ export const useDictionary = () => {
     cardMap = await $fetch("/jmdict-hashmap.json");
 
     textMap = Object.values(cardMap).reduce((acc, card) => {
-      acc[card.text] = card.id;
+      if (!acc[card.text]) acc[card.text] = card.id;
       return acc;
     }, {} as Record<string, string>);
 
     kanaMap = Object.values(cardMap).reduce((acc, card) => {
-      acc[card.kana] = card.id;
+      if (!acc[card.kana]) acc[card.kana] = card.id;
       return acc;
     }, {} as Record<string, string>);
 
@@ -46,20 +46,54 @@ export const useDictionary = () => {
       throw new Error("Tokenizer is not ready. Call ensureReady first.");
     }
 
+    const filtered = [
+      "いる",
+      "する",
+      "ある",
+      "なる",
+      "くる",
+      "いく",
+      "だ",
+      "です",
+      "ます",
+      "できる",
+      "よう",
+      "こと",
+      "の",
+      "いける",
+      "ない",
+      "１",
+      "２",
+      "３",
+      "４",
+      "５",
+      "６",
+      "７",
+      "８",
+      "９",
+      "０",
+    ];
+
     const list = tokenizer.tokenize(sentence);
+
     const tokens = [];
     const whiteList = [
       "動詞",
       "名詞",
       "副詞",
+      // "助詞",
+      // "助動詞",
       "形容詞",
       "感動詞",
-      "連体詞",
+      // "連体詞",
       "接続詞",
     ];
 
     for (const item of list) {
-      if (whiteList.indexOf(item.pos) === -1) {
+      if (
+        whiteList.indexOf(item.pos) === -1 ||
+        filtered.indexOf(item.basic_form) !== -1
+      ) {
         tokens.push({
           text: item.surface_form,
           hasMatch: false,

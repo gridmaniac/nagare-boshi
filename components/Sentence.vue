@@ -1,13 +1,13 @@
 <script setup lang="ts">
-const props = defineProps<{ sentence: string }>();
+const props = defineProps<{
+  sentence: string;
+  dot?: boolean;
+}>();
+
 const { tokens, sentence } = useTokens();
 
 const sentenceEl = useTemplateRef("sentenceEl");
 const selectedTokenIndex = ref(-1);
-
-const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text);
-};
 
 sentence.value = props.sentence;
 
@@ -18,7 +18,9 @@ onClickOutside(sentenceEl, () => {
 
 <template>
   <p ref="sentenceEl" class="text-xl font-semibold">
+    <span v-if="!tokens">{{ sentence }}</span>
     <span
+      v-else
       v-for="(token, index) in tokens"
       :key="token.text + index"
       :class="{
@@ -29,7 +31,7 @@ onClickOutside(sentenceEl, () => {
     >
       <div
         v-if="token.hasMatch"
-        class="tooltip tooltip-top"
+        class="tooltip tooltip-top underline decoration-dashed underline-offset-4 decoration-1 cursor-pointer"
         :class="{
           'tooltip-open': index === selectedTokenIndex,
         }"
@@ -41,7 +43,7 @@ onClickOutside(sentenceEl, () => {
         </div>
         {{ token.text }}
       </div>
-      <span v-else>{{ token.text }}</span>
-    </span>
+      <span v-else>{{ token.text }}</span> </span
+    ><span v-if="dot">。</span>
   </p>
 </template>

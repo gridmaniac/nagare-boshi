@@ -25,6 +25,7 @@
 
 body {
   background-color: #120b3d;
+  touch-action: none;
 }
 
 a {

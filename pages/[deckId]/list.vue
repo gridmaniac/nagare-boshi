@@ -155,7 +155,12 @@ definePageMeta({
                 </ul>
               </div>
 
-              <div class="text-2xl text-neutral-100">{{ listItem.text }}</div>
+              <div
+                class="text-2xl text-neutral-100"
+                @click="copyToClipboard(listItem.text)"
+              >
+                {{ listItem.text }}
+              </div>
             </div>
 
             <div
@@ -163,18 +168,18 @@ definePageMeta({
               :key="index"
             >
               <template v-if="!!sentence">
-                <Sentence :sentence="sentence" />
+                <Sentence :sentence="sentence" dot />
                 <div>{{ listItem.translations?.split(".")[index] }}.</div>
               </template>
             </div>
 
             <div class="flex gap-2 flex-wrap">
-              <div class="badge badge-outline badge-primary uppercase">
+              <div class="badge badge-outline badge-primary uppercase h-auto">
                 {{ listItem.meaning }}
               </div>
               <div
                 v-for="tag in listItem.tags.split(',').filter((r) => r)"
-                class="badge badge-outline uppercase"
+                class="badge badge-outline uppercase h-auto"
                 @click="debouncedSearch = tag"
               >
                 {{ tag }}
@@ -192,7 +197,7 @@ definePageMeta({
       @click="getListItem"
     >
       <IconHourGlass v-if="isCooldown" class="size-6 animate-spin" />
-      <span v-else>💠</span>
+      <IconBrain class="size-8" v-else />
     </button>
   </div>
 </template>

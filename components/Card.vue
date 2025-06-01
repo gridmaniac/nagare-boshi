@@ -29,10 +29,6 @@ const clearBlur = () => {
   hasSourceBlur.value = false;
 };
 
-const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text);
-};
-
 onKeyStroke(" ", clearBlur);
 
 onClickOutside(sentenceEl, () => {
@@ -61,8 +57,8 @@ onClickOutside(sentenceEl, () => {
       <div class="card-title text-5xl flex-col items-start gap-3">
         <div class="relative flex items-center justify-center">
           <div
-            class="tooltip tooltip-top"
             :class="{
+              'tooltip tooltip-top': !hasSourceBlur,
               'tooltip-open': isTextSelected,
               'blur-sm': hasSourceBlur,
             }"
@@ -103,25 +99,30 @@ onClickOutside(sentenceEl, () => {
           :class="{ 'blur-sm': hasSourceBlur }"
           @click="hasSourceBlur = false"
         >
+          <span v-if="!tokens">{{ sentence }}</span>
           <span
+            v-else
             v-for="(token, index) in tokens"
             :key="token.text + index"
             :class="{
-              'hover:text-primary': token.hasMatch,
+              'hover:text-primary': token.hasMatch && !hasSourceBlur,
               'text-primary': index === selectedTokenIndex,
-              'text-accent': token.baseForm === card.text,
+              'text-accent':
+                (token.baseForm && token.baseForm === card.text) ||
+                token.baseForm === card.kana,
             }"
             @click="copyToClipboard(token.text)"
           >
             <div
               v-if="token.hasMatch"
-              class="tooltip tooltip-top"
+              class="inline-block underline decoration-dashed underline-offset-6 decoration-2"
               :class="{
+                'tooltip tooltip-top cursor-pointer': !hasSourceBlur,
                 'tooltip-open': index === selectedTokenIndex,
               }"
               @touchstart="selectedTokenIndex = index"
             >
-              <div class="flex flex-col tooltip-content">
+              <div v-if="!hasSourceBlur" class="flex flex-col tooltip-content">
                 <span>{{ token.kana }}</span>
                 <span>{{ token.gloss?.substring(0, 24) }}</span>
               </div>
