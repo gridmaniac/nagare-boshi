@@ -114,7 +114,7 @@ onBeforeUnmount(() => {
         </label>
       </div>
     </div>
-    <progress v-if="!card || isCardLoading" class="progress w-full"></progress>
+    <progress v-if="deckCard && !card" class="progress w-full"></progress>
     <Transition name="rotate">
       <Card
         v-if="!isDeckCardLoading && card && deckCard"
