@@ -14,9 +14,12 @@ export const useRelatedCards = defineQuery(() => {
           synonyms: [],
         };
 
+      const list = findRelatedCards(cards.value, card.value.text);
       return {
-        list: findRelatedCards(cards.value, card.value.text),
-        synonyms: findSynonyms(card.value.text),
+        list,
+        synonyms: findSynonyms(card.value.text).filter(
+          (text) => !list.some((c) => c.text === text)
+        ),
       };
     },
   });

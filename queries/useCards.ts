@@ -17,7 +17,6 @@ export const useCards = defineQuery(() => {
 
   return {
     cards,
-    deckId,
     ...query,
   };
 });
