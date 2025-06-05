@@ -3,6 +3,7 @@ let textMap: Record<string, string>;
 let kanaMap: Record<string, string>;
 
 let tokenizer: KuroMojiTokenizer | null = null;
+let synonymsMap: Record<string, number[]> | null = null;
 
 export const useDictionary = () => {
   const isReady = useState("isReady", () => false);
@@ -35,6 +36,7 @@ export const useDictionary = () => {
     }, {} as Record<string, string>);
 
     tokenizer = await prepareKuroMoji();
+    synonymsMap = await $fetch("/synonyms-hashmap.json");
 
     isReady.value = true;
   };
@@ -42,9 +44,7 @@ export const useDictionary = () => {
   const getCard = (id: string) => cardMap[id];
 
   const tokenize = (sentence: string) => {
-    if (!tokenizer) {
-      throw new Error("Tokenizer is not ready. Call ensureReady first.");
-    }
+    if (!tokenizer) return [];
 
     const filtered = [
       "いる",
@@ -75,7 +75,6 @@ export const useDictionary = () => {
     ];
 
     const list = tokenizer.tokenize(sentence);
-
     const tokens = [];
     const whiteList = [
       "動詞",
@@ -117,75 +116,29 @@ export const useDictionary = () => {
     return tokens;
   };
 
-  const legacyTokenize = (sentence: string) => {
-    const chars = sentence.split("");
+  const findSynonyms = (text: string) => {
+    if (!synonymsMap) return [];
 
-    let left = 0;
-    let right = chars.length - 1;
-    let tokenFound = false;
+    const synonyms = synonymsMap[text] || [];
+    return synonyms.map((index) => Object.keys(synonymsMap || {})[index]);
+  };
 
-    const lookupMeaning = (token: string) => {
-      const meaning = textMap?.[token] || kanaMap?.[token];
+  const findRelatedCards = (cards: Card[], text: string) => {
+    const synonyms = findSynonyms(text);
 
-      return cardMap?.[meaning];
-    };
-
-    const scanToken = (left: number, right: number) => {
-      const token = chars.slice(left, right + 1).join("");
-      const meaning = lookupMeaning(token);
-
-      return meaning ? token : null;
-    };
-
-    const tokens = [];
-
-    const packToken = (token: string, hasMatch = true): Token => {
-      const meaning = lookupMeaning(token);
-      return {
-        text: token,
-        kana: hasMatch ? meaning?.kana : undefined,
-        gloss: hasMatch ? meaning?.gloss[0] : undefined,
-        hasMatch,
-      };
-    };
-
-    while (left < chars.length) {
-      tokenFound = false;
-
-      while (left < right) {
-        const token = scanToken(left, right);
-
-        if (token) {
-          tokens.push(packToken(token));
-          tokenFound = true;
-          break;
-        }
-        right--;
-      }
-
-      const token = scanToken(left, left);
-      if (!tokenFound && token) {
-        tokens.push(packToken(token));
-        tokenFound = true;
-      }
-
-      if (!tokenFound) {
-        const token = chars.slice(left, right + 1).join("");
-        tokens.push(packToken(token, false));
-      }
-
-      left = right + 1;
-      right = chars.length - 1;
-    }
-
-    return tokens;
+    return cards.filter(
+      (card) =>
+        card.text !== text &&
+        (synonyms.includes(card.text) || synonyms.includes(card.kana))
+    );
   };
 
   return {
     ensureReady,
     getCard,
-    legacyTokenize,
     tokenize,
+    findRelatedCards,
+    findSynonyms,
     isReady,
   };
 };

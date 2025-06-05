@@ -1,5 +1,6 @@
 export const useRunBatch = defineMutation(() => {
   const { getCard, ensureReady } = useDictionary();
+  const queryCache = useQueryCache();
 
   const isStopped = ref(false);
   const isReady = ref(true);
@@ -45,6 +46,10 @@ export const useRunBatch = defineMutation(() => {
       }
 
       newCount.value = matches.length;
+
+      queryCache.invalidateQueries({
+        key: ["cards", batch.deckId],
+      });
     },
   });
 

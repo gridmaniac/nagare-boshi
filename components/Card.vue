@@ -2,6 +2,7 @@
 const props = defineProps<{ card: Card; box: number }>();
 
 const { tokens, sentence } = useTokens();
+const { relatedCards } = useRelatedCards();
 const { refetch: refetchStats } = useStats();
 const { deckCard } = useDeckCard();
 
@@ -87,7 +88,24 @@ onClickOutside(sentenceEl, () => {
             >
               {{ deckCard?.note }}
             </kbd>
+            <kbd
+              v-for="word in relatedCards?.list"
+              class="kbd kbd-xl border-warning text-warning tooltip tooltip-right cursor-pointer"
+              :key="word.text"
+              :data-tip="word.kana"
+              @click="copyToClipboard(word.text)"
+            >
+              {{ word.text }}
+            </kbd>
             <kbd v-for="word in card.gloss" class="kbd kbd-xl">{{ word }}</kbd>
+            <kbd
+              v-for="synonym in relatedCards?.synonyms"
+              class="kbd kbd-xl cursor-pointer"
+              :key="synonym"
+              @click="copyToClipboard(synonym)"
+            >
+              {{ synonym }}
+            </kbd>
           </div>
         </div>
       </div>
