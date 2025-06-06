@@ -21,7 +21,6 @@ onLongPress(
     isChallengeVisible.value = true;
     nextTick(() => {
       window.challenge.showModal();
-      isChallengeVisible.value = false;
     });
   },
   {
