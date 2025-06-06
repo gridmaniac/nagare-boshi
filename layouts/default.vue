@@ -30,6 +30,12 @@ onLongPress(
   }
 );
 
+const showReader = () => {
+  nextTick(() => {
+    window.reader.showModal();
+  });
+};
+
 useHead({
   title: "流れ星の学習アプリ",
   meta: [
@@ -91,6 +97,14 @@ onMounted(ensureReady);
       <NuxtLink v-else class="fixed top-safe-6 right-3" :to="`/${deckId}`">
         <IconCancel02 class="btn" />
       </NuxtLink>
+
+      <button
+        v-if="route.path.indexOf('list') === -1"
+        class="btn btn-circle btn-lg fixed bottom-safe-5 right-5 shadow-xl"
+        @click="showReader"
+      >
+        <IconTextClear class="w-6 h-6" />
+      </button>
     </template>
 
     <Stats />
@@ -117,5 +131,6 @@ onMounted(ensureReady);
     </Transition>
 
     <Challenge v-if="isChallengeVisible" />
+    <Reader />
   </div>
 </template>

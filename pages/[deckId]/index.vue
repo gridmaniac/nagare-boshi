@@ -92,12 +92,6 @@ const holdEnd = () => {
 onBeforeUnmount(() => {
   clearTimeout(timeout);
 });
-
-const showReader = () => {
-  nextTick(() => {
-    window.reader.showModal();
-  });
-};
 </script>
 
 <template>
@@ -138,12 +132,6 @@ const showReader = () => {
     </Transition>
     <TextMeta v-if="!!card" :text="card.text" />
     <div v-else class="divider text-xs uppercase text-gray-600"></div>
-    <button
-      class="btn btn-circle btn-lg fixed bottom-safe-5 right-5 shadow-xl"
-      @click="showReader"
-    >
-      <IconTextClear class="w-6 h-6" />
-    </button>
     <div
       v-if="!isDeckCardLoading && card"
       class="relative flex w-full join shadow-xl sm:hidden"
@@ -208,7 +196,5 @@ const showReader = () => {
         Cake
       </button>
     </div>
-
-    <Reader />
   </div>
 </template>

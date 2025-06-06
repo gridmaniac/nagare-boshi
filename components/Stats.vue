@@ -59,5 +59,3 @@ const { stats } = useStats();
     </div>
   </div>
 </template>
-
-<style scoped></style>
