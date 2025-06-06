@@ -14,7 +14,6 @@ const typeSentence = async () => {
   displayedSentence.value = "";
 
   if (!challenge.value) return;
-  console.log(challenge.value);
   const { sentence } = challenge.value;
 
   for (let i = 0; i < sentence.length; i++) {

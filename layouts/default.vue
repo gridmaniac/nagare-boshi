@@ -3,6 +3,7 @@ const { deckId } = useDeck();
 const { isLoading, progress, newCount } = useRunBatch();
 const { ensureReady, isReady } = useDictionary();
 const route = useRoute();
+const isChallengeVisible = ref(false);
 
 const toast = ref(false);
 watch(newCount, () => {
@@ -17,8 +18,10 @@ const moreEl = useTemplateRef<HTMLElement>("moreEl");
 onLongPress(
   moreEl,
   () => {
+    isChallengeVisible.value = true;
     nextTick(() => {
       window.challenge.showModal();
+      isChallengeVisible.value = false;
     });
   },
   {
@@ -114,6 +117,6 @@ onMounted(ensureReady);
       </div>
     </Transition>
 
-    <Challenge />
+    <Challenge v-if="isChallengeVisible" />
   </div>
 </template>
