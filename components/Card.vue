@@ -9,7 +9,7 @@ const { deckCard } = useDeckCard();
 const hasTranslationBlur = ref(props.box !== BOX_LIMIT - 1);
 const hasSourceBlur = ref(props.box === BOX_LIMIT - 1);
 
-const sentenceEl = ref<HTMLElement | null>(null);
+const sentenceEl = useTemplateRef("sentenceEl");
 
 const selectedTokenIndex = ref(-1);
 const isTextSelected = ref(false);
@@ -100,7 +100,7 @@ onClickOutside(sentenceEl, () => {
             <kbd v-for="word in card.gloss" class="kbd kbd-xl">{{ word }}</kbd>
             <kbd
               v-for="synonym in relatedCards?.synonyms"
-              class="kbd kbd-xl cursor-pointer"
+              class="kbd kbd-xl"
               :key="synonym"
               @click="copyToClipboard(synonym)"
             >

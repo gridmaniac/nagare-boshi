@@ -2,7 +2,7 @@
 const { deckId } = useDeck();
 const { deckCard, refetch: refetchDeckCard } = useDeckCard();
 const { runBatch, stopBatch, isLoading, isReady } = useRunBatch();
-const fileInput = ref<HTMLInputElement | null>(null);
+const fileEl = useTemplateRef("fileEl");
 
 const goHome = () => {
   const isConfirm = confirm("Did you backup your code?");
@@ -16,7 +16,7 @@ const goHome = () => {
 };
 
 const updateWithFile = () => {
-  fileInput.value?.click();
+  fileEl.value?.click();
 };
 
 const { onFileUpload } = useFileUpload((content) => {
@@ -62,7 +62,7 @@ watch(isReady, () => {
         <IconFileSync class="size-6" />
       </NuxtLink>
       <input
-        ref="fileInput"
+        ref="fileEl"
         type="file"
         accept=".imiwa"
         @change="onFileUpload"

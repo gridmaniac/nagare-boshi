@@ -30,3 +30,16 @@ body {
 a {
   -webkit-touch-callout: none;
 }
+
+/* Safe area utilities */
+.top-safe-5 {
+  top: calc(env(safe-area-inset-top) + 1.25rem);
+}
+
+.top-safe-6 {
+  top: calc(env(safe-area-inset-top) + 1.5rem);
+}
+
+.bottom-safe-5 {
+  bottom: calc(env(safe-area-inset-bottom) + 1.25rem);
+}

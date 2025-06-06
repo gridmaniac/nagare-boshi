@@ -26,3 +26,6 @@ logs
 # Misc
 telegram-bot.txt
 jmdict/*
+
+# Documentation
+.specs

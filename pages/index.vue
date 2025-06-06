@@ -2,10 +2,10 @@
 const { createDeck, isLoading } = useCreateDeck();
 const { runBatch, isReady } = useRunBatch();
 const { deck, deckId } = useDeck();
-const fileInput = ref<HTMLInputElement | null>(null);
+const fileEl = useTemplateRef("fileEl");
 
 const updateWithFile = () => {
-  fileInput.value?.click();
+  fileEl.value?.click();
 };
 
 const { onFileUpload } = useFileUpload((content) => {
@@ -66,7 +66,7 @@ onMounted(() => {
       v-else
     >
       <input
-        ref="fileInput"
+        ref="fileEl"
         class="file-input"
         type="file"
         accept=".imiwa"

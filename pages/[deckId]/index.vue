@@ -17,9 +17,9 @@ const keyStrokeBlock = ref(false);
 const isHolding = ref(false);
 let timeout: NodeJS.Timeout;
 
-const hardBtn = ref<HTMLButtonElement | null>(null);
-const goodBtn = ref<HTMLButtonElement | null>(null);
-const easyBtn = ref<HTMLButtonElement | null>(null);
+const delistBtn = useTemplateRef("delistEl");
+const goodBtn = useTemplateRef("goodEl");
+const cakeBtn = useTemplateRef("cakeEl");
 
 const doReview = async (choice: ReviewChoice) => {
   keyStrokeBlock.value = true;
@@ -46,7 +46,7 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
 
   switch (key) {
     case "1":
-      hardBtn.value?.focus();
+      delistBtn.value?.focus();
       doReview("delist");
       break;
     case "2":
@@ -54,7 +54,7 @@ const handleKeyStroke = (key: "1" | "2" | "3") => {
       doReview("good");
       break;
     case "3":
-      easyBtn.value?.focus();
+      cakeBtn.value?.focus();
       doReview("cake");
       break;
   }
@@ -92,6 +92,12 @@ const holdEnd = () => {
 onBeforeUnmount(() => {
   clearTimeout(timeout);
 });
+
+const showReader = () => {
+  nextTick(() => {
+    window.reader.showModal();
+  });
+};
 </script>
 
 <template>
@@ -132,6 +138,12 @@ onBeforeUnmount(() => {
     </Transition>
     <TextMeta v-if="!!card" :text="card.text" />
     <div v-else class="divider text-xs uppercase text-gray-600"></div>
+    <button
+      class="btn btn-circle btn-lg fixed bottom-safe-5 right-5 shadow-xl"
+      @click="showReader"
+    >
+      <IconTextClear class="w-6 h-6" />
+    </button>
     <div
       v-if="!isDeckCardLoading && card"
       class="relative flex w-full join shadow-xl sm:hidden"
@@ -157,7 +169,7 @@ onBeforeUnmount(() => {
     </div>
     <div class="w-full join shadow-xl sm:flex hidden">
       <button
-        ref="hardBtn"
+        ref="delistEl"
         class="btn btn-xl btn-soft join-item btn-error flex-1"
         :disabled="!card || isDeckCardLoading"
         @click="doReview('delist')"
@@ -170,7 +182,7 @@ onBeforeUnmount(() => {
         Delist
       </button>
       <button
-        ref="goodBtn"
+        ref="goodEl"
         class="btn btn-xl btn-soft join-item btn-info flex-1"
         :disabled="!card || isDeckCardLoading"
         @click="doReview('good')"
@@ -183,7 +195,7 @@ onBeforeUnmount(() => {
         Good
       </button>
       <button
-        ref="easyBtn"
+        ref="cakeEl"
         class="btn btn-xl btn-soft join-item btn-success flex-1"
         :disabled="!card || isDeckCardLoading"
         @click="doReview('cake')"
@@ -196,5 +208,7 @@ onBeforeUnmount(() => {
         Cake
       </button>
     </div>
+
+    <Reader />
   </div>
 </template>

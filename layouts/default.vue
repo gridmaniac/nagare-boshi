@@ -3,7 +3,6 @@ const { deckId } = useDeck();
 const { isLoading, progress, newCount } = useRunBatch();
 const { ensureReady, isReady } = useDictionary();
 const route = useRoute();
-const isChallengeVisible = ref(false);
 
 const toast = ref(false);
 watch(newCount, () => {
@@ -14,11 +13,10 @@ watch(newCount, () => {
   }, 2000);
 });
 
-const moreEl = useTemplateRef<HTMLElement>("more");
+const moreEl = useTemplateRef<HTMLElement>("moreEl");
 onLongPress(
   moreEl,
   () => {
-    isChallengeVisible.value = true;
     nextTick(() => {
       window.challenge.showModal();
     });
@@ -81,7 +79,7 @@ onMounted(ensureReady);
 
       <NuxtLink
         v-if="route.path.indexOf('list') === -1"
-        ref="more"
+        ref="moreEl"
         class="fixed top-safe-6 right-3"
         :to="`/${deckId}/list`"
       >
@@ -116,16 +114,6 @@ onMounted(ensureReady);
       </div>
     </Transition>
 
-    <Challenge v-if="isChallengeVisible" />
+    <Challenge />
   </div>
 </template>
-
-<style scoped>
-.top-safe-5 {
-  top: calc(env(safe-area-inset-top) + 1.25rem);
-}
-
-.top-safe-6 {
-  top: calc(env(safe-area-inset-top) + 1.5rem);
-}
-</style>
