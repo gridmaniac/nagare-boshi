@@ -1,4 +1,5 @@
 import TelegramBot from "node-telegram-bot-api";
+import OpenAI from "openai";
 import { delay } from "@/utils/delay";
 
 export default defineEventHandler(async () => {
@@ -7,6 +8,10 @@ export default defineEventHandler(async () => {
 
   // Create a new TelegramBot instance (without polling)
   const bot = new TelegramBot(token);
+
+  const openai = new OpenAI({
+    apiKey: config.openaiApiKey,
+  });
 
   const chats = await Chat.find({});
   for (const chat of chats) {
@@ -30,9 +35,26 @@ export default defineEventHandler(async () => {
       }.</i>\n\n`;
     }
 
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+
+      messages: [
+        {
+          role: "system",
+          content: `You are a text to emoji converter. Your task is to give just one emoji that best describes the text. Output strictly one emoji.`,
+        },
+        {
+          role: "user",
+          content: `${listItem.text}`,
+        },
+      ],
+    });
+
+    const emoji = response.choices[0].message.content || "";
+
     await bot.sendMessage(
       chat.chatId,
-      `<b>${listItem.text}</b>\n\n${examples}<pre>${listItem.meaning}  </pre>\n<a href="https://nagare-boshi.vercel.app/${chat.deckId}/list?search=${listItem.text}">Show more</a>\n`,
+      `${emoji} <b>${listItem.text}</b>\n\n${examples}<pre>${listItem.meaning}  </pre>\n<a href="https://nagare-boshi.vercel.app/${chat.deckId}/list?search=${listItem.text}">Show more</a>\n`,
       { parse_mode: "HTML", disable_web_page_preview: true }
     );
 
