@@ -60,8 +60,4 @@ const { stats } = useStats();
   </div>
 </template>
 
-<style scoped>
-.pt-safe {
-  padding-top: env(safe-area-inset-top);
-}
-</style>
+<style scoped></style>
