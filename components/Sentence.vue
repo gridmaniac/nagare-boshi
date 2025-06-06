@@ -1,12 +1,4 @@
 <script setup lang="ts">
-interface Token {
-  text: string;
-  hasMatch: boolean;
-  kana?: string;
-  gloss?: string;
-  baseForm?: string;
-}
-
 const props = defineProps<{
   sentence: string;
   dot?: boolean;
@@ -23,91 +15,84 @@ onClickOutside(sentenceEl, () => {
   selectedTokenIndex.value = -1;
 });
 
-// Split tokens into lines based on line breaks in the original text
-const lines = computed(() => {
+// Convert tokens into a flat array with line break tokens
+const tokensWithLineBreaks = computed(() => {
   if (!tokens.value) {
-    return [
-      sentence.value.split("\n").map((text) => ({
-        text,
-        hasMatch: false,
-        kana: undefined,
-        gloss: undefined,
-        baseForm: undefined,
-      })),
-    ];
+    return sentence.value.split("\n").flatMap((text, i, arr) => {
+      const tokens = [
+        {
+          text,
+          hasMatch: false,
+          kana: undefined,
+          gloss: undefined,
+          baseForm: undefined,
+        },
+      ];
+      if (i < arr.length - 1) {
+        tokens.push({
+          text: "\n",
+          hasMatch: false,
+          kana: undefined,
+          gloss: undefined,
+          baseForm: undefined,
+        });
+      }
+      return tokens;
+    });
   }
 
-  let currentLine: Token[] = [];
-  const result: Token[][] = [currentLine];
-  let charCount = 0;
-
-  tokens.value.forEach((token) => {
-    const containsLineBreak = token.text.includes("\n");
-    if (containsLineBreak) {
-      const parts = token.text.split("\n");
-      parts.forEach((part, index) => {
-        if (index === 0) {
-          if (part) {
-            currentLine.push({ ...token, text: part });
-          }
-        } else {
-          currentLine = [{ ...token, text: part }];
-          result.push(currentLine);
-        }
-      });
-    } else {
-      currentLine.push(token);
+  return tokens.value.flatMap((token) => {
+    if (!token.text.includes("\n")) {
+      return [token];
     }
-    charCount += token.text.length;
-  });
 
-  return result;
+    return token.text.split("\n").flatMap((part, i, arr) => {
+      const tokens: Token[] = [];
+      if (part) {
+        tokens.push({ ...token, text: part });
+      }
+      if (i < arr.length - 1) {
+        tokens.push({ text: "\n", hasMatch: false });
+      }
+      return tokens;
+    });
+  });
 });
 </script>
 
 <template>
   <div ref="sentenceEl" class="text-xl font-semibold whitespace-pre-wrap">
-    <template v-if="!tokens">{{ sentence }}</template>
+    <template v-if="!tokens">{{ sentence }}{{ dot ? "。" : "" }}</template>
     <template v-else>
-      <p
-        v-for="(line, lineIndex) in lines"
-        :key="lineIndex"
-        class="min-h-[1em]"
+      <span
+        v-for="(token, index) in tokensWithLineBreaks"
+        :key="token.text + index"
+        :class="{
+          'hover:text-primary': token.hasMatch,
+          'text-primary': index === selectedTokenIndex,
+        }"
+        @click="token.hasMatch && copyToClipboard(token.text)"
       >
-        <span
-          v-for="(token, index) in line"
-          :key="token.text + index"
+        <div
+          v-if="token.hasMatch"
+          class="tooltip tooltip-top underline decoration-dashed underline-offset-4 decoration-1 cursor-pointer inline-block"
           :class="{
-            'hover:text-primary': token.hasMatch,
-            'text-primary': index === selectedTokenIndex,
+            'tooltip-open': index === selectedTokenIndex,
           }"
-          @click="copyToClipboard(token.text)"
+          @touchstart="selectedTokenIndex = index"
         >
-          <div
-            v-if="token.hasMatch"
-            class="tooltip tooltip-top underline decoration-dashed underline-offset-4 decoration-1 cursor-pointer inline-block"
-            :class="{
-              'tooltip-open': index === selectedTokenIndex,
-            }"
-            @touchstart="selectedTokenIndex = index"
-          >
-            <div class="flex flex-col tooltip-content">
-              <span>{{ token.kana }}</span>
-              <span>{{ token.gloss?.substring(0, 24) }}</span>
-            </div>
-            {{ token.text }}
+          <div class="flex flex-col tooltip-content">
+            <span>{{ token.kana }}</span>
+            <span>{{ token.gloss?.substring(0, 24) }}</span>
           </div>
+          {{ token.text }}
+        </div>
+        <template v-else>
+          <br v-if="token.text === '\n'" />
           <span v-else>{{ token.text }}</span>
-        </span>
-      </p>
+        </template>
+      </span>
+      <span v-if="dot">。</span>
     </template>
-    <span v-if="dot">。</span>
   </div>
 </template>
-
-<style scoped>
-p:empty::after {
-  content: "\00a0";
-  white-space: pre;
-}
-</style>
