@@ -92,9 +92,16 @@ The application will be available at `http://localhost:3000`.
 
 2. **Study Flow**
 
-   - Cards start in Box 0 (new cards)
-   - Progress through boxes based on review performance
-   - Box system: 1 (daily) → 2 (3 days) → 3 (weekly) → 4 (monthly) → 5 (quarterly)
+   - New cards start in Box 0
+   - Review choices:
+     - 👍 **Good** - Move up one box
+     - 🎂 **Cake** - Move directly to mastery
+     - ❌ **Delist** - Remove card from review queue
+   - Review intervals:
+     - Box 1: Review next day (24h)
+     - Box 2: Review in 1 week
+     - Box 3: Review in 1 month
+     - Box 4: Review in 1 month
 
 3. **Features**
    - Use the reader for looking up unknown words
