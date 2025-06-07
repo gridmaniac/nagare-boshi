@@ -95,7 +95,7 @@ onClickOutside(sentenceEl, () => {
               :data-tip="word.kana"
               @click="copyToClipboard(word.text)"
             >
-              {{ word.text }}
+              {{ word.text || word.kana }}
             </kbd>
             <kbd v-for="word in card.gloss" class="kbd kbd-xl">{{ word }}</kbd>
             <kbd

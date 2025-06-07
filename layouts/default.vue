@@ -100,7 +100,7 @@ onMounted(ensureReady);
 
       <button
         v-if="route.path.indexOf('list') === -1"
-        class="btn btn-circle btn-lg fixed bottom-safe-5 right-5 shadow-xl"
+        class="btn btn-circle btn-lg fixed bottom-safe-5 left-5 shadow-xl"
         @click="showReader"
       >
         <IconTextClear class="w-6 h-6" />
