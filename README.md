@@ -2,7 +2,7 @@
 
 A modern Japanese learning application that leverages Imiwa? dictionary data to create an effective SRS (Spaced Repetition System) flashcard study experience.
 
-🌟 **Try it now: [nagare-boshi.vercel.app](https://nagare-boshi.vercel.app/)**
+✨ **Feel free to use it: [nagare-boshi.vercel.app](https://nagare-boshi.vercel.app/)**
 
 ## Quick Start
 
@@ -11,7 +11,7 @@ A modern Japanese learning application that leverages Imiwa? dictionary data to 
 3. Upload the backup file on the main page
 4. Start learning with SRS flashcards!
 
-No account needed - just upload your Imiwa? backup and start studying. Your progress is saved locally.
+No account needed - just upload your Imiwa? backup and start studying.
 
 ## Features
 
