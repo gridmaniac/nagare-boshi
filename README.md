@@ -1,75 +1,125 @@
-# Nuxt Minimal Starter
+# 流れ星 (Nagare Boshi) - Japanese Learning App
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A modern Japanese learning application that leverages Imiwa? dictionary data to create an effective SRS (Spaced Repetition System) flashcard study experience.
 
-## Setup
+## Features
 
-Make sure to install dependencies:
+- 📚 Import Imiwa? dictionary backup data
+- 🔄 SRS (Spaced Repetition System) for efficient learning
+- 📖 Interactive reader with word lookup
+- 🎯 Smart card organization with boxes based on mastery level
+- 🔍 Related words and synonyms discovery
+- 📝 Note-taking capability for each card
+- 📱 Progressive Web App (PWA) support
+- 🎨 Beautiful UI with shooting stars animation
+- 🌙 Dark mode support
 
-```bash
-# npm
-npm install
+## Tech Stack
 
-# pnpm
-pnpm install
+- **Framework**: [Nuxt.js](https://nuxt.com/)
+- **UI**: [DaisyUI](https://daisyui.com/) + [Tailwind CSS](https://tailwindcss.com/)
+- **Database**: MongoDB
+- **Japanese Text Processing**: Kuromoji.js
 
-# yarn
-yarn install
+## Project Structure
 
-# bun
-bun install
+```
+nagare-boshi/
+├── components/     # Vue components
+├── composables/    # Vue composables and shared logic
+├── mutations/      # Data modification operations
+├── queries/       # Data fetching operations
+├── pages/         # Route components
+├── server/        # Backend API and models
+└── utils/         # Utility functions and constants
 ```
 
-## Development Server
+## Getting Started
 
-Start the development server on `http://localhost:3000`:
+### Prerequisites
 
-```bash
-# npm
-npm run dev
+- Node.js (v18 or later)
+- MongoDB instance
+- Imiwa? dictionary backup (optional)
 
-# pnpm
-pnpm dev
+### Installation
 
-# yarn
-yarn dev
+1. Clone the repository:
 
-# bun
-bun run dev
-```
+   ```bash
+   git clone https://github.com/gridmaniac/nagare-boshi.git
+   cd nagare-boshi
+   ```
 
-## Production
+2. Install dependencies:
 
-Build the application for production:
+   ```bash
+   npm install
+   ```
 
-```bash
-# npm
-npm run build
+3. Set up environment variables:
 
-# pnpm
-pnpm build
+   ```bash
+   cp .env.example .env
+   ```
 
-# yarn
-yarn build
+   Edit `.env` with your MongoDB connection string and other required variables.
 
-# bun
-bun run build
-```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-Locally preview production build:
+The application will be available at `http://localhost:3000`.
 
-```bash
-# npm
-npm run preview
+## Usage
 
-# pnpm
-pnpm preview
+1. **Initial Setup**
 
-# yarn
-yarn preview
+   - Import your Imiwa? dictionary backup
+   - Create a new deck or select an existing one
 
-# bun
-bun run preview
-```
+2. **Study Flow**
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+   - Cards start in Box 0 (new cards)
+   - Progress through boxes based on review performance
+   - Box system: 1 (daily) → 2 (3 days) → 3 (weekly) → 4 (monthly) → 5 (quarterly)
+
+3. **Features**
+   - Use the reader for looking up unknown words
+   - Add notes to cards for better memorization
+   - Discover related words and synonyms
+   - Track your learning progress with statistics
+
+## Deployment
+
+1. Build the application:
+
+   ```bash
+   npm run build
+   ```
+
+2. Start the production server:
+   ```bash
+   npm run start
+   ```
+
+For detailed deployment instructions, check out the [Nuxt.js deployment documentation](https://nuxt.com/docs/getting-started/deployment).
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [Imiwa?](http://www.imiwaapp.com/) for the excellent dictionary data format
+- [JMdict](https://www.edrdg.org/jmdict/j_jmdict.html) for the comprehensive Japanese dictionary
+- The Japanese learning community for inspiration and feedback
