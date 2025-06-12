@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { params, query } = useRoute();
+const router = useRouter();
 const {
   listItems,
   debouncedSearch,
@@ -39,6 +40,14 @@ useIntersectionObserver(bottomEl, ([entry]) => {
 watch(debouncedSearch, () => {
   page.value = 1;
   listEl.value?.scrollTo({ top: 0 });
+
+  // Update URL query parameter
+  router.replace({
+    query: {
+      ...query,
+      search: debouncedSearch.value || undefined,
+    },
+  });
 });
 
 const emptyListItem = {
@@ -49,6 +58,7 @@ const emptyListItem = {
   sentences: "",
   translations: "",
   reviewNum: 0,
+  updatedAt: new Date(),
 };
 
 const activeListItem = ref<ListItem>({ ...emptyListItem });
@@ -139,7 +149,7 @@ definePageMeta({
               <div class="dropdown dropdown-right">
                 <button tabindex="0" class="status status-xl cursor-pointer" />
                 <ul
-                  class="dropdown-content menu menu-xl menu-horizontal flex-nowrap sm:menu-vertical bg-base-100 rounded-box z-1 p-2 shadow-sm"
+                  class="dropdown-content menu menu-xl menu-horizontal flex-nowrap bg-base-100 rounded-box z-1 p-2 shadow-sm"
                 >
                   <li>
                     <button
@@ -169,7 +179,9 @@ definePageMeta({
             >
               <template v-if="!!sentence">
                 <Sentence :sentence="sentence" dot />
-                <div>{{ listItem.translations?.split(".")[index] }}.</div>
+                <div v-if="listItem.translations?.split('.')[index]">
+                  {{ listItem.translations?.split(".")[index] }}.
+                </div>
               </template>
             </div>
 

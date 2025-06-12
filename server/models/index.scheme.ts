@@ -23,6 +23,10 @@ export const ListItem = defineMongooseModel<ListItem>("ListItem", {
     type: Number,
     default: 0,
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const Chat = defineMongooseModel<Chat>("Chat", {

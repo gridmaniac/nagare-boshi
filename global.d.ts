@@ -90,6 +90,7 @@ interface ListItem {
   sentences?: string;
   translations?: string;
   reviewNum: number;
+  updatedAt: Date;
 }
 
 interface Chat {

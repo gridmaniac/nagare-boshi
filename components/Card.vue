@@ -60,7 +60,6 @@ onClickOutside(sentenceEl, () => {
           <div
             :class="{
               'tooltip tooltip-top': !hasSourceBlur,
-              'tooltip-open': isTextSelected,
               'blur-sm': hasSourceBlur,
             }"
             :data-tip="card.kana"
@@ -136,7 +135,6 @@ onClickOutside(sentenceEl, () => {
               class="inline-block underline decoration-dashed underline-offset-6 decoration-2"
               :class="{
                 'tooltip tooltip-top cursor-pointer': !hasSourceBlur,
-                'tooltip-open': index === selectedTokenIndex,
               }"
               @touchstart="selectedTokenIndex = index"
             >

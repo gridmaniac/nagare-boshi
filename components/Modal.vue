@@ -4,6 +4,8 @@ const model = defineModel<ListItem>();
 const { upsertListItem } = useUpsertListItem();
 const { debouncedSearch } = useListItems();
 
+const textEl = useTemplateRef<HTMLInputElement>("textEl");
+
 const tags = computed(() => {
   if (!model.value) return [];
   return model.value.tags.split(",").filter((r) => r);
@@ -21,6 +23,22 @@ const addTag = () => {
 const removeTag = (index: number) => {
   if (!model.value) return;
   model.value.tags = tags.value.filter((_, i) => i !== index).join(",");
+};
+
+const insertAtCursor = (char: string) => {
+  if (!textEl.value || !model.value) return;
+
+  const start = textEl.value.selectionStart || 0;
+  const end = textEl.value.selectionEnd || 0;
+
+  model.value.text =
+    model.value.text.slice(0, start) + char + model.value.text.slice(end);
+
+  // Set cursor position after inserted character
+  nextTick(() => {
+    textEl.value?.setSelectionRange(start + char.length, start + char.length);
+    textEl.value?.focus();
+  });
 };
 
 const submit = async () => {
@@ -43,14 +61,15 @@ const submit = async () => {
       <div class="flex flex-col gap-2">
         <label class="input input-xl w-full">
           <input
+            ref="textEl"
             class="grow"
             v-model.trim="model.text"
             type="text"
             placeholder="一言"
             required
           />
-          <kbd class="kbd kbd-xl" @click="model.text += '〜'">〜</kbd>
-          <kbd class="kbd kbd-xl" @click="model.text += '・'">・</kbd>
+          <kbd class="kbd kbd-xl" @click="insertAtCursor('〜')">〜</kbd>
+          <kbd class="kbd kbd-xl" @click="insertAtCursor('・')">・</kbd>
         </label>
         <input
           class="input input-lg w-full"

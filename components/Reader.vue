@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const isEditing = ref(true);
 const text = ref("");
-const editableEl = useTemplateRef<HTMLDivElement>("editableEl");
+const textareaEl = useTemplateRef<HTMLTextAreaElement>("textareaEl");
 
 const toggleMode = () => {
   isEditing.value = !isEditing.value;
@@ -9,48 +9,32 @@ const toggleMode = () => {
 
 const clearText = () => {
   text.value = "";
-  if (editableEl.value) {
-    editableEl.value.innerText = "";
-  }
-  // Switch back to edit mode after clearing
   isEditing.value = true;
 };
 
-const handleInput = (event: Event) => {
-  const target = event.target as HTMLDivElement;
-  text.value = cleanText(target.innerText);
+const adjustHeight = () => {
+  if (!textareaEl.value) return;
+  textareaEl.value.style.height = "auto";
+  textareaEl.value.style.height = `${textareaEl.value.scrollHeight}px`;
+};
 
-  // Re-apply cleaned text to prevent visual artifacts
-  nextTick(() => {
-    if (editableEl.value && editableEl.value.innerText !== text.value) {
-      editableEl.value.innerText = text.value;
+watch(() => text.value, adjustHeight, { immediate: true });
+watch(
+  () => isEditing.value,
+  (newValue) => {
+    if (newValue) {
+      nextTick(adjustHeight);
     }
-  });
-};
-
-const cleanText = (text: string) => {
-  return text.replace(/\n{3,}/g, "\n\n").trim();
-};
-
-const handlePaste = (event: ClipboardEvent) => {
-  event.preventDefault();
-  const plainText = event.clipboardData?.getData("text/plain") || "";
-  const cleanedText = cleanText(plainText);
-  document.execCommand("insertText", false, cleanedText);
-};
+  }
+);
 
 onMounted(() => {
-  if (editableEl.value) {
-    editableEl.value.innerText = cleanText(text.value);
-  }
+  adjustHeight();
+  window.addEventListener("resize", adjustHeight);
 });
 
-watch(isEditing, () => {
-  nextTick(() => {
-    if (isEditing.value && editableEl.value) {
-      editableEl.value.innerText = cleanText(text.value);
-    }
-  });
+onUnmounted(() => {
+  window.removeEventListener("resize", adjustHeight);
 });
 </script>
 
@@ -78,18 +62,16 @@ watch(isEditing, () => {
           </div>
         </div>
 
-        <div
+        <textarea
           v-if="isEditing"
-          ref="editableEl"
-          class="min-h-[200px] outline-none text-xl font-semibold"
-          contenteditable
-          data-placeholder="Paste or type Japanese text here..."
-          @input="handleInput"
-          @paste="handlePaste"
-          v-text="text"
-        ></div>
+          ref="textareaEl"
+          v-model.trim="text"
+          class="min-h-[200px] outline-none text-xl font-semibold w-full resize-none bg-transparent overflow-hidden placeholder:opacity-40"
+          placeholder="Paste or type Japanese text here..."
+          rows="1"
+        ></textarea>
 
-        <Sentence class="min-h-[200px]" v-else :sentence="text" />
+        <Sentence class="min-h-[200px]" v-else :sentence="text" break-line />
       </div>
     </div>
 
@@ -98,18 +80,3 @@ watch(isEditing, () => {
     </form>
   </dialog>
 </template>
-
-<style scoped>
-[contenteditable] {
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
-}
-
-[contenteditable]:empty::before {
-  content: attr(data-placeholder);
-  opacity: 0.4;
-  pointer-events: none;
-}
-</style>

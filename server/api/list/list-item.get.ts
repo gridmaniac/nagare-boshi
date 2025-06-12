@@ -6,11 +6,12 @@ export default defineEventHandler(async (event) => {
   if (!isValidObjectId(deckId)) return null;
   const listItem = await ListItem.findOne({
     deckId,
-  }).sort({ reviewNum: 1 });
+  }).sort({ updatedAt: 1 });
 
   if (!listItem) return null;
 
   listItem.reviewNum++;
+  listItem.updatedAt = new Date();
   await listItem.save();
 
   return listItem;

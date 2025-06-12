@@ -2,6 +2,7 @@
 const props = defineProps<{
   sentence: string;
   dot?: boolean;
+  breakLine?: boolean;
 }>();
 
 const { tokens, sentence } = useTokens();
@@ -75,10 +76,7 @@ const tokensWithLineBreaks = computed(() => {
       >
         <div
           v-if="token.hasMatch"
-          class="tooltip tooltip-top underline decoration-dashed underline-offset-4 decoration-1 cursor-pointer inline-block"
-          :class="{
-            'tooltip-open': index === selectedTokenIndex,
-          }"
+          class="tooltip tooltip-top underline decoration-dashed underline-offset-4 decoration-1 cursor-pointer whitespace-nowrap"
           @touchstart="selectedTokenIndex = index"
         >
           <div class="flex flex-col tooltip-content">
@@ -87,7 +85,7 @@ const tokensWithLineBreaks = computed(() => {
           </div>
           {{ token.text }}
         </div>
-        <template v-else>
+        <template v-else-if="breakLine">
           <br v-if="token.text === '\n'" />
           <span v-else>{{ token.text }}</span>
         </template>
