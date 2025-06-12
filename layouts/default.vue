@@ -4,7 +4,7 @@ const { isLoading, progress, newCount } = useRunBatch();
 const { ensureReady, isReady } = useDictionary();
 const route = useRoute();
 const isChallengeVisible = ref(false);
-
+const isReaderVisible = ref(false);
 const toast = ref(false);
 watch(newCount, () => {
   toast.value = true;
@@ -31,6 +31,7 @@ onLongPress(
 );
 
 const showReader = () => {
+  isReaderVisible.value = true;
   nextTick(() => {
     window.reader.showModal();
   });
@@ -131,6 +132,6 @@ onMounted(ensureReady);
     </Transition>
 
     <Challenge v-if="isChallengeVisible" />
-    <Reader />
+    <Reader v-if="isReaderVisible" />
   </div>
 </template>
