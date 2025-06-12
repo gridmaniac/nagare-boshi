@@ -17,7 +17,7 @@ export default defineEventHandler(async () => {
   for (const chat of chats) {
     const listItem = await ListItem.findOne({
       deckId: chat.deckId,
-    }).sort({ reviewNum: 1 });
+    }).sort({ updatedAt: 1 });
 
     if (!listItem) {
       continue;
@@ -59,6 +59,7 @@ export default defineEventHandler(async () => {
     );
 
     listItem.reviewNum++;
+    listItem.updatedAt = new Date();
     await listItem.save();
     await delay(1000);
   }

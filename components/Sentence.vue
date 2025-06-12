@@ -66,7 +66,9 @@ const tokensWithLineBreaks = computed(() => {
     <template v-if="!tokens">{{ sentence }}{{ dot ? "。" : "" }}</template>
     <template v-else>
       <span
-        v-for="(token, index) in tokensWithLineBreaks"
+        v-for="(token, index) in tokensWithLineBreaks.filter(
+          (token) => token.text !== '\n' || breakLine
+        )"
         :key="token.text + index"
         :class="{
           'hover:text-primary': token.hasMatch,
@@ -85,7 +87,7 @@ const tokensWithLineBreaks = computed(() => {
           </div>
           {{ token.text }}
         </div>
-        <template v-else-if="breakLine">
+        <template v-else>
           <br v-if="token.text === '\n'" />
           <span v-else>{{ token.text }}</span>
         </template>
