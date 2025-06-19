@@ -10,6 +10,7 @@ const hasTranslationBlur = ref(props.box !== BOX_LIMIT - 1);
 const hasSourceBlur = ref(props.box === BOX_LIMIT - 1);
 
 const sentenceEl = useTemplateRef("sentenceEl");
+const selectedTokenIndex = ref(-1);
 
 const randomExample =
   props.card.examples[Math.floor(Math.random() * props.card.examples.length)];
@@ -28,6 +29,10 @@ const clearBlur = () => {
 };
 
 onKeyStroke(" ", clearBlur);
+
+onClickOutside(sentenceEl, () => {
+  selectedTokenIndex.value = -1;
+});
 </script>
 
 <template>
@@ -114,6 +119,7 @@ onKeyStroke(" ", clearBlur);
             :key="token.text + index"
             :class="{
               'hover:text-primary': token.hasMatch && !hasSourceBlur,
+              'text-primary': token.hasMatch && index === selectedTokenIndex,
               'text-accent':
                 (token.baseForm && token.baseForm === card.text) ||
                 token.baseForm === card.kana,
@@ -126,6 +132,7 @@ onKeyStroke(" ", clearBlur);
               :class="{
                 'tooltip tooltip-top cursor-pointer': !hasSourceBlur,
               }"
+              @touchstart="selectedTokenIndex = index"
             >
               <div v-if="!hasSourceBlur" class="flex flex-col tooltip-content">
                 <span>{{ token.kana }}</span>
@@ -133,7 +140,9 @@ onKeyStroke(" ", clearBlur);
               </div>
               {{ token.text }}
             </div>
-            <span v-else>{{ token.text }}</span>
+            <span @touchstart="selectedTokenIndex = index" v-else>{{
+              token.text
+            }}</span>
           </span>
         </p>
         <p

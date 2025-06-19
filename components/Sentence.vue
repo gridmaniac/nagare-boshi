@@ -72,7 +72,7 @@ const tokensWithLineBreaks = computed(() => {
         :key="token.text + index"
         :class="{
           'hover:text-primary': token.hasMatch,
-          'text-primary': index === selectedTokenIndex,
+          'text-primary': token.hasMatch && index === selectedTokenIndex,
         }"
         @click="token.hasMatch && copyToClipboard(token.text)"
       >
@@ -89,7 +89,9 @@ const tokensWithLineBreaks = computed(() => {
         </div>
         <template v-else>
           <br v-if="token.text === '\n'" />
-          <span v-else>{{ token.text }}</span>
+          <span @touchstart="selectedTokenIndex = index" v-else>{{
+            token.text
+          }}</span>
         </template>
       </span>
       <span v-if="dot">。</span>
