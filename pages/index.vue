@@ -41,14 +41,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center text-center gap-5">
+  <div class="flex flex-col items-center gap-5 text-center">
     <div class="max-w-md">
       <h1 class="text-8xl font-bold">
         <div class="tooltip tooltip-top tooltip-open" data-tip="なが">流</div>
         れ
         <div class="tooltip tooltip-top tooltip-open" data-tip="ぼし">星</div>
       </h1>
-      <p class="p-6 flex items-center gap-2 flex-wrap">
+      <p class="flex flex-wrap items-center gap-2 p-6">
         Leverage
         <a
           class="badge badge-error badge-outline"
@@ -62,7 +62,7 @@ onMounted(() => {
     </div>
     <progress v-if="isLoading || !isReady" class="progress w-56"></progress>
     <section
-      class="w-full max-w-xs flex flex-col sm:items-center items-end"
+      class="flex w-full max-w-xs flex-col items-end sm:items-center"
       v-else
     >
       <input

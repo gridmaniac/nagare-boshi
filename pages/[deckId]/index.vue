@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
         お疲れ様でした！
         <label
           for="stats"
-          class="drawer-button cursor-pointer absolute right-0"
+          class="drawer-button absolute right-0 cursor-pointer"
           @click="refetchStats()"
         >
           <div class="status status-xl animate-pulse"></div>
@@ -131,10 +131,10 @@ onBeforeUnmount(() => {
       />
     </Transition>
     <TextMeta v-if="!!card" :text="card.text" />
-    <div v-else class="divider text-xs uppercase text-gray-600"></div>
+    <div v-else class="divider text-xs text-gray-600 uppercase"></div>
     <div
       v-if="!isDeckCardLoading && card"
-      class="relative flex w-full join shadow-xl sm:hidden"
+      class="join relative flex w-full shadow-xl sm:hidden"
     >
       <button
         class="btn btn-xl btn-soft join-item btn-error flex-1"
@@ -155,7 +155,7 @@ onBeforeUnmount(() => {
         🍰
       </button>
     </div>
-    <div class="w-full join shadow-xl sm:flex hidden">
+    <div class="join hidden w-full shadow-xl sm:flex">
       <button
         ref="delistEl"
         class="btn btn-xl btn-soft join-item btn-error flex-1"
@@ -163,7 +163,7 @@ onBeforeUnmount(() => {
         @click="doReview('delist')"
       >
         <kbd
-          class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
+          class="kbd in-hover:border-base-300 in-focus:border-base-300 bg-transparent"
         >
           1
         </kbd>
@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
         @click="doReview('good')"
       >
         <kbd
-          class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
+          class="kbd in-hover:border-base-300 in-focus:border-base-300 bg-transparent"
         >
           2
         </kbd>
@@ -189,7 +189,7 @@ onBeforeUnmount(() => {
         @click="doReview('cake')"
       >
         <kbd
-          class="kbd bg-transparent in-hover:border-base-300 in-focus:border-base-300"
+          class="kbd in-hover:border-base-300 in-focus:border-base-300 bg-transparent"
         >
           3
         </kbd>

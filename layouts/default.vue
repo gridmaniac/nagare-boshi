@@ -27,7 +27,7 @@ onLongPress(
     modifiers: {
       prevent: true,
     },
-  }
+  },
 );
 
 const showReader = () => {
@@ -75,7 +75,7 @@ onMounted(ensureReady);
 
     <div
       v-if="isLoading"
-      class="radial-progress absolute bottom-5 right-5"
+      class="radial-progress absolute right-5 bottom-5"
       :style="{ '--value': progress }"
       :aria-valuenow="progress"
       role="progressbar"
@@ -84,33 +84,33 @@ onMounted(ensureReady);
     </div>
 
     <template v-if="deckId">
-      <Menu class="fixed top-safe-5 left-5" />
+      <Menu class="top-safe-5 fixed left-5" />
 
       <NuxtLink
         v-if="route.path.indexOf('list') === -1"
         ref="moreEl"
-        class="fixed top-safe-6 right-3"
+        class="top-safe-6 fixed right-3"
         :to="`/${deckId}/list`"
       >
         <IconMore class="btn" />
       </NuxtLink>
 
-      <NuxtLink v-else class="fixed top-safe-6 right-3" :to="`/${deckId}`">
+      <NuxtLink v-else class="top-safe-6 fixed right-3" :to="`/${deckId}`">
         <IconCancel02 class="btn" />
       </NuxtLink>
 
       <button
         v-if="route.path.indexOf('list') === -1"
-        class="btn btn-circle btn-lg fixed bottom-safe-5 left-5 shadow-xl"
+        class="btn btn-circle btn-lg bottom-safe-5 fixed left-5 shadow-xl"
         @click="showReader"
       >
-        <IconTextClear class="w-6 h-6" />
+        <IconTextClear class="h-6 w-6" />
       </button>
     </template>
 
     <Stats />
-    <div class="p-5 min-h-screen flex flex-col justify-center items-center">
-      <div class="max-w-2xl w-full">
+    <div class="flex min-h-screen flex-col items-center justify-center p-5">
+      <div class="w-full max-w-2xl">
         <NuxtPage />
       </div>
     </div>

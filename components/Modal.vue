@@ -92,17 +92,17 @@ const submit = async () => {
         ></textarea>
       </div>
 
-      <div class="flex gap-2 items-center flex-wrap">
+      <div class="flex flex-wrap items-center gap-2">
         <div
           v-if="model.meaning"
-          class="badge badge-outline badge-primary uppercase h-auto"
+          class="badge badge-outline badge-primary h-auto uppercase"
         >
           {{ model.meaning }}
         </div>
         <div
           v-if="model.tags"
           v-for="(tag, index) in tags"
-          class="badge badge-outline uppercase h-auto"
+          class="badge badge-outline h-auto uppercase"
           @click="removeTag(index)"
         >
           {{ tag }}

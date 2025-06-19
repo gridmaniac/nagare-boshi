@@ -67,7 +67,7 @@ const tokensWithLineBreaks = computed(() => {
     <template v-else>
       <span
         v-for="(token, index) in tokensWithLineBreaks.filter(
-          (token) => token.text !== '\n' || breakLine
+          (token) => token.text !== '\n' || breakLine,
         )"
         :key="token.text + index"
         :class="{
@@ -78,10 +78,10 @@ const tokensWithLineBreaks = computed(() => {
       >
         <div
           v-if="token.hasMatch"
-          class="tooltip tooltip-top underline decoration-dashed underline-offset-4 decoration-1 cursor-pointer whitespace-nowrap"
+          class="tooltip tooltip-top cursor-pointer whitespace-nowrap underline decoration-dashed decoration-1 underline-offset-4"
           @touchstart="selectedTokenIndex = index"
         >
-          <div class="flex flex-col tooltip-content">
+          <div class="tooltip-content flex flex-col">
             <span>{{ token.kana }}</span>
             <span>{{ token.gloss?.substring(0, 24) }}</span>
           </div>

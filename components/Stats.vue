@@ -11,7 +11,7 @@ const { stats } = useStats();
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <div class="backdrop-blur-md min-h-full w-80 p-4">
+      <div class="min-h-full w-80 p-4 backdrop-blur-md">
         <div v-if="stats" class="stats stats-vertical pt-safe">
           <div class="stat">
             <div class="stat-title">Total</div>

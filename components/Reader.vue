@@ -25,7 +25,7 @@ watch(
     if (newValue) {
       nextTick(adjustHeight);
     }
-  }
+  },
 );
 
 onMounted(() => {
@@ -40,9 +40,9 @@ onUnmounted(() => {
 
 <template>
   <dialog id="reader" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box max-w-none sm:max-w-[800px] overflow-x-hidden">
-      <div class="min-h-[200px] relative flex flex-col gap-4">
-        <div class="flex items-center justify-between gap-2 mb-2">
+    <div class="modal-box max-w-none overflow-x-hidden sm:max-w-[800px]">
+      <div class="relative flex min-h-[200px] flex-col gap-4">
+        <div class="mb-2 flex items-center justify-between gap-2">
           <button
             v-if="text"
             class="btn btn-ghost text-error"
@@ -66,7 +66,7 @@ onUnmounted(() => {
           v-if="isEditing"
           ref="textareaEl"
           v-model.trim="text"
-          class="min-h-[200px] outline-none text-xl font-semibold w-full resize-none bg-transparent overflow-hidden placeholder:opacity-40"
+          class="min-h-[200px] w-full resize-none overflow-hidden bg-transparent text-xl font-semibold outline-none placeholder:opacity-40"
           placeholder="Paste or type Japanese text here..."
           rows="1"
         ></textarea>

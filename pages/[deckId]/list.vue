@@ -110,7 +110,7 @@ definePageMeta({
 <template>
   <div>
     <ul class="card card-xl list bg-base-100/70 shadow-xl backdrop-blur-sm">
-      <li class="p-4 opacity-60 flex gap-2">
+      <li class="flex gap-2 p-4 opacity-60">
         <label class="input input-ghost w-full">
           <input
             class="grow"
@@ -133,7 +133,7 @@ definePageMeta({
         </Modal>
       </li>
 
-      <div ref="list" class="max-h-[400px] overflow-y-auto overflow-x-hidden">
+      <div ref="list" class="max-h-[400px] overflow-x-hidden overflow-y-auto">
         <div v-if="isPending" class="flex flex-col gap-2 p-2">
           <div class="skeleton h-20 w-full"></div>
           <div class="skeleton h-20 w-full"></div>
@@ -144,12 +144,12 @@ definePageMeta({
           :key="listItem._id"
           class="list-row"
         >
-          <div class="flex flex-col gap-2 items-start">
-            <div class="flex gap-2 items-center">
+          <div class="flex flex-col items-start gap-2">
+            <div class="flex items-center gap-2">
               <div class="dropdown dropdown-right">
                 <button tabindex="0" class="status status-xl cursor-pointer" />
                 <ul
-                  class="dropdown-content menu menu-xl menu-horizontal flex-nowrap bg-base-100 rounded-box z-1 p-2 shadow-sm"
+                  class="dropdown-content menu menu-xl menu-horizontal bg-base-100 rounded-box z-1 flex-nowrap p-2 shadow-sm"
                 >
                   <li>
                     <button
@@ -185,13 +185,13 @@ definePageMeta({
               </template>
             </div>
 
-            <div class="flex gap-2 flex-wrap">
-              <div class="badge badge-outline badge-primary uppercase h-auto">
+            <div class="flex flex-wrap gap-2">
+              <div class="badge badge-outline badge-primary h-auto uppercase">
                 {{ listItem.meaning }}
               </div>
               <div
                 v-for="tag in listItem.tags.split(',').filter((r) => r)"
-                class="badge badge-outline uppercase h-auto"
+                class="badge badge-outline h-auto uppercase"
                 @click="debouncedSearch = tag"
               >
                 {{ tag }}
@@ -205,7 +205,7 @@ definePageMeta({
       </div>
     </ul>
     <button
-      class="btn btn-xl btn-circle bg-base-300 fixed bottom-20 right-[calc(50%-1.75rem)] active:bg-base-100"
+      class="btn btn-xl btn-circle bg-base-300 active:bg-base-100 fixed right-[calc(50%-1.75rem)] bottom-20"
       @click="getListItem"
     >
       <IconHourGlass v-if="isCooldown" class="size-6 animate-spin" />

@@ -37,11 +37,11 @@ onClickOutside(sentenceEl, () => {
 
 <template>
   <div
-    class="select-none card bg-base-100 card-xl shadow-xl max-h-[400px] overflow-y-auto overflow-x-hidden"
+    class="card bg-base-100 card-xl max-h-[400px] overflow-x-hidden overflow-y-auto shadow-xl select-none"
   >
     <label
       for="stats"
-      class="drawer-button cursor-pointer absolute right-5 top-5 inline-grid *:[grid-area:1/1]"
+      class="drawer-button absolute top-5 right-5 inline-grid cursor-pointer *:[grid-area:1/1]"
       @click="refetchStats()"
     >
       <div
@@ -52,7 +52,7 @@ onClickOutside(sentenceEl, () => {
     </label>
 
     <div class="card-body flex flex-col gap-5">
-      <div class="card-title text-5xl flex-col items-start gap-3">
+      <div class="card-title flex-col items-start gap-3 text-5xl">
         <div class="relative flex items-center justify-center">
           <div
             :class="{
@@ -61,20 +61,20 @@ onClickOutside(sentenceEl, () => {
             }"
             :data-tip="card.kana"
             @click="
-              copyToClipboard(card.text || card.kana), (hasSourceBlur = false)
+              (copyToClipboard(card.text || card.kana), (hasSourceBlur = false))
             "
           >
             <h2>{{ card.text || card.kana }}</h2>
           </div>
         </div>
         <div
-          class="overflow-x-auto w-full no-scrollbar"
+          class="no-scrollbar w-full overflow-x-auto"
           :class="{
             'blur-sm': hasTranslationBlur,
           }"
         >
           <div
-            class="flex gap-2 transition-all duration-300 ease-in-out w-max"
+            class="flex w-max gap-2 transition-all duration-300 ease-in-out"
             @click="hasTranslationBlur = false"
           >
             <kbd
@@ -128,13 +128,13 @@ onClickOutside(sentenceEl, () => {
           >
             <div
               v-if="token.hasMatch"
-              class="inline-block underline decoration-dashed underline-offset-6 decoration-2"
+              class="inline-block underline decoration-dashed decoration-2 underline-offset-6"
               :class="{
                 'tooltip tooltip-top cursor-pointer': !hasSourceBlur,
               }"
               @touchstart="selectedTokenIndex = index"
             >
-              <div v-if="!hasSourceBlur" class="flex flex-col tooltip-content">
+              <div v-if="!hasSourceBlur" class="tooltip-content flex flex-col">
                 <span>{{ token.kana }}</span>
                 <span>{{ token.gloss?.substring(0, 24) }}</span>
               </div>
@@ -146,7 +146,7 @@ onClickOutside(sentenceEl, () => {
           </span>
         </p>
         <p
-          class="text-1xl transition-all duration-300 ease-in-out italic text-right"
+          class="text-1xl text-right italic transition-all duration-300 ease-in-out"
           :class="{ 'blur-sm': hasTranslationBlur }"
           @click="hasTranslationBlur = false"
         >

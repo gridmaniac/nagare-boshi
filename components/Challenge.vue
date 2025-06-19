@@ -110,7 +110,7 @@ watch(feedback, (val) => {
 
       <label
         v-if="!isSubmitted"
-        class="textarea textarea-lg w-full flex items-center gap-2"
+        class="textarea textarea-lg flex w-full items-center gap-2"
       >
         <textarea
           v-model.trim="alternativeSentence"
@@ -128,7 +128,7 @@ watch(feedback, (val) => {
         </button>
       </label>
 
-      <div v-if="isSubmitted" class="flex justify-center mt-4">
+      <div v-if="isSubmitted" class="mt-4 flex justify-center">
         <button class="btn btn-lg btn-circle btn-neutral" @click="restart">
           <IconRefresh class="size-6" />
         </button>

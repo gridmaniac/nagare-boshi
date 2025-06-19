@@ -25,15 +25,21 @@ export const useDictionary = () => {
 
     cardMap = await $fetch("/jmdict-hashmap.json");
 
-    textMap = Object.values(cardMap).reduce((acc, card) => {
-      if (!acc[card.text]) acc[card.text] = card.id;
-      return acc;
-    }, {} as Record<string, string>);
+    textMap = Object.values(cardMap).reduce(
+      (acc, card) => {
+        if (!acc[card.text]) acc[card.text] = card.id;
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
 
-    kanaMap = Object.values(cardMap).reduce((acc, card) => {
-      if (!acc[card.kana]) acc[card.kana] = card.id;
-      return acc;
-    }, {} as Record<string, string>);
+    kanaMap = Object.values(cardMap).reduce(
+      (acc, card) => {
+        if (!acc[card.kana]) acc[card.kana] = card.id;
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
 
     tokenizer = await prepareKuroMoji();
     synonymsMap = await $fetch("/synonyms-hashmap.json");
@@ -129,7 +135,7 @@ export const useDictionary = () => {
     return cards.filter(
       (card) =>
         card.text !== text &&
-        (synonyms.includes(card.text) || synonyms.includes(card.kana))
+        (synonyms.includes(card.text) || synonyms.includes(card.kana)),
     );
   };
 
