@@ -112,20 +112,17 @@ onKeyStroke(" ", clearBlur);
             v-else
             v-for="(token, index) in tokens"
             :key="token.text + index"
-            :class="{
-              'hover:text-primary active:text-primary':
-                token.hasMatch && !hasSourceBlur,
-              'text-accent':
-                (token.baseForm && token.baseForm === card.text) ||
-                token.baseForm === card.kana,
-            }"
             @click="copyToClipboard(token.text)"
           >
-            <div
+            <button
               v-if="token.hasMatch"
               class="inline-block underline decoration-dashed decoration-2 underline-offset-6"
               :class="{
-                'tooltip tooltip-top cursor-pointer': !hasSourceBlur,
+                'tooltip tooltip-top hover:text-primary max-sm:focus:text-primary cursor-pointer':
+                  !hasSourceBlur,
+                '!text-accent':
+                  (token.baseForm && token.baseForm === card.text) ||
+                  token.baseForm === card.kana,
               }"
             >
               <div v-if="!hasSourceBlur" class="tooltip-content flex flex-col">
@@ -133,7 +130,7 @@ onKeyStroke(" ", clearBlur);
                 <span>{{ token.gloss?.substring(0, 24) }}</span>
               </div>
               {{ token.text }}
-            </div>
+            </button>
             <span v-else>{{ token.text }}</span>
           </span>
         </p>
