@@ -10,6 +10,7 @@ const hasTranslationBlur = ref(props.box !== BOX_LIMIT - 1);
 const hasSourceBlur = ref(props.box === BOX_LIMIT - 1);
 
 const sentenceEl = useTemplateRef("sentenceEl");
+const selectedTokenIndex = ref(-1);
 
 const randomExample =
   props.card.examples[Math.floor(Math.random() * props.card.examples.length)];
@@ -28,6 +29,10 @@ const clearBlur = () => {
 };
 
 onKeyStroke(" ", clearBlur);
+
+onClickOutside(sentenceEl, () => {
+  selectedTokenIndex.value = -1;
+});
 </script>
 
 <template>
@@ -112,26 +117,32 @@ onKeyStroke(" ", clearBlur);
             v-else
             v-for="(token, index) in tokens"
             :key="token.text + index"
+            :class="{
+              'hover:text-primary': token.hasMatch && !hasSourceBlur,
+              'text-primary': token.hasMatch && index === selectedTokenIndex,
+              'text-accent':
+                (token.baseForm && token.baseForm === card.text) ||
+                token.baseForm === card.kana,
+            }"
             @click="copyToClipboard(token.text)"
           >
-            <button
+            <div
               v-if="token.hasMatch"
               class="inline-block underline decoration-dashed decoration-2 underline-offset-6"
               :class="{
-                'tooltip tooltip-top hover:text-primary max-sm:focus:text-primary cursor-pointer':
-                  !hasSourceBlur,
-                '!text-accent':
-                  (token.baseForm && token.baseForm === card.text) ||
-                  token.baseForm === card.kana,
+                'tooltip tooltip-top cursor-pointer': !hasSourceBlur,
               }"
+              @touchstart="selectedTokenIndex = index"
             >
               <div v-if="!hasSourceBlur" class="tooltip-content flex flex-col">
                 <span>{{ token.kana }}</span>
                 <span>{{ token.gloss?.substring(0, 24) }}</span>
               </div>
               {{ token.text }}
-            </button>
-            <span v-else>{{ token.text }}</span>
+            </div>
+            <span @touchstart="selectedTokenIndex = index" v-else>{{
+              token.text
+            }}</span>
           </span>
         </p>
         <p
