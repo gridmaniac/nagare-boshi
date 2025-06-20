@@ -28,16 +28,26 @@ const removeTag = (index: number) => {
 const insertAtCursor = (char: string) => {
   if (!textEl.value || !model.value) return;
 
-  const start = textEl.value.selectionStart || 0;
-  const end = textEl.value.selectionEnd || 0;
+  // Focus the input first to ensure selection works on iOS
+  textEl.value.focus();
 
-  model.value.text =
-    model.value.text.slice(0, start) + char + model.value.text.slice(end);
+  // Use requestAnimationFrame to ensure focus is complete
+  requestAnimationFrame(() => {
+    if (!textEl.value || !model.value) return;
 
-  // Set cursor position after inserted character
-  nextTick(() => {
-    textEl.value?.setSelectionRange(start + char.length, start + char.length);
-    textEl.value?.focus();
+    const start = textEl.value.selectionStart || textEl.value.value.length;
+    const end = textEl.value.selectionEnd || textEl.value.value.length;
+
+    model.value.text =
+      model.value.text.slice(0, start) + char + model.value.text.slice(end);
+
+    // Use requestAnimationFrame again to ensure model update is complete
+    requestAnimationFrame(() => {
+      if (!textEl.value) return;
+      const newPosition = start + char.length;
+      textEl.value.setSelectionRange(newPosition, newPosition);
+      textEl.value.focus();
+    });
   });
 };
 
