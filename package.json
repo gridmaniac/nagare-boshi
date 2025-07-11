@@ -20,7 +20,7 @@
     "daisyui": "^5.0.0",
     "kuromoji": "^0.1.2",
     "node-telegram-bot-api": "^0.66.0",
-    "nuxt": "^3.15.4",
+    "nuxt": "^3.17.6",
     "nuxt-mongoose": "^1.0.6",
     "openai": "^5.0.1",
     "pinia": "^3.0.1",
