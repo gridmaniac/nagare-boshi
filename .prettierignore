@@ -1,0 +1,18 @@
+# Ignore public folder
+public/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore build output
+.nuxt/
+dist/
+.output/
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore generated files
+.DS_Store 

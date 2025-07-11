@@ -86,12 +86,10 @@ The application will be available at `http://localhost:3000`.
 ## Usage
 
 1. **Initial Setup**
-
    - Import your Imiwa? dictionary backup
    - Create a new deck or select an existing one
 
 2. **Study Flow**
-
    - New cards start in Box 0
    - Review choices:
      - 👍 **Good** - Move up one box

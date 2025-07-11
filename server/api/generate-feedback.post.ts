@@ -2,9 +2,8 @@ import OpenAI from "openai";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const { sentence, translation, alternativeTranslation } = await readBody(
-    event
-  );
+  const { sentence, translation, alternativeTranslation } =
+    await readBody(event);
 
   const openai = new OpenAI({
     apiKey: config.openaiApiKey,

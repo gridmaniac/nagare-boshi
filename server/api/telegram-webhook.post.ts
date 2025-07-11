@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
       if (!deckId) {
         await bot.sendMessage(
           chatId,
-          "/start <deckId>です。例：/start 64790a642406580000000000"
+          "/start <deckId>です。例：/start 64790a642406580000000000",
         );
         return;
       }

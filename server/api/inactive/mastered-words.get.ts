@@ -14,10 +14,10 @@ export default defineEventHandler(async (event) => {
     const dictionaryPath = path.join(
       process.cwd(),
       "public",
-      "jmdict-hashmap.json"
+      "jmdict-hashmap.json",
     );
     const dictionary: Record<string, Card> = JSON.parse(
-      fs.readFileSync(dictionaryPath, "utf-8")
+      fs.readFileSync(dictionaryPath, "utf-8"),
     );
 
     // Map card IDs to words only

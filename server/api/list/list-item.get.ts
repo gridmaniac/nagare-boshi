@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
   if (!isValidObjectId(deckId)) return null;
   const listItem = await ListItem.findOne({
     deckId,
+    reviewNum: { $lt: 3 },
   }).sort({ updatedAt: 1 });
 
   if (!listItem) return null;

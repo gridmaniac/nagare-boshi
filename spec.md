@@ -1,36 +1,37 @@
 jmdict-eng.json -> Card
 
 Card -> {
-  id: string,
-  text: string,
-  kana: string,
-  gloss: string[],
-  examples: Example[],
-  sourceId: string,
-  source: "jmdict"
+id: string,
+text: string,
+kana: string,
+gloss: string[],
+examples: Example[],
+sourceId: string,
+source: "jmdict"
 }
 
 Deck -> {
-  _id: string
+\_id: string
 }
 
 DeckCard -> {
-  _id: string,
-  deckId: string,
-  cardId: string,
-  box: number,
-  reviewAfter: Date,
-  reviewNum: number,
-  note: string,
-  delisted: boolean
+\_id: string,
+deckId: string,
+cardId: string,
+box: number,
+reviewAfter: Date,
+reviewNum: number,
+note: string,
+delisted: boolean
 }
 
 Review -> {
-  cardId: string,
-  choice: "delist" | "good" | "cake"
+cardId: string,
+choice: "delist" | "good" | "cake"
 }
 
 # Box System
+
 box: 0 -> new card, date card added
 box: 1 -> review next day (24h)
 box: 2 -> review in 1 week (7 days)
@@ -38,6 +39,7 @@ box: 3 -> review in 1 month (30 days)
 box: 4 -> review in 1 month (30 days)
 
 # Review Flow
+
 1. Card starts in box 0 when added to deck
 2. Review choices affect box progression:
    - "delist" -> card is marked as delisted
@@ -57,6 +59,7 @@ box: 4 -> review in 1 month (30 days)
    - Box progression is clamped to BOX_LIMIT
 
 # Import Flow
+
 1. For every entry in new uploaded .imiwa file:
    - Obtain relation in jmdict by id
    - Skip invalid cards (require 1+ def, 1+ example, kana)
@@ -71,9 +74,7 @@ box: 4 -> review in 1 month (30 days)
    - Create new deck if needed
    - Get existing deck if deckId provided
    - Generate DeckCards with initial state:
-     * box: 0
-     * reviewNum: 0
-     * reviewAfter: timestamp of addition
-     * delisted: false
-
-
+     - box: 0
+     - reviewNum: 0
+     - reviewAfter: timestamp of addition
+     - delisted: false

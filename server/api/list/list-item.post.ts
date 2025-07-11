@@ -8,6 +8,6 @@ export default defineEventHandler(async (event) => {
       _id: listItem._id ?? new Types.ObjectId(),
     },
     listItem,
-    { upsert: true }
+    { upsert: true },
   );
 });
