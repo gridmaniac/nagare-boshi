@@ -11,7 +11,9 @@ export const useCards = defineQuery(() => {
         params: { deckId: deckId.value },
       });
 
-      return deckCards.map((cardId) => getCard(cardId));
+      return deckCards
+        .map((cardId) => getCard(cardId))
+        .filter((card) => card !== undefined);
     },
   });
 

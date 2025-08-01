@@ -1,8 +1,8 @@
 declare global {
   interface Window {
     kuromoji: KuroMoji;
-    challenge: Challenge;
-    reader: Reader;
+    challenge: HTMLDialogElement;
+    reader: HTMLDialogElement;
   }
 }
 

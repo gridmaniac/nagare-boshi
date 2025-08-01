@@ -30,9 +30,9 @@ export default defineEventHandler(async () => {
     for (let i = 0; i < items.length; i++) {
       if (!items[i]) continue;
 
-      examples += `${items[i].trim()}。\n`;
+      examples += `${items[i]?.trim()}。\n`;
       examples += `<i>${
-        listItem.translations?.split(".")[i].trim() || ""
+        listItem.translations?.split(".")[i]?.trim() || ""
       }.</i>\n\n`;
     }
 
@@ -51,7 +51,7 @@ export default defineEventHandler(async () => {
       ],
     });
 
-    const emoji = response.choices[0].message.content || "";
+    const emoji = response.choices[0]?.message.content || "";
 
     await bot.sendMessage(
       chat.chatId,

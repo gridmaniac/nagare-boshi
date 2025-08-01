@@ -13,12 +13,12 @@ export default defineEventHandler(async () => {
     messages: [
       {
         role: "user",
-        content: `Generate ${getRandomType().toLowerCase()} English sentence about ${getRandomTopic().toLowerCase()} with Japanese translation in a JSON format like { sentence: "...", translation: "..." }`,
+        content: `Generate ${getRandomType()?.toLowerCase()} English sentence about ${getRandomTopic()?.toLowerCase()} with Japanese translation in a JSON format like { sentence: "...", translation: "..." }`,
       },
     ],
   });
 
-  return JSON.parse(response.choices[0].message.content || "{}");
+  return JSON.parse(response.choices[0]?.message.content || "{}");
 });
 
 const topics = [
