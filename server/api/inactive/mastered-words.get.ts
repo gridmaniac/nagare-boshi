@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { BOX_LIMIT } from "@/utils/constants";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   try {
     // Get all mastered deck cards (box > BOX_LIMIT - 1)
     const masteredCards = await DeckCard.find({

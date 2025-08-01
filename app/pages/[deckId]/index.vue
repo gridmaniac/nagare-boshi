@@ -97,8 +97,8 @@ onBeforeUnmount(() => {
 <template>
   <div>
     <div
-      class="text-center text-4xl font-bold"
       v-if="deckId && !deckCard && !isCardLoading"
+      class="text-center text-4xl font-bold"
     >
       <div
         class="tooltip tooltip-top tooltip-open block"
@@ -110,11 +110,11 @@ onBeforeUnmount(() => {
           class="drawer-button absolute right-0 cursor-pointer"
           @click="refetchStats()"
         >
-          <div class="status status-xl animate-pulse"></div>
+          <div class="status status-xl animate-pulse" />
         </label>
       </div>
     </div>
-    <progress v-if="deckCard && !card" class="progress w-full"></progress>
+    <progress v-if="deckCard && !card" class="progress w-full" />
     <Transition name="rotate">
       <Card
         v-if="!isDeckCardLoading && card && deckCard"
@@ -131,7 +131,7 @@ onBeforeUnmount(() => {
       />
     </Transition>
     <TextMeta v-if="!!card" :text="card.text" />
-    <div v-else class="divider text-xs text-gray-600 uppercase"></div>
+    <div v-else class="divider text-xs text-gray-600 uppercase" />
     <div
       v-if="!isDeckCardLoading && card"
       class="join relative flex w-full shadow-xl sm:hidden"

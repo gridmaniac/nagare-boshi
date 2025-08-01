@@ -6,12 +6,12 @@
       stroke-width="1.5"
       stroke-linecap="round"
       stroke-linejoin="round"
-    ></path>
+    />
     <path
       d="M11.8361 11.7435C11.3257 12.2353 10.453 12.3202 9.70713 11.9008C8.9612 11.4814 8.58031 10.6917 8.73535 10"
       stroke="currentColor"
       stroke-width="1.5"
       stroke-linecap="round"
-    ></path>
+    />
   </svg>
 </template>

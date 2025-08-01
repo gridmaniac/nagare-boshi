@@ -108,7 +108,7 @@ export const useDictionary = () => {
       }
 
       const meaning = textMap?.[item.basic_form] || kanaMap?.[item.basic_form];
-      const token = cardMap?.[meaning];
+      const token = meaning ? cardMap?.[meaning] : undefined;
 
       tokens.push({
         text: item.surface_form,

@@ -1,14 +1,14 @@
 <template>
   <section class="relative">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
   </section>
 </template>
 

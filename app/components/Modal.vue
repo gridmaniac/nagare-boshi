@@ -72,8 +72,8 @@ const submit = async () => {
         <label class="input input-xl w-full">
           <input
             ref="textEl"
-            class="grow"
             v-model.trim="model.text"
+            class="grow"
             type="text"
             placeholder="一言"
             required
@@ -82,24 +82,24 @@ const submit = async () => {
           <kbd class="kbd kbd-xl" @click="insertAtCursor('・')">・</kbd>
         </label>
         <input
-          class="input input-lg w-full"
           v-model.trim="model.meaning"
+          class="input input-lg w-full"
           type="text"
           placeholder="Значение"
           required
         />
         <textarea
-          class="textarea textarea-lg w-full"
           v-model.trim="model.sentences"
+          class="textarea textarea-lg w-full"
           rows="3"
           placeholder="例文"
-        ></textarea>
+        />
         <textarea
-          class="textarea textarea-lg w-full"
           v-model.trim="model.translations"
+          class="textarea textarea-lg w-full"
           rows="3"
           placeholder="例文の意味"
-        ></textarea>
+        />
       </div>
 
       <div class="flex flex-wrap items-center gap-2">
@@ -109,14 +109,16 @@ const submit = async () => {
         >
           {{ model.meaning }}
         </div>
-        <div
-          v-if="model.tags"
-          v-for="(tag, index) in tags"
-          class="badge badge-outline h-auto uppercase"
-          @click="removeTag(index)"
-        >
-          {{ tag }}
-        </div>
+        <template v-if="model.tags">
+          <div
+            v-for="(tag, index) in tags"
+            :key="tag"
+            class="badge badge-outline h-auto uppercase"
+            @click="removeTag(index)"
+          >
+            {{ tag }}
+          </div>
+        </template>
         <div class="btn btn-sm btn-ghost btn-circle">
           <IconAdd02 class="size-6" @click="addTag" />
         </div>

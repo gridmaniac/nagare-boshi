@@ -108,7 +108,12 @@ interface Paginated<T> {
 
 interface KuroMoji {
   builder: (options: { dicPath: string }) => {
-    build: (callback: (err: Error | null, tokenizer?: any) => void) => void;
+    build: (
+      callback: (
+        err: Error | null,
+        tokenizer: KuroMojiTokenizer | null,
+      ) => void,
+    ) => void;
   };
 }
 

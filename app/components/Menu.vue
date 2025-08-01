@@ -65,8 +65,8 @@ watch(isReady, () => {
         ref="fileEl"
         type="file"
         accept=".imiwa"
-        @change="onFileUpload"
         hidden
+        @change="onFileUpload"
       />
     </li>
     <li>

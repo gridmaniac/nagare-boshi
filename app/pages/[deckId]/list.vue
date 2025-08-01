@@ -113,8 +113,8 @@ definePageMeta({
       <li class="flex gap-2 p-4 opacity-60">
         <label class="input input-ghost w-full">
           <input
-            class="grow"
             v-model.trim="debouncedSearch"
+            class="grow"
             placeholder="Type here"
           />
           <span v-if="total" class="text-xs">{{ total }}</span>
@@ -135,12 +135,12 @@ definePageMeta({
 
       <div ref="list" class="max-h-[400px] overflow-x-hidden overflow-y-auto">
         <div v-if="isPending" class="flex flex-col gap-2 p-2">
-          <div class="skeleton h-20 w-full"></div>
-          <div class="skeleton h-20 w-full"></div>
+          <div class="skeleton h-20 w-full" />
+          <div class="skeleton h-20 w-full" />
         </div>
         <li
-          v-else
           v-for="listItem in listItems"
+          v-else
           :key="listItem._id"
           class="list-row"
         >
@@ -191,6 +191,7 @@ definePageMeta({
               </div>
               <div
                 v-for="tag in listItem.tags.split(',').filter((r) => r)"
+                :key="tag"
                 class="badge badge-outline h-auto uppercase"
                 @click="debouncedSearch = tag"
               >
@@ -200,7 +201,7 @@ definePageMeta({
           </div>
         </li>
         <li v-if="hasNextPage" ref="bottom" class="flex justify-center py-6">
-          <progress class="progress w-20"></progress>
+          <progress class="progress w-20" />
         </li>
       </div>
     </ul>
@@ -209,7 +210,7 @@ definePageMeta({
       @click="getListItem"
     >
       <IconHourGlass v-if="isCooldown" class="size-6 animate-spin" />
-      <IconBrain class="size-8" v-else />
+      <IconBrain v-else class="size-8" />
     </button>
   </div>
 </template>

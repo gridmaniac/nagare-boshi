@@ -103,10 +103,10 @@ watch(feedback, (val) => {
       </div>
 
       <div v-if="isLoading" class="flex justify-center">
-        <progress class="progress w-20"></progress>
+        <progress class="progress w-20" />
       </div>
 
-      <div v-if="!isSubmitted" class="divider"></div>
+      <div v-if="!isSubmitted" class="divider" />
 
       <label
         v-if="!isSubmitted"
@@ -118,7 +118,7 @@ watch(feedback, (val) => {
           rows="2"
           placeholder="さあ、日本語にしてみて！"
           :disabled="!challenge"
-        ></textarea>
+        />
         <button
           class="btn btn-md btn-circle btn-neutral"
           :disabled="!challenge"

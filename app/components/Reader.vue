@@ -50,7 +50,7 @@ onUnmounted(() => {
           >
             Clear
           </button>
-          <div v-else class="flex-1"></div>
+          <div v-else class="flex-1" />
           <div class="flex items-center gap-2">
             <span class="text-sm opacity-60">Read Mode</span>
             <input
@@ -69,9 +69,9 @@ onUnmounted(() => {
           class="min-h-[200px] w-full resize-none overflow-hidden bg-transparent text-xl font-semibold outline-none placeholder:opacity-40"
           placeholder="Paste or type Japanese text here..."
           rows="1"
-        ></textarea>
+        />
 
-        <Sentence class="min-h-[200px]" v-else :sentence="text" break-line />
+        <Sentence v-else class="min-h-[200px]" :sentence="text" break-line />
       </div>
     </div>
 

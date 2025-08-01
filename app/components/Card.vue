@@ -15,13 +15,12 @@ const selectedTokenIndex = ref(-1);
 const randomExample =
   props.card.examples[Math.floor(Math.random() * props.card.examples.length)];
 
-const example = computed(() => {
-  sentence.value = randomExample?.sentence || "";
-  return {
-    sentence: randomExample?.sentence,
-    translation: randomExample?.translation,
-  };
-});
+sentence.value = randomExample?.sentence || "";
+
+const example = computed(() => ({
+  sentence: randomExample?.sentence,
+  translation: randomExample?.translation,
+}));
 
 const clearBlur = () => {
   hasTranslationBlur.value = false;
@@ -47,8 +46,8 @@ onClickOutside(sentenceEl, () => {
       <div
         v-if="deckCard && deckCard.box > 0"
         class="status status-accent status-xl animate-ping cursor-pointer"
-      ></div>
-      <div class="status status-xl"></div>
+      />
+      <div class="status status-xl" />
     </label>
 
     <div class="card-body flex flex-col gap-5">
@@ -85,19 +84,21 @@ onClickOutside(sentenceEl, () => {
             </kbd>
             <kbd
               v-for="word in relatedCards?.list"
-              class="kbd kbd-xl border-warning text-warning tooltip tooltip-right cursor-pointer"
               :key="word.text"
+              class="kbd kbd-xl border-warning text-warning tooltip tooltip-right cursor-pointer"
               :data-tip="word.kana"
               @click="copyToClipboard(word.text)"
             >
               {{ word.text || word.kana }}
             </kbd>
-            <kbd v-for="word in card.gloss" class="kbd kbd-xl">{{ word }}</kbd>
+            <kbd v-for="word in card.gloss" :key="word" class="kbd kbd-xl">{{
+              word
+            }}</kbd>
             <kbd
               v-for="synonym in relatedCards?.synonyms"
-              class="kbd kbd-xl"
               :key="synonym"
-              @click="copyToClipboard(synonym)"
+              class="kbd kbd-xl"
+              @click="copyToClipboard(synonym || '')"
             >
               {{ synonym }}
             </kbd>
@@ -114,8 +115,8 @@ onClickOutside(sentenceEl, () => {
         >
           <span v-if="!tokens">{{ sentence }}</span>
           <span
-            v-else
             v-for="(token, index) in tokens"
+            v-else
             :key="token.text + index"
             :class="{
               'hover:text-primary': token.hasMatch && !hasSourceBlur,
@@ -140,7 +141,7 @@ onClickOutside(sentenceEl, () => {
               </div>
               {{ token.text }}
             </div>
-            <span @touchstart="selectedTokenIndex = index" v-else>{{
+            <span v-else @touchstart="selectedTokenIndex = index">{{
               token.text
             }}</span>
           </span>

@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@pinia/colada-nuxt",
     "@vueuse/nuxt",
     "@vite-pwa/nuxt",
+    "@nuxt/eslint",
   ],
   vite: {
     plugins: [tailwindcss()],

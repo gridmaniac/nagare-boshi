@@ -89,7 +89,7 @@ const tokensWithLineBreaks = computed(() => {
         </div>
         <template v-else>
           <br v-if="token.text === '\n'" />
-          <span @touchstart="selectedTokenIndex = index" v-else>{{
+          <span v-else @touchstart="selectedTokenIndex = index">{{
             token.text
           }}</span>
         </template>
