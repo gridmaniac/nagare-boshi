@@ -6,6 +6,7 @@ const props = defineProps<{
 }>();
 
 const { tokens, sentence } = useTokens();
+const { cards } = useCards();
 
 const sentenceEl = useTemplateRef("sentenceEl");
 const selectedTokenIndex = ref(-1);
@@ -27,6 +28,7 @@ const tokensWithLineBreaks = computed(() => {
           kana: undefined,
           gloss: undefined,
           baseForm: undefined,
+          id: undefined,
         },
       ];
       if (i < arr.length - 1) {
@@ -36,6 +38,7 @@ const tokensWithLineBreaks = computed(() => {
           kana: undefined,
           gloss: undefined,
           baseForm: undefined,
+          id: undefined,
         });
       }
       return tokens;
@@ -73,6 +76,8 @@ const tokensWithLineBreaks = computed(() => {
         :class="{
           'hover:text-primary': token.hasMatch,
           'text-primary': token.hasMatch && index === selectedTokenIndex,
+          'text-base-content/80':
+            token.hasMatch && cards?.some((card) => card?.id === token.id),
         }"
         @click="token.hasMatch && copyToClipboard(token.text)"
       >
