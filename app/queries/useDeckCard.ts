@@ -10,14 +10,13 @@ export const useDeckCard = defineQuery(() => {
         params: { deckId: deckId.value, exclude: exclude.value },
       });
 
-      console.log(deckCard);
-      exclude.value = deckCard?._id;
       return deckCard;
     },
   });
 
   return {
     deckCard,
+    exclude,
     ...query,
   };
 });

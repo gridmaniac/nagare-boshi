@@ -7,6 +7,7 @@ const { refetch: refetchStats } = useStats();
 const { addNote } = useAddNote();
 const {
   deckCard,
+  exclude,
   refetch: refetchDeckCard,
   isLoading: isDeckCardLoading,
 } = useDeckCard();
@@ -23,6 +24,7 @@ const cakeBtn = useTemplateRef("cakeEl");
 
 const doReview = async (choice: ReviewChoice) => {
   keyStrokeBlock.value = true;
+  exclude.value = deckCard.value?._id;
 
   await Promise.all([
     sendReview({
