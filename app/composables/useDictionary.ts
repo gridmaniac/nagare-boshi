@@ -81,7 +81,7 @@ export const useDictionary = () => {
     ];
 
     const list = tokenizer.tokenize(sentence);
-    const tokens = [];
+    const tokens: Token[] = [];
     const whiteList = [
       "動詞",
       "名詞",
@@ -111,6 +111,7 @@ export const useDictionary = () => {
       const token = meaning ? cardMap?.[meaning] : undefined;
 
       tokens.push({
+        id: token?.id,
         text: item.surface_form,
         kana: token?.kana || undefined,
         gloss: token?.gloss[0] || undefined,

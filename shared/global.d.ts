@@ -51,6 +51,7 @@ interface Example {
 }
 
 interface Token {
+  id?: string;
   text: string;
   baseForm?: string;
   kana?: string;

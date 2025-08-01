@@ -5,6 +5,7 @@ const { tokens, sentence } = useTokens();
 const { relatedCards } = useRelatedCards();
 const { refetch: refetchStats } = useStats();
 const { deckCard } = useDeckCard();
+const { cards } = useCards();
 
 const hasTranslationBlur = ref(props.box !== BOX_LIMIT - 1);
 const hasSourceBlur = ref(props.box === BOX_LIMIT - 1);
@@ -122,8 +123,13 @@ onClickOutside(sentenceEl, () => {
               'hover:text-primary': token.hasMatch && !hasSourceBlur,
               'text-primary': token.hasMatch && index === selectedTokenIndex,
               'text-accent':
-                (token.baseForm && token.baseForm === card.text) ||
-                token.baseForm === card.kana,
+                token.baseForm === card.text || token.baseForm === card.kana,
+              'text-base-content/80':
+                !(
+                  token.baseForm === card.text || token.baseForm === card.kana
+                ) &&
+                token.hasMatch &&
+                cards?.some((card) => card?.id === token.id),
             }"
             @click="copyToClipboard(token.text)"
           >
