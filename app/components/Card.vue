@@ -123,7 +123,8 @@ onClickOutside(sentenceEl, () => {
               'hover:text-primary': token.hasMatch && !hasSourceBlur,
               'text-primary': token.hasMatch && index === selectedTokenIndex,
               'text-accent':
-                token.baseForm === card.text || token.baseForm === card.kana,
+                (card.text && token.baseForm === card.text) ||
+                token.baseForm === card.kana,
               'text-base-content/80':
                 !(
                   token.baseForm === card.text || token.baseForm === card.kana
