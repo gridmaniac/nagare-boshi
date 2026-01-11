@@ -17,7 +17,7 @@ export default defineEventHandler(async () => {
   for (const chat of chats) {
     const listItem = await ListItem.findOne({
       deckId: chat.deckId,
-      reviewNum: { $lt: 3 },
+      // reviewNum: { $lt: 3 },
     }).sort({ updatedAt: 1 });
 
     if (!listItem) {
